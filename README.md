@@ -1,4 +1,4 @@
-# generator-aowp-marionette [![Build Status](https://secure.travis-ci.org/lukaasp/generator-aowp-marionette.png?branch=master)](https://travis-ci.org/lukaasp/generator-aowp-marionette)
+# generator-aowp-marionette
 
 > [Yeoman](http://yeoman.io) generator
 

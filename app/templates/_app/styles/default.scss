@@ -18,16 +18,23 @@ body {
     }
   }
 
-  background: url('../images/palms.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 
 }
+.white {
+    color: white;
+}
 
 .main-content{
   padding: 0;
+  margin: 1em 1em 1em 1em;
+}
+
+.main-layout{
+  border: 1px solid $border-color;
 }
 
 .main-blocks {
@@ -70,15 +77,6 @@ body {
 
 .highlight {
   border: 1px solid #ff8e4a;
-}
-
-.trip {
-  border: 1px solid $border-color;
-  padding: 0 5px 5px 5px;
-  margin-bottom: .3em;
-  .row {
-    padding: 2px 0 2px 0;
-  }
 }
 
 .panel {

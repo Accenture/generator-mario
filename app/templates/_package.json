@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "grunt-sass": "^0.12.1",
-    "grunt-smartrev": "^0.1.1"
+    "grunt-smartrev": "^0.1.1",
+    "imagemin-pngquant": "^4.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

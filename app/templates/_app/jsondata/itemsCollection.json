@@ -1,17 +1,26 @@
 [
     {
-        "name": "Item 1",
-        "location": "Washington",
-        "imageSource": "images/default.jpg"
+        "name": "Marionette",
+        "imageSource": "images/marionettejs.png"
     },
     {
-        "name": "Item 2",
-        "location": "New York",
-        "imageSource": "images/default.jpg"
+        "name": "Twitter Bootstrap",
+        "imageSource": "images/twitter-bootstrap.jpg"
     },
     {
-        "name": "Item 3",
-        "location": "Detroit",
-        "imageSource": "images/default.jpg"
+        "name": "Zurb Foundation",
+        "imageSource": "images/zurb-foundation.png"
+    },
+    {
+        "name": "Handlebars",
+        "imageSource": "images/handlebars-logo.png"
+    },
+    {
+        "name": "jQuery",
+        "imageSource": "images/jquery-logo.png"
+    },
+    {
+        "name": "Font Awesome",
+        "imageSource": "images/font-awesome.png"
     }
 ]
