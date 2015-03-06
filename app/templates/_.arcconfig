@@ -1,0 +1,8 @@
+{
+ "project_id" : "aowp-marionette",
+ "conduit_uri" : "http://<%= ip %>/",
+ "lint.engine" : "ArcanistConfigurationDrivenLintEngine",
+ "lint.engine.single.linter" : "ArcanistJSHintLinter",
+ "lint.jshint.config": ".jshintrc",
+ "unit.engine" : "GruntTestEngine"
+}

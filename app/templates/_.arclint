@@ -1,0 +1,10 @@
+{
+    "debug" : true,
+     "linters" : {
+         "jshint" : {
+             "type" : "jshint",
+             "include" : "(\\.js$)",
+             "exclude" : "(^test\/lib)"
+         }
+    }
+}

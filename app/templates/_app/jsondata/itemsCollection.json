@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Item 1",
+        "location": "Washington",
+        "imageSource": "images/default.jpg"
+    },
+    {
+        "name": "Item 2",
+        "location": "New York",
+        "imageSource": "images/default.jpg"
+    },
+    {
+        "name": "Item 3",
+        "location": "Detroit",
+        "imageSource": "images/default.jpg"
+    }
+]

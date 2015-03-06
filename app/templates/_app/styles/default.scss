@@ -1,0 +1,297 @@
+$background-color: #fafafa;
+$primary-color: #074E68;
+$secondary-color: #333;
+$border-color: #a5a5a5;
+
+body {
+  background: $background-color;
+}
+
+.homepage {
+  text-align: left;
+  position: relative;
+  padding: 80px 20px 25em;
+
+  @each $header in ('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'label') {
+    #{$header} {
+      color: white;
+    }
+  }
+
+  background: url('../images/palms.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+.main-content{
+  padding: 0;
+}
+
+.main-blocks {
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  margin-top: 0.35em;
+}
+
+.success {
+  background-color: #43AC6A;
+  border-color: #368a54;
+  color: #fff;
+}
+
+.iconic {
+  padding: .35em;
+  margin: 0 .1em .1em .1em;
+  font-size: 0.75em;
+  vertical-align: top;
+  float: right;
+}
+
+.iconic-big {
+  margin: 0.2em 0 0 0;
+  @extend .iconic;
+  font-size: 1.7em;
+  float: none;
+}
+
+.iconic-vote {
+  @extend .iconic;
+  padding: .2em;
+}
+
+.iconic-buy {
+  @extend .iconic;
+  border: solid 3px #007295;
+  padding: .31em;
+}
+
+.highlight {
+  border: 1px solid #ff8e4a;
+}
+
+.trip {
+  border: 1px solid $border-color;
+  padding: 0 5px 5px 5px;
+  margin-bottom: .3em;
+  .row {
+    padding: 2px 0 2px 0;
+  }
+}
+
+.panel {
+  margin: .5rem;
+  padding: .5rem;
+}
+
+.expOptions {
+  border: 1px solid $border-color;
+  padding: .1em;
+  margin: 0;
+}
+
+[class*="block-grid-"] {
+  margin: auto;
+}
+
+[class*="block-grid-"] > li {
+  display: block;
+  height: auto;
+  float: left;
+  margin: .2rem 0 0 0;
+  padding: 0 .1em .2em .1em;
+}
+
+.bookingItems {
+  width: 2.5em;
+  padding: 0 0 0.3em 0;
+}
+
+.iconic-book {
+  float: left;
+  font-size: 1.2em;
+  padding: 0.6em;
+}
+
+input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"] {
+  height: 1.5rem;
+  margin: 0 0 .1rem 0;
+}
+
+.chooseFriends {
+  margin: .3em;
+
+  input[type="checkbox"], input[type="radio"], select {
+    margin: .3rem .1rem .3rem .1rem;
+  }
+
+  input[type="checkbox"] + label, input[type="radio"] + label {
+    margin-right: 0.3rem;
+  }
+}
+
+.friendBox {
+  text-align: center;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.item-wrapper {
+  padding: 2px;
+  margin-top: 2px;
+  width: 99%;
+}
+
+.selected-exp {
+  @extend .item-wrapper;
+  border: 1px solid $border-color;
+  border-radius: 1px;
+}
+
+.img-wrapper {
+  margin-bottom: 2px;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    .add-to-cart {
+      bottom: 0;
+      height: 2em;
+    }
+  }
+
+  img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 99%;
+  }
+
+  .add-to-cart {
+    background-color: $secondary-color;
+    padding: 4px 4px;
+    bottom: -4px;
+    position: absolute;
+    z-index: 2;
+    color: #fff;
+    margin: 0 auto;
+    border: none;
+    box-shadow: none;
+    width: 99%;
+    height: .2em;
+
+    &:hover {
+      background-color: $primary-color;
+    }
+  }
+}
+
+.currentUser {
+  color: green;
+}
+
+.otherUser {
+  color: red;
+}
+
+.sendRegion {
+  padding: 1rem;
+}
+
+.userCommentName {
+  color: darkgrey;
+}
+
+.userComment {
+  color: lightgray;
+}
+
+.offline {
+  margin: 0.3em 0 0 0;
+  border: 2px solid;
+  opacity: 0.4;
+}
+
+.online {
+  margin: 0.3em 0 0 0;
+  border: 2px solid green
+}
+
+.credit-card-content {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 28.125em;
+  padding: .2em;
+  text-align: center;
+}
+
+.weather {
+  padding: 1em;
+  text-align: center;
+  font-size: 15px;
+
+  .container {
+    margin: 0 auto 0 auto;
+  }
+  .header {
+    margin-bottom: 1em;
+  }
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+  .icon-text {
+    max-width: 5em;
+  }
+  .temp {
+    text-align: right;
+    margin-top: 1em;
+  }
+  .weather-item {
+    float: left;
+    width: 8em;
+    margin-top: .3em;
+    padding: 0.3em 0.5em 0.3em 0.5em;
+    border-right: 1px solid #d3d3d3;
+  }
+  .weather-item:last-child {
+    border-right: 0px;
+  }
+  .day {
+    margin-bottom: .3em;
+  }
+
+  /*clear fix for floats*/
+  .group:before,
+  .group:after {
+    content: "";
+    display: table;
+  }
+  .group:after {
+    clear: both;
+  }
+  .group {
+    zoom: 1; /* IE6&7 */
+  }
+}
+
+.accordion dd > a {
+  border: 1px solid #d8d8d8;
+  padding: .2rem;
+}
+
+.accordion dd > .content {
+  padding: .2rem;
+}
+
+.owl-carousel .owl-item{
+  max-width: 20rem;
+  max-height:20rem;
+}
+.owl-carousel{
+  margin: 1.5rem;
+}

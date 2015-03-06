@@ -1,0 +1,17 @@
+node_modules
+dist
+test/temp
+.sass-cache
+app/bower_components
+.tmp
+test/bower_components/
+# IDEA files
+.idea
+*.iml
+*.log
+*.zip
+# est outputs
+jshintoutput.xml
+test-results.xml
+xunit.xml
+app/styles/main.css
