@@ -5,13 +5,16 @@ var yosay = require('yosay');
 
 var options ={};
 
+options.foundation = false;
+options.bootstrap = false;
+
 module.exports = yeoman.generators.Base.extend({
 
   initializing: function () {
     this.pkg = require('../package.json');
   },
 
-  prompting: function () {
+  initPrompt: function () {
     var done = this.async();
 
     this.log(yosay(
@@ -39,6 +42,27 @@ module.exports = yeoman.generators.Base.extend({
       }else{
         done();
       }
+
+    }.bind(this));
+  },
+
+  frameworksPrompt:function(){
+    var done = this.async();
+
+    this.prompt({
+      type: 'list',
+      name: 'cssFramework',
+      message: 'Would you like to use Twitter Bootstrap or Zurb Foundation?',
+      choices: ['Bootstrap','Foundation']
+    }, function (answer) {
+
+      if(answer.cssFramework === 'Bootstrap'){
+        options.bootstrap = true;
+      }else{
+        options.foundation = true;
+      }
+
+      done();
     }.bind(this));
   },
 
@@ -48,9 +72,10 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('_package.json'),
         this.destinationPath('package.json')
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
+        this.destinationPath('bower.json'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
       );
       this.fs.copy(
         this.templatePath('_Gruntfile.js'),
@@ -71,6 +96,12 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('_app'),
         this.destinationPath('app')
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_index.html'),
+        this.destinationPath('app/index.html'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       if(options.phabricatorDeps){
@@ -97,11 +128,11 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('.jshintrc')
       );
     }
-  },
+  }/*,
 
   install: function () {
     this.installDependencies({
       skipInstall: this.options['skip-install']
     });
-  }
+  }*/
 });
