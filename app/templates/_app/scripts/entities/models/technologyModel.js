@@ -10,7 +10,6 @@ define([
         idAttribute: 'id',
         defaults: {
             name: 'default name',
-            location: 'default location',
             imageSource: 'images/default.jpg'
         }
     });

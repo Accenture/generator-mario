@@ -11,7 +11,7 @@ define([
         id: 'overview-layout',
         template: JST['app/scripts/apps/mainLayout/mainLayoutList/mainLayout.hbs'],
         regions: {
-            'LocationsRegion': '#mainLayout-locations'
+            'TechnologiesRegion': '#mainLayout-technologies'
         }
     });
     return MainLayoutView;

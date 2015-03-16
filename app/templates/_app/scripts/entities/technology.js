@@ -1,16 +1,16 @@
 'use strict';
 define([
     'app',
-    'entities/collections/locationsCollection'
-], function (App, LocationsCollection) {
+    './collections/technologiesCollection'
+], function (App, TechnologiesCollection) {
     var API = {
         getCollection: function () {
-            var collection = new LocationsCollection();
+            var collection = new TechnologiesCollection();
             collection.fetch();
             return collection;
         }
     };
-    App.reqres.setHandler(App.msg.LOCATION.ENTITIES, function () {
+    App.reqres.setHandler(App.msg.TECHNOLOGY.ENTITIES, function () {
         return API.getCollection();
     });
 });

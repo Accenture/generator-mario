@@ -1,9 +1,9 @@
 'use strict';
 define([], function () {
     return {
-        LOCATION: {
-            ENTITIES: 'items:entities',
-            ENTITY: 'items:entity'
+        TECHNOLOGY: {
+            ENTITIES: 'technology:entities',
+            ENTITY: 'technology:entity'
         },
         PROFILE: {
             GET: 'profile:get',

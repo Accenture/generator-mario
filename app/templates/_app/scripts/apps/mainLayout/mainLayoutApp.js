@@ -20,7 +20,6 @@ define([
         showDetail: function (id) {
             require(['apps/mainLayout/mainLayoutList/mainLayoutController'], function (MainLayoutController) {
                 MainLayoutController.showLayout(id);
-                //TODO: Implement above method
             });
         }
     };

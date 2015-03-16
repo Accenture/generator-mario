@@ -1,6 +1,6 @@
 /*global define*/
 
-define(['app', 'apps/navigation/topBar/topBarView', 'backbone'], function (App, TopBarView) {
+define(['app', './topBarView', 'backbone'], function (App, TopBarView) {
     'use strict';
     return {
         showTopBar: function () {

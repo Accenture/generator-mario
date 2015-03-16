@@ -128,11 +128,11 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('.jshintrc')
       );
     }
-  }/*,
+  },
 
   install: function () {
     this.installDependencies({
       skipInstall: this.options['skip-install']
     });
-  }*/
+  }
 });
