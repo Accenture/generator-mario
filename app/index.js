@@ -18,7 +18,7 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     this.log(yosay(
-      'Welcome to the' + chalk.red('Aowp Marionette') + ' generator!'
+      'Welcome to the ' + chalk.red('AOWP Marionette') + ' generator!'
     ));
 
     this.prompt({
@@ -52,7 +52,7 @@ module.exports = yeoman.generators.Base.extend({
     this.prompt({
       type: 'list',
       name: 'cssFramework',
-      message: 'Would you like to use Twitter Bootstrap or Zurb Foundation?',
+      message: 'Would you like to use ' + chalk.blue('Twitter Bootstrap') + ' or '+ chalk.blue('Zurb Foundation') + ' ?',
       choices: ['Bootstrap','Foundation']
     }, function (answer) {
 
@@ -101,6 +101,48 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_index.html'),
         this.destinationPath('app/index.html'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_mainLayout.hbs'),
+        this.destinationPath('app/scripts/apps/mainLayout/mainLayoutList/mainLayout.hbs'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_main.js'),
+        this.destinationPath('app/scripts/main.js'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_topBarView.js'),
+        this.destinationPath('app/scripts/apps/navigation/topBar/topBarView.js'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_topBarTemp.hbs'),
+        this.destinationPath('app/scripts/apps/navigation/topBar/topBarTemp.hbs'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_technologiesCompositeViewTemp.hbs'),
+        this.destinationPath('app/scripts/apps/mainLayout/technologies/technologiesCompositeViewTemp.hbs'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_technologiesItemView.js'),
+        this.destinationPath('app/scripts/apps/mainLayout/technologies/technologiesItemView.js'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_technologiesItemViewTemp.hbs'),
+        this.destinationPath('app/scripts/apps/mainLayout/technologies/technologiesItemViewTemp.hbs'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
