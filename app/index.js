@@ -82,6 +82,10 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('Gruntfile.js')
       );
       this.fs.copy(
+        this.templatePath('_karma.conf.js'),
+        this.destinationPath('karma.conf.js')
+      );
+      this.fs.copy(
         this.templatePath('_.jsbeautifyrc'),
         this.destinationPath('.jsbeautifyrc')
       );
@@ -148,6 +152,12 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_technologiesItemViewTemp.hbs'),
         this.destinationPath('app/scripts/apps/mainLayout/technologies/technologiesItemViewTemp.hbs'),
+        {foundation:options.foundation, bootstrap:options.bootstrap}
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_mocha-test-main.js'),
+        this.destinationPath('test/mocha-test-main.js'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 

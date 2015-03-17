@@ -14,5 +14,11 @@
     "backbone.marionette": "~2.3.0",
     "font-awesome": "~4.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "picturefill": "~2.2.0",
+    "chai": "~1.10.0",
+    "sinon-chai": "~2.6.0",
+    "mocha": "~2.0.1",
+    "sinonjs": "~1.10.2"
+}
 }
