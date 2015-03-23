@@ -26,7 +26,7 @@ Yeoman travels light. He didn't pack any generators when he moved in. You can th
 To install generator-aowp-marionette from npm, run:
 
 ```bash
-npm install -g generator-aowp-marionette
+npm install git+ssh://git@innersource.accenture.com:aowp/generator-aowp-marionette.git
 ```
 
 Finally, initiate the generator:
