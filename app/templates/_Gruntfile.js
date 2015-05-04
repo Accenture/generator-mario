@@ -206,7 +206,6 @@ module.exports = function (grunt) {
         mocha: {
             all: {
                 options: {
-                    run: true,
                     reporter: 'mocha-xunit-zh',
                     urls: ['http://localhost:<%= connect.options.port %>/index.html']
                 }
