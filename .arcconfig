@@ -1,0 +1,7 @@
+{
+ "project_id" : "generator-aowp-marionette",
+ "conduit_uri" : "http://23.23.125.207/",
+ "lint.engine" : "ArcanistConfigurationDrivenLintEngine",
+ "lint.engine.single.linter" : "ArcanistJSHintLinter",
+ "lint.jshint.config": ".jshintrc"
+}
