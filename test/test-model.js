@@ -5,23 +5,21 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 
-describe('aowp-marionette:app', function () {
+describe('aowp-marionette:model', function () {
   before(function (done) {
-    helpers.run(path.join(__dirname, '../generators/app'))
+    helpers.run(path.join(__dirname, '../generators/model'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
-      .withOptions({ 'skip-install': true })
-      .withPrompt({
-        someOption: true
+      .withArguments(['some-feature'])
+      .withOptions({
+        directory: 'some-feature'
       })
       .on('end', done);
   });
 
   it('creates files', function () {
     assert.file([
-      'bower.json',
-      'package.json',
-      '.editorconfig',
-      '.jshintrc'
+      'app/scripts/apps/some-feature/some-feature-model.js',
+      'app/scripts/apps/some-feature/some-feature-model-test.js'
     ]);
   });
 });
