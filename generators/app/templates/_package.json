@@ -1,5 +1,5 @@
 {
-  "name": "aowp-marionette",
+  "name": "<%= appName %>",
   "version": "0.0.1",
   "devDependencies": {
     "chai": "~1.9.1",

@@ -7,6 +7,7 @@ var options ={};
 
 options.foundation = false;
 options.bootstrap = false;
+options.appName = 'appName';
 
 module.exports = yeoman.generators.Base.extend({
 
@@ -20,7 +21,19 @@ module.exports = yeoman.generators.Base.extend({
     this.log(yosay(
       'Welcome to the ' + chalk.red('AOWP Marionette') + ' generator!'
     ));
-
+    this.prompt({
+      type: 'input',
+      name: 'appName',
+      message: 'How would you like to name your application?',
+      default: 'aowp-marionette-app'
+    }, function (answer) {
+      this.log(answer.appName);
+      options.appName = answer.appName;
+      done();
+    }.bind(this));
+  },
+  arcanistPrompt: function () {
+    var done = this.async();
     this.prompt({
       type: 'confirm',
       name: 'phabricatorDeps',
@@ -45,10 +58,8 @@ module.exports = yeoman.generators.Base.extend({
 
     }.bind(this));
   },
-
   frameworksPrompt:function(){
     var done = this.async();
-
     this.prompt({
       type: 'list',
       name: 'cssFramework',
@@ -68,14 +79,15 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('_package.json'),
-        this.destinationPath('package.json')
+        this.destinationPath('package.json'),
+        {appName: options.appName}
       );
       this.fs.copyTpl(
         this.templatePath('_bower.json'),
         this.destinationPath('bower.json'),
-        {foundation:options.foundation, bootstrap:options.bootstrap}
+        {appName: options.appName, foundation:options.foundation, bootstrap:options.bootstrap}
       );
       this.fs.copy(
         this.templatePath('_Gruntfile.js'),
