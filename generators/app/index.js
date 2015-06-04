@@ -120,7 +120,7 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       this.fs.copyTpl(
-        this.templatePath('_index.html'),
+        this.templatePath("_index.html"),
         this.destinationPath('app/index.html'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
