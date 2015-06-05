@@ -23,4 +23,3 @@ module.exports = yeoman.generators.NamedBase.extend({
     }
   }
 });
-
