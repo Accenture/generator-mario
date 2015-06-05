@@ -3,8 +3,8 @@
 'use strict';
 define([
     'app',
-    '../mainLayoutList/mainLayoutView',
-    '../technologies/technologiesController'
+    './main-layout-view',
+    '../technologies/technologies-controller'
 ], function (App, MainLayoutView, TechnologiesController) {
     var MainLayoutController = {
         showLayout: function () {

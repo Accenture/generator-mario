@@ -13,12 +13,12 @@ define([
     });
     var API = {
         showLayout: function () {
-            require(['apps/mainLayout/mainLayoutList/mainLayoutController'], function (MainLayoutController) {
+            require(['apps/main-layout/main-layout-list/main-layout-controller'], function (MainLayoutController) {
                 MainLayoutController.showLayout();
             });
         },
         showDetail: function (id) {
-            require(['apps/mainLayout/mainLayoutList/mainLayoutController'], function (MainLayoutController) {
+            require(['apps/main-layout/main-layout-list/main-layout-controller'], function (MainLayoutController) {
                 MainLayoutController.showLayout(id);
             });
         }

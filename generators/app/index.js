@@ -80,106 +80,106 @@ module.exports = yeoman.generators.Base.extend({
   writing: {
     app: function () {
       this.fs.copyTpl(
-        this.templatePath('_package.json'),
+        this.templatePath('package.json'),
         this.destinationPath('package.json'),
         {appName: options.appName}
       );
       this.fs.copyTpl(
-        this.templatePath('_bower.json'),
+        this.templatePath('bower.json'),
         this.destinationPath('bower.json'),
         {appName: options.appName, foundation:options.foundation, bootstrap:options.bootstrap}
       );
       this.fs.copy(
-        this.templatePath('_Gruntfile.js'),
+        this.templatePath('Gruntfile.js'),
         this.destinationPath('Gruntfile.js')
       );
       this.fs.copy(
-        this.templatePath('_karma.conf.js'),
+        this.templatePath('karma.conf.js'),
         this.destinationPath('karma.conf.js')
       );
       this.fs.copy(
-        this.templatePath('_.jsbeautifyrc'),
+        this.templatePath('.jsbeautifyrc'),
         this.destinationPath('.jsbeautifyrc')
       );
       this.fs.copy(
-        this.templatePath('_.gitignore'),
+        this.templatePath('.gitignore'),
         this.destinationPath('.gitignore')
       );
       this.fs.copy(
-        this.templatePath('_.bowerrc'),
+        this.templatePath('.bowerrc'),
         this.destinationPath('.bowerrc')
       );
       this.fs.copy(
-        this.templatePath('_app'),
+        this.templatePath('app'),
         this.destinationPath('app')
       );
 
       this.fs.copy(
-        this.templatePath('_test'),
+        this.templatePath('test'),
         this.destinationPath('test')
       );
 
       this.fs.copyTpl(
-        this.templatePath("_index.html"),
+        this.templatePath('index.html'),
         this.destinationPath('app/index.html'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       this.fs.copyTpl(
-        this.templatePath('_mainLayout.hbs'),
-        this.destinationPath('app/scripts/apps/mainLayout/mainLayoutList/mainLayout.hbs'),
+        this.templatePath('main-layout-template.hbs'),
+        this.destinationPath('app/scripts/apps/main-layout/main-layout-list/main-layout-template.hbs'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       this.fs.copyTpl(
-        this.templatePath('_main.js'),
+        this.templatePath('main.js'),
         this.destinationPath('app/scripts/main.js'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       this.fs.copyTpl(
-        this.templatePath('_topBarView.js'),
-        this.destinationPath('app/scripts/apps/navigation/topBar/topBarView.js'),
+        this.templatePath('top-bar-view.js'),
+        this.destinationPath('app/scripts/apps/navigation/top-bar/top-bar-view.js'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       this.fs.copyTpl(
-        this.templatePath('_topBarTemp.hbs'),
-        this.destinationPath('app/scripts/apps/navigation/topBar/topBarTemp.hbs'),
+        this.templatePath('top-bar-template.hbs'),
+        this.destinationPath('app/scripts/apps/navigation/top-bar/top-bar-template.hbs'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       this.fs.copyTpl(
-        this.templatePath('_technologiesCompositeViewTemp.hbs'),
-        this.destinationPath('app/scripts/apps/mainLayout/technologies/technologiesCompositeViewTemp.hbs'),
+        this.templatePath('technologies-composite-view-template.hbs'),
+        this.destinationPath('app/scripts/apps/main-layout/technologies/technologies-composite-view-template.hbs'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       this.fs.copyTpl(
-        this.templatePath('_technologiesItemView.js'),
-        this.destinationPath('app/scripts/apps/mainLayout/technologies/technologiesItemView.js'),
+        this.templatePath('technologies-item-view.js'),
+        this.destinationPath('app/scripts/apps/main-layout/technologies/technologies-item-view.js'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       this.fs.copyTpl(
-        this.templatePath('_technologiesItemViewTemp.hbs'),
-        this.destinationPath('app/scripts/apps/mainLayout/technologies/technologiesItemViewTemp.hbs'),
+        this.templatePath('technologies-item-view-template.hbs'),
+        this.destinationPath('app/scripts/apps/main-layout/technologies/technologies-item-view-template.hbs'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       this.fs.copyTpl(
-        this.templatePath('_mocha-test-main.js'),
+        this.templatePath('mocha-test-main.js'),
         this.destinationPath('test/mocha-test-main.js'),
         {foundation:options.foundation, bootstrap:options.bootstrap}
       );
 
       if(options.phabricatorDeps){
         this.fs.copy(
-          this.templatePath('_.arclint'),
+          this.templatePath('.arclint'),
           this.destinationPath('.arclint')
         );
         this.fs.copyTpl(
-          this.templatePath('_.arcconfig'),
+          this.templatePath('.arcconfig'),
           this.destinationPath('.arcconfig'),
           {ip: options.phabricatorIP}
         );
@@ -189,11 +189,11 @@ module.exports = yeoman.generators.Base.extend({
 
     projectfiles: function () {
       this.fs.copy(
-        this.templatePath('_.editorconfig'),
+        this.templatePath('.editorconfig'),
         this.destinationPath('.editorconfig')
       );
       this.fs.copy(
-        this.templatePath('_.jshintrc'),
+        this.templatePath('.jshintrc'),
         this.destinationPath('.jshintrc')
       );
     }

@@ -5,11 +5,11 @@ define([
     'app',
     'marionette',
     'templates',
-    './technologiesItemView'
+    './technologies-item-view'
 ], function (App, Marionette, JST, TechnologiesItemView) {
     return  Marionette.CompositeView.extend({
         tagName: 'div',
-        template: JST['app/scripts/apps/mainLayout/technologies/technologiesCompositeViewTemp.hbs'],
+        template: JST['app/scripts/apps/main-layout/technologies/technologies-composite-view-template.hbs'],
         childView: TechnologiesItemView,
         childViewContainer: '#technologiesItemView'
     });

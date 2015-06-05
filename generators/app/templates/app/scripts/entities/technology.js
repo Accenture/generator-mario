@@ -1,7 +1,7 @@
 'use strict';
 define([
     'app',
-    './collections/technologiesCollection'
+    './collections/technologies-collection'
 ], function (App, TechnologiesCollection) {
     var API = {
         getCollection: function () {

@@ -3,13 +3,13 @@
 define([
     'app',
     'backbone',
-    '../models/technologyModel'
+    '../models/technology-model'
 ], function (App, Backbone, TechnologyModel) {
     'use strict';
 
     var TechnologiesCollection = Backbone.Collection.extend({
         model: TechnologyModel,
-        url: 'jsondata/itemsCollection.json'
+        url: 'jsondata/items-collection.json'
     });
     return TechnologiesCollection;
 });

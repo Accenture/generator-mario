@@ -7,7 +7,7 @@ define([
 ], function (Marionette, App) {
     var API = {
         showTopBar: function () {
-            require(['apps/navigation/topBar/topBarController'], function (TopBarController) {
+            require(['apps/navigation/top-bar/top-bar-controller'], function (TopBarController) {
                 TopBarController.showTopBar();
             });
         }

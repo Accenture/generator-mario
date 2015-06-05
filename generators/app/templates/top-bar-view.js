@@ -7,7 +7,7 @@ define(['marionette', 'templates'], function (Marionette, JST) {
         tagName: 'ul',<% if (foundation) { %>
         className: 'right',<% } %><% if (bootstrap) { %>
         className: 'nav navbar-nav',<% } %>
-        template: JST['app/scripts/apps/navigation/topBar/topBarTemp.hbs']<% if (foundation) { %>,
+        template: JST['app/scripts/apps/navigation/top-bar/top-bar-template.hbs']<% if (foundation) { %>,
         onDomRefresh: function () {
             $(document).foundation();
         }<% } %>

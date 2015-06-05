@@ -9,7 +9,7 @@ define(['marionette', 'messages'], function (Marionette, messages) {
     });
     App.on('start', function () {
         if (Backbone.history) {
-            require(['apps/mainLayout/mainLayoutApp', 'helpers/handlebarsHelpers', 'apps/navigation/navigationApp'], function () {
+            require(['apps/main-layout/main-layout-app', 'helpers/handlebars-helpers', 'apps/navigation/navigation-app'], function () {
                 Backbone.history.start();
             });
         }
