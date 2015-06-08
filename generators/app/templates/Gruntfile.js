@@ -203,14 +203,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        mocha: {
-            all: {
-                options: {
-                    reporter: 'mocha-xunit-zh',
-                    urls: ['http://localhost:<%= connect.options.port %>/index.html']
-                }
-            }
-        },
         requirejs: {
             dist: {
                 options: {
@@ -344,9 +336,7 @@ module.exports = function (grunt) {
 
         if (target === 'test') {
             return grunt.task.run([
-                'clean:server',
-                'createDefaultTemplate',
-                'handlebars',
+                'templates',
                 'connect:test',
                 'open:test',
                 'watch'
@@ -354,10 +344,8 @@ module.exports = function (grunt) {
         }
 
         grunt.task.run([
-            'clean:server',
-            'createDefaultTemplate',
+            'templates',
             'sass:dist',
-            'handlebars',
             'configureProxies',
             'connect:livereload',
             'open:server',
@@ -365,37 +353,26 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('test', function (isConnected) {
-        isConnected = Boolean(isConnected);
-        var testTasks = [
-            'clean:server',
-            'createDefaultTemplate',
-            'handlebars',
-            'connect:test',
-            'mocha'
-        ];
-
-        if (!isConnected) {
-            return grunt.task.run(testTasks);
-        } else {
-            testTasks.splice(testTasks.indexOf('connect:test'), 1);
-            return grunt.task.run(testTasks);
-        }
-    });
+    grunt.registerTask('test', ['test:karma']);
 
     grunt.registerTask('test:browser', [
-        'clean:server',
-        'createDefaultTemplate',
-        'handlebars',
-        'connect:testInBrowser',
-        'open',
-        'watch'
+        'templates',
+        'karma:browser'
+    ]);
+
+    grunt.registerTask('templates', [
+      'clean:dist',
+      'createDefaultTemplate',
+      'handlebars'
+    ]);
+
+    grunt.registerTask('test:karma', [
+      'templates',
+      'karma:continuous'
     ]);
 
     grunt.registerTask('build', [
-        'clean:dist',
-        'createDefaultTemplate',
-        'handlebars',
+        'templates',
         'sass',
         'useminPrepare',
         'requirejs',
@@ -424,4 +401,5 @@ module.exports = function (grunt) {
     grunt.registerTask('serve:alias', [
         'serve'
     ]);
+
 };

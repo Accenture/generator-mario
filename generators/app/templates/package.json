@@ -21,7 +21,6 @@
     "grunt-jsbeautifier": "^0.2.7",
     "grunt-jsdoc": "^0.6.3",
     "grunt-karma": "^0.10.1",
-    "grunt-mocha": "0.4.11",
     "grunt-open": "~0.2.3",
     "grunt-requirejs": "0.4.2",
     "grunt-rev": "~0.1.0",

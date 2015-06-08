@@ -26,7 +26,6 @@ module.exports = function (config) {
             {pattern: '.tmp/scripts/templates.js', included: false},
             {pattern: 'app/scripts/**/*.js', included: false},
             {pattern: 'test/spec/appSpec.js', included: false},
-            {pattern: 'test/spec/**/*Test.js', included: false},
             'test/karma-test-main.js'
         ],
 
