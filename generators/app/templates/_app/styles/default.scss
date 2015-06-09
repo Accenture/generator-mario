@@ -1,0 +1,48 @@
+$background-color: #fafafa;
+$primary-color: #074E68;
+$secondary-color: #333;
+$border-color: #a5a5a5;
+
+body {
+  background: $background-color;
+}
+
+.homepage {
+  text-align: left;
+  position: relative;
+  padding: 80px 20px 25em;
+
+  @each $header in ('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'label') {
+    #{$header} {
+      color: white;
+    }
+  }
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+.white {
+  color: white;
+}
+
+.paragraph{
+  padding: 0;
+  margin: 2em 2em 2em 2em;
+}
+
+.main-content{
+  margin-top: 6em;
+}
+
+.main-layout{
+  border: 1px solid $border-color;
+}
+
+.main-blocks {
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  margin-top: 0.35em;
+}

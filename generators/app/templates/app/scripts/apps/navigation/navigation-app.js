@@ -16,7 +16,5 @@ define([
         API.showTopBar();
     });
 
-    App.addInitializer(function () {
-        API.showTopBar();
-    });
+    return API;
 });
