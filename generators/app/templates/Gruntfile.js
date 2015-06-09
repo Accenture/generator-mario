@@ -80,12 +80,12 @@ module.exports = function (grunt) {
                 nospawn: true,
                 livereload: true
             },
-            sass: {
+            less: {
                 options: {
                     livereload: false
                 },
-                files: ['<%= yeoman.app %>/styles/*.scss'],
-                task: ['sass:dist']
+                files: ['<%= yeoman.app %>/styles/*.less'],
+                task: ['less:dist']
             },
             livereload: {
                 options: {
@@ -311,10 +311,10 @@ module.exports = function (grunt) {
                 }
             }
         },
-        sass: { // task
+        less: { // task
             dist: { // target
                 files: { // dictionary of files
-                    '<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/styles/main.scss' // 'destination': 'source'
+                    '<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/styles/main.less' // 'destination': 'source'
                 }
             }
         }
@@ -344,8 +344,11 @@ module.exports = function (grunt) {
         }
 
         grunt.task.run([
+            'clean:server',
+            'createDefaultTemplate',
+            'handlebars',
             'templates',
-            'sass:dist',
+            'less:dist',
             'configureProxies',
             'connect:livereload',
             'open:server',
@@ -372,8 +375,11 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
+        'clean:dist',
+        'createDefaultTemplate',
+        'handlebars',
         'templates',
-        'sass',
+        'less',
         'useminPrepare',
         'requirejs',
         'imagemin',

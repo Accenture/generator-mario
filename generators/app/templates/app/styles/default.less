@@ -1,0 +1,53 @@
+@background-color: #fafafa;
+@primary-color: #074E68;
+@secondary-color: #333;
+@border-color: #a5a5a5;
+
+body {
+    background: @background-color;
+}
+.homepage {
+    text-align: left;
+    position: relative;
+    padding: 80px 20px 25em;
+
+    .label {
+        color: white;
+    }
+
+    @iterations: 6;
+
+    .h(@index) when (@index > 0) {
+        .h@{index} {
+            color: white;
+        }
+        .h(@index - 1);
+    }
+    .h(0) {
+    }
+    .h(@iterations);
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.white {
+    color: white;
+}
+.paragraph {
+    padding: 0;
+    margin: 2em 2em 2em 2em;
+}
+.main-content {
+    padding: 0;
+    margin: 6em 6em 6em 6em;
+}
+.main-layout {
+    border: 1px solid @border-color;
+}
+.main-blocks {
+    padding-left: 0.35em;
+    padding-right: 0.35em;
+    margin-top: 0.35em;
+}
