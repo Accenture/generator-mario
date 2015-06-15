@@ -97,6 +97,7 @@ module.exports = generators.NamedBase.extend({
           path.join(baseDir, this.options.directory, this.name + '-item-view.js')
         ),
         {
+          featureName: this.name,
           templatePath: baseDir + '/' + this.options.directory + '/' + this.name + '-item-template.hbs',
           featureNameUpper: formatName('', this)
         }
@@ -142,9 +143,10 @@ module.exports = generators.NamedBase.extend({
     },
 
     composite: function() {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('composite-template.hbs'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-template.hbs'))
+        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-template.hbs')),
+        {name: this.name}
       );
 
       this.fs.copyTpl(
@@ -167,7 +169,7 @@ module.exports = generators.NamedBase.extend({
       var tree = ast(this.fs.read(filePath));
 
       // registering path to router in AMD
-      var result = tree.callExpression('require');
+      var result = tree.callExpression('define');
       result.arguments.at(0).push('\'apps/' + this.options.directory + '/' + this.name + '-router' + '\'');
 
       // register router in function(X, Y, Z, OurRouter)
@@ -176,8 +178,10 @@ module.exports = generators.NamedBase.extend({
         name: formatName('-router', this)
       });
 
+
+      var onResult = tree.var('initializeUI');
       // call new OurRouter();
-      result.arguments.at(1).body.prepend('new ' + formatName('-router', this) + '();');
+      onResult.value().body.append('new ' + formatName('-router', this) + '({region: rootView.contentRegion});');
 
       this.fs.write(filePath, tree.toString());
     }

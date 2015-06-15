@@ -24,7 +24,7 @@ define([
       var data = _.object(_.map(this.$('form').serializeArray(), _.values));
       this.model.set(data);
 
-      App.vent.trigger(App.msg.<%= featureNameUpper %>.CREATE_ITEM, this.model);
+      this.trigger('<%= featureName %>:createItem', this.model);
     }
   });
 });

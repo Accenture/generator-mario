@@ -1,7 +1,6 @@
 'use strict';
 
 define([
-  'app',
   'backbone',
   'marionette',
   'handlebars',
@@ -11,7 +10,6 @@ define([
   '<%= createViewPath %>',
   '<%= compositeViewPath %>'
 ], function(
-  App,
   Backbone,
   Marionette,
   Handlebars,
@@ -21,61 +19,58 @@ define([
   <%= createViewName %>,
   <%= compositeViewName %>
 ) {
+  var msg = {};
+  msg.CREATE_ITEM = '<%= featureName %>:createItem';
+  msg.REMOVE_ITEM = '<%= featureName %>:removeItem';
+  msg.SAVE = '<%= featureName %>:save';
+  msg.SHOW_DETAIL = 'childview:<%= featureName %>:showDetail';
+  msg.NAVIGATE_NEW = '<%= featureName %>:navigateNew';
 
-  //Prefilled data
-  var collection = new <%= collectionName %>([
-    {id: 1, text: 'This is just a sample text', author: 'Martin', created: Date.now(), isPublished: true},
-    {id: 2, text: 'This is just an example text', author: 'Lukas', created: Date.now(), isPublished: false},
-    {id: 3, text: 'This is just a mapple text', author: 'Pavol', created: Date.now(), isPublished: true},
-    {id: 4, text: 'This is just an apple text', author: 'Dominika', created: Date.now(), isPublished: true},
-    {id: 5, text: 'This is just an orange text', author: 'Slavomir', created: Date.now(), isPublished: false}
-  ]);
 
-  (function initialize() {
-    App.msg.<%= featureNameUpper %> = {};
-    App.msg.<%= featureNameUpper %>.CREATE_ITEM = '<%= featureName %>:createItem';
-    App.msg.<%= featureNameUpper %>.REMOVE_ITEM = '<%= featureName %>:removeItem';
-    App.msg.<%= featureNameUpper %>.NAVIGATE_HOME = '<%= featureName %>:navigateHome';
-    App.msg.<%= featureNameUpper %>.NAVIGATE_NEW = '<%= featureName %>:navigateNew';
-    App.msg.<%= featureNameUpper %>.SHOW_DETAIL = '<%= featureName %>:showDetail';
+  return Marionette.Object.extend({
+    initialize: function (options) {
+      this.collection = new <%= collectionName %>([
+        {id: 1, text: 'This is just a sample text', author: 'Martin', created: Date.now(), isPublished: true},
+        {id: 2, text: 'This is just an example text', author: 'Lukas', created: Date.now(), isPublished: false},
+        {id: 3, text: 'This is just a mapple text', author: 'Pavol', created: Date.now(), isPublished: true},
+        {id: 4, text: 'This is just an apple text', author: 'Dominika', created: Date.now(), isPublished: true},
+        {id: 5, text: 'This is just an orange text', author: 'Slavomir', created: Date.now(), isPublished: false}
+      ]);
 
-    App.vent.on(App.msg.<%= featureNameUpper %>.CREATE_ITEM, function (model) {
-      collection.add(model);
-      Backbone.history.navigate('#<%= featureName %>', {trigger: true});
-    });
-
-    App.vent.on(App.msg.<%= featureNameUpper %>.REMOVE_ITEM, function (id) {
-      collection.remove(id);
-      Backbone.history.navigate('#<%= featureName %>', {trigger: true});
-    });
-
-    App.vent.on(App.msg.<%= featureNameUpper %>.NAVIGATE_HOME, function () {
-      Backbone.history.navigate('#<%= featureName %>', {trigger: true});
-    });
-
-    App.vent.on(App.msg.<%= featureNameUpper %>.SHOW_DETAIL, function (id) {
-      Backbone.history.navigate('#<%= featureName %>/' + id, {trigger: true});
-    });
-
-    App.vent.on(App.msg.<%= featureNameUpper %>.NAVIGATE_NEW, function () {
-      Backbone.history.navigate('#<%= featureName %>/new', {trigger: true});
-    });
-  })();
-
-  return {
-    list: function() {
-      var compositeView = new <%= compositeViewName %>({collection: collection});
-      App.contentRegion.show(compositeView);
+      this.region = options.region;
     },
-
+    list: function () {
+      var view = new <%= compositeViewName %>({collection: this.collection});
+      view.listenTo(view, msg.NAVIGATE_NEW, function () {
+        Backbone.history.navigate('#<%= featureName %>/new', {trigger: true});
+      });
+      view.listenTo(view, msg.SHOW_DETAIL, function (args) {
+        Backbone.history.navigate('#<%= featureName %>/' + args.model.get('id'), {trigger: true});
+      });
+      this.region.show(view);
+    },
     create: function () {
-      var createView = new <%= createViewName %>({model: new <%= modelName %>()});
-      App.contentRegion.show(createView);
+      var view = new <%= createViewName %>({model: new <%= modelName %>()});
+      var that = this;
+      view.listenTo(view, msg.CREATE_ITEM, function (model) {
+        that.collection.add(model);
+        //TODO: model.save();
+        Backbone.history.navigate('#<%= featureName %>', {trigger: true});
+      });
+      this.region.show(view);
     },
-
     detail: function (id) {
-      var detailView = new <%= detailViewName %>({model: collection.get(id)});
-      App.contentRegion.show(detailView);
+      var view = new <%= detailViewName %>({model: this.collection.get(id)});
+      var that = this;
+      view.listenTo(view, msg.REMOVE_ITEM, function(args) {
+        that.collection.remove(args.model.get('id'));
+        Backbone.history.navigate('#<%= featureName %>', {trigger: true});
+      });
+      view.listenTo(view, msg.SAVE, function(args) {
+        //TODO: model save e.g. args.model.save();
+        Backbone.history.navigate('#<%= featureName %>', {trigger: true});
+      });
+      this.region.show(view);
     }
-  };
+  });
 });

@@ -17,7 +17,7 @@ module.exports = generators.NamedBase.extend({
     this.option('directory', {desc: 'creates compositeView within specified directory'});
     this.option('itemview', {desc: 'creates itemView within specified directory'});
 
-    this.itemview = this.options.itemview + '-item-view';
+    this.itemview = this.options.itemview ;
 
     if (!this.options.itemview) {
       this.itemview = this.name + '-item-view';
@@ -37,7 +37,7 @@ module.exports = generators.NamedBase.extend({
 
     this.fs.copyTpl(
       this.templatePath('composite-view.hbs'),
-      this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view.hbs')));
+      this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view-template.hbs')));
 
     if (!this.options.itemview) {
       this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});

@@ -6,9 +6,8 @@
     "backbone": "~1.1.2",
     "requirejs": "~2.1.18",
     "requirejs-text": "~2.0.14",
-    "modernizr": "~2.8.3",<% if (foundation) { %>
-    "foundation": "~5.5.2",<% } %><% if (bootstrap) { %>
-    "bootstrap": "~3.3.4",<% } %>
+    "modernizr": "~2.8.3",
+    "bootstrap": "~3.3.4",
     "handlebars": "~3.0.3",
     "requirejs-plugins": "~1.0.3",
     "backbone.marionette": "~2.4.1",

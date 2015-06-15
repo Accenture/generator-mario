@@ -1,26 +1,41 @@
 /*global define*/
 'use strict';
-define(['marionette', 'messages'], function (Marionette, messages) {
+define([
+    'backbone',
+    'marionette',
+    'helpers/handlebars-helpers',
+    'apps/main/main-layout-view',
+    'apps/navigation/navigation-controller',
+    'apps/home/home-router'
+], function (
+    Backbone,
+    Marionette,
+    helpers,
+    MainLayoutView,
+    NavigationController,
+    HomeRouter
+) {
+    helpers.initialize();
     var App = new Marionette.Application();
-    App.msg = messages;
-    App.addRegions({
-        'contentRegion': '#content',
-        'navigationRegion': '#navigationTop'
-    });
-    App.on('start', function () {
-        if (Backbone.history) {
-            require([
-              'apps/main-layout/main-layout-app',
-              'helpers/handlebars-helpers',
-              'apps/navigation/navigation-app'
-            ], function (MainLayout, helpers, NavigationApp) {
-              helpers.initialize();
-              NavigationApp.showTopBar();
-              new MainLayout();
 
-              Backbone.history.start();
-            });
+    var initializeUI = function () {
+        var rootView = new MainLayoutView();
+        rootView.render();
+        new NavigationController({
+            region: rootView.navigationRegion
+        });
+        new HomeRouter({
+            region: rootView.contentRegion
+        });
+    };
+
+    App.on('start', function () {
+        initializeUI();
+        if (Backbone.history) {
+            Backbone.history.start();
         }
     });
+
+
     return App;
 });

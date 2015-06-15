@@ -13,17 +13,12 @@ require.config({
                 'jquery'
             ],
             exports: 'Backbone'
-        },<% if (foundation) { %>
-        foundation: {
-            deps: [
-                'jquery'
-            ]
-        },<% } %><% if (bootstrap) { %>
+        },
         bootstrap: {
           deps: [
             'jquery'
           ]
-        },<% } %>
+        },
         handlebars: {
             exports: 'Handlebars',
             init: function () {
@@ -41,20 +36,16 @@ require.config({
     paths: {
         jquery: '../bower_components/jquery/dist/jquery',
         backbone: '../bower_components/backbone/backbone',
-        underscore: '../bower_components/underscore/underscore',<% if (foundation) { %>
-        foundation: '../bower_components/foundation/js/foundation',<% } %><% if (bootstrap) { %>
-        bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',<% } %>
+        underscore: '../bower_components/underscore/underscore',
+        bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',
         handlebars: '../bower_components/handlebars/handlebars.runtime',
         marionette: '../bower_components/backbone.marionette/lib/backbone.marionette'
     }
 });
 
 require([
-    'app',<% if (foundation) { %>
-    'foundation'<% } %><% if (bootstrap) { %>
-    'bootstrap'<% } %>
+    'app',
+    'bootstrap'
 ], function (App) {
-
-    App.start();<% if (foundation) { %>
-    $(document).foundation();<% } %>
+    App.start();
 });

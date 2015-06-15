@@ -36,8 +36,8 @@ module.exports = yeoman.generators.NamedBase.extend({
 
     //check for model option
     if(this.options.model) {
-      data.modelPath = './' + this.options.model + '-model';
-      data.modelNameCamelCase = this._.capitalize(this._.camelize(this.options.model + '-model'));
+      data.modelPath = './' + this.options.model;
+      data.modelNameCamelCase = this._.capitalize(this._.camelize(this.options.model));
     } else {
       data.modelPath = './' + data.collectionName + '-model';
       data.modelNameCamelCase = this._.capitalize(this._.camelize(data.collectionName + '-model'));
