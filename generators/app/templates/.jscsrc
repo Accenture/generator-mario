@@ -1,0 +1,9 @@
+{
+    "preset": "google",
+    "validateIndentation": null,
+    "maximumLineLength": null,
+    "disallowSpacesInAnonymousFunctionExpression": null,
+    "disallowSpacesInsideObjectBrackets": null,
+    "disallowMultipleVarDecl": null,
+    "excludeFiles": ["node_modules/*", "app/bower_components/*"]
+}

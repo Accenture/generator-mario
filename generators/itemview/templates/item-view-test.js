@@ -1,12 +1,10 @@
-/*global define, describe, it, beforeEach */
-
+'use strict';
 define([
   'jquery',
   'underscore',
   'backbone',
   '<%= dest %>'
 ], function ($, _, Backbone, <%= view %>) {
-  'use strict';
 
   describe('<%= view %>', function () {
     beforeEach(function () {
