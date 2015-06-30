@@ -1,6 +1,6 @@
 'use strict';
 
-define(['./home-item-view', './home-model'], function (HomeItemView, HomeModel) {
+define(['marionette', './home-item-view', './home-model'], function (Marionette, HomeItemView, HomeModel) {
     return Marionette.Object.extend({
         initialize: function (options) {
             this.region = options.region;
@@ -12,5 +12,3 @@ define(['./home-item-view', './home-model'], function (HomeItemView, HomeModel) 
         }
     });
 });
-
-

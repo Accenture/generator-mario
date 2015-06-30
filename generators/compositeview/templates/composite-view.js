@@ -3,12 +3,12 @@ define([
   'app',
   'marionette',
   'templates',
-  './<%= itemview %>'
+  '<%= itemview %>'
 ], function (App, Marionette, JST, ItemView) {
 
   return Marionette.CompositeView.extend({
     tagName: 'div',
-    template: JST['app/scripts/apps/<%= directory %>/<%= template %>'],
+    template: JST['<%= template %>'],
     childView: ItemView,
     childViewContainer: '#itemView'
   });

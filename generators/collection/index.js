@@ -1,64 +1,43 @@
 'use strict';
 
-var yeoman = require('yeoman-generator');
-var path = require('path');
+var utils = require('../utils');
+var DirBase = require('../dir-base');
+var model = {};
+model.className = '';
+model.path = '';
 
-var data = {};
-data.modelNameCamelCase = '';
-data.modelPath = '';
-data.collectionName = '';
-data.collectionPath = '';
-data.collectionNameCamelCase = '';
-data.featureDirectory = '';
-data.baseDir = 'app/scripts/apps';
-
-module.exports = yeoman.generators.NamedBase.extend({
-
+module.exports = DirBase.extend({
   constructor: function () {
-    yeoman.generators.NamedBase.apply(this, arguments);
-
-    this.option('directory', {desc: 'create model within specified directory'});
+    DirBase.apply(this, arguments);
     this.option('model', {desc: 'specify a model name to use with the collection (they have to be in the same directory)'});
   },
-
   initializing: function () {
-    //check for directory option
-    if(!this.options.directory) {
-      this.log.error('Directory Flag is required exiting!');
-      process.exit(1);
-    }
-
-    data.featureDirectory = this.options.directory;
-
-    data.collectionName = this.name;
-    data.collectionPath ='./' + this.name + '-collection';
-    data.collectionNameCamelCase = this._.capitalize(this._.camelize(this.name + '-collection'));
-
     //check for model option
     if(this.options.model) {
-      data.modelPath = './' + this.options.model;
-      data.modelNameCamelCase = this._.capitalize(this._.camelize(this.options.model));
+      model.path = utils.amd(this.options.model, utils.type.model);
+      model.className = utils.className(this.options.model, utils.type.model);
     } else {
-      data.modelPath = './' + data.collectionName + '-model';
-      data.modelNameCamelCase = this._.capitalize(this._.camelize(data.collectionName + '-model'));
-
-      this.composeWith('aowp-marionette:model', {options: {directory: data.featureDirectory}, args: [data.collectionName]});
+      model.path = utils.amd(this.name, utils.type.model);
+      model.className = utils.className(this.name, utils.type.model);
+      this.composeWith('aowp-marionette:model', {options: {directory: this.options.directory}, args: [this.name]});
     }
   },
-
   writing: function () {
     this.fs.copyTpl(
-      this.templatePath('_template-collection.js'),
-      this.destinationPath(
-        path.join(data.baseDir, data.featureDirectory, data.collectionName + '-collection.js')),
-      data
+      this.templatePath('collection.js'),
+      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collection)),
+      {
+        modelPath: model.path,
+        modelNameCamelCase: model.className
+      }
     );
-
     this.fs.copyTpl(
-      this.templatePath('_template-collection-test.js'),
-      this.destinationPath(path.join(data.baseDir, data.featureDirectory, data.collectionName + '-collection-test.js')),
-      data
+      this.templatePath('collection-test.js'),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collection)),
+      {
+        collectionPath: utils.amd(this.name, utils.type.collection),
+        collectionNameCamelCase: utils.className(this.name, utils.type.collection)
+      }
     );
   }
-
 });

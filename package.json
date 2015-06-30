@@ -1,6 +1,6 @@
 {
   "name": "generator-aowp-marionette",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "generators/app/index.js",
@@ -11,7 +11,7 @@
     "url": "https://github.com/lukaasp"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.12.0"
   },
   "scripts": {
     "test": "mocha"
@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "chalk": "^1.0.0",
+    "lodash": "^3.9.3",
     "yeoman-generator": "^0.18.9",
     "yosay": "^1.0.2"
   },

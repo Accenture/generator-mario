@@ -1,39 +1,28 @@
 'use strict';
+var utils = require('../utils');
+var DirBase = require('../dir-base');
 
-var generators = require('yeoman-generator');
-var path = require('path');
-
-module.exports = generators.NamedBase.extend({
+module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
-    generators.generators.NamedBase.apply(this, arguments);
-    this.option('directory', {desc: 'create model within specified directory'});
+    DirBase.apply(this, arguments);
     this.option('controller', {desc: 'specify a controller name to use with the router (they have to be in the same directory)'});
   },
   initializing: function () {
-    if(!this.options.directory) {
-      this.log.error('Directory Flag is required exiting!');
-      process.exit(1);
-    }
-
     if(!this.options.controller) {
       this.composeWith('aowp-marionette:controller', {options: {directory: this.options.directory}, args: [this.name]});
-      this.controllerNameSpinal = this.name + '-controller';
+      this.controllerNameSpinal = this.name;
     } else {
       this.controllerNameSpinal = this.options.controller;
     }
   },
   writing: function () {
-    var baseDir = 'app/scripts/apps';
-
     this.fs.copyTpl(
       this.templatePath('router.js'),
-      this.destinationPath(
-        path.join(baseDir, this.options.directory, this.name + '-router.js')
-      ),
+      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.router)),
       {
         name: this.name,
-        controllerPath: './' + this.controllerNameSpinal,
-        controllerName: this._.camelize(this.controllerNameSpinal)
+        controllerPath: utils.amd(this.controllerNameSpinal, utils.type.controller),
+        controllerName: utils.className(this.controllerNameSpinal, utils.type.controller)
       }
     );
   }

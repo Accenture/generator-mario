@@ -1,43 +1,34 @@
 'use strict';
 
-var generators = require('yeoman-generator');
+var utils = require('../utils');
+var DirBase = require('../dir-base');
 
-var path = require('path');
-
-module.exports = generators.NamedBase.extend({
+module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
-    generators.generators.NamedBase.apply(this, arguments);
+    DirBase.apply(this, arguments);
+    this.option('itemview', {desc: 'creates itemView within specified directory'});
   },
   initializing: function () {
-    if (!this.options.directory) {
-      this.log.error('--directory option is required, cancelling ...');
-      process.exit(1);
-    }
-
-    this.option('directory', {desc: 'creates compositeView within specified directory'});
-    this.option('itemview', {desc: 'creates itemView within specified directory'});
-
     this.itemview = this.options.itemview ;
-
     if (!this.options.itemview) {
       this.itemview = this.name + '-item-view';
     }
   },
   writing: function () {
-    var baseDir = 'app/scripts/apps/';
-
     this.fs.copyTpl(
       this.templatePath('composite-view.js'),
-      this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view.js')),
+      // this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view.js')),
+      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),      
       {
-        directory: this.options.directory,
-        itemview: this.itemview,
-        template: this.name + '-composite-view.hbs'
+        itemview: utils.amd(this.itemview, utils.type.itemview),
+        template: utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview)
       });
 
     this.fs.copyTpl(
       this.templatePath('composite-view.hbs'),
-      this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view-template.hbs')));
+      // this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view-template.hbs')));
+      this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview))
+    );
 
     if (!this.options.itemview) {
       this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
@@ -45,10 +36,11 @@ module.exports = generators.NamedBase.extend({
 
     this.fs.copyTpl(
       this.templatePath('composite-view-test.js'),
-      this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view-test.js')),
+      // this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view-test.js')),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
-        compview: this.name + '-composite-view',
-        viewName: this._.capitalize(this._.camelize(this.name + 'CompositeView'))
+        compview: utils.amd(this.name, utils.type.compositeview),
+        viewName: utils.className(this.name, utils.type.compositeview)
       }
     );
   }

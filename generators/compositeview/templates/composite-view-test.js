@@ -1,7 +1,7 @@
 'use strict';
 define([
   'backbone',
-  './<%= compview %>'
+  '<%= compview %>'
 ], function (Backbone, <%= viewName %>) {
   describe('ApplesCompositeView', function () {
 

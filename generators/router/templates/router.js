@@ -5,8 +5,9 @@ define([
 ], function(Backbone, Marionette, <%= controllerName %>) {
 
   return Marionette.AppRouter.extend({
-    controller: <%= controllerName %>,
-
+    initialize: function(options) {
+      this.controller = new <%= controllerName %>({region: options.region});
+    },
     appRoutes: {
       '<%= name %>': 'default'
     }

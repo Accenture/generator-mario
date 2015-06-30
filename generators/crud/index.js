@@ -20,7 +20,7 @@ module.exports = generators.NamedBase.extend({
   },
   initializing: function () {
     if(!this.options.directory) {
-      this.log.error('Directory Flag is required exiting!');
+      this.log.error('--directory option is required!');
       process.exit(1);
     }
 

@@ -1,28 +1,22 @@
 'use strict';
 
-var generators = require('yeoman-generator');
+var utils = require('../utils');
+var DirBase = require('../dir-base');
 
-var path = require('path');
-
-module.exports = generators.NamedBase.extend({
-  constructor: function (/*args, options*/) {
-    generators.generators.NamedBase.apply(this, arguments);
-  },
-  initializing: function () {
-    this.option('directory', {desc: 'create model within specified directory'});
-  },
+module.exports = DirBase.extend({
   writing: function () {
-    if (this.options.directory) {
-      var baseDir = 'app/scripts/apps/';
-      this.fs.copyTpl(
-        this.templatePath('model.js'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-model.js')));
+    this.fs.copyTpl(
+      this.templatePath('model.js'),
+      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.model))
+    );
 
-      this.fs.copyTpl(
-        this.templatePath('model-test.js'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-model-test.js')),
-        {modelPath: './' + this.name + '-model', modelName: this._.capitalize(this._.camelize(this.name + 'Model'))}
-      );
-    }
+    this.fs.copyTpl(
+      this.templatePath('model-test.js'),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.model)),
+      {
+        modelPath: utils.amd(this.name, utils.type.model),
+        modelName: utils.className(this.name, utils.type.model)
+      }
+    );
   }
 });

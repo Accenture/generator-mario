@@ -1,6 +1,6 @@
 'use strict';
 
-define(['./navigation-item-view'], function (NavigationItemView) {
+define(['marionette', './navigation-item-view'], function (Marionette, NavigationItemView) {
     return Marionette.Object.extend({
         initialize: function(options) {
             this.region = options.region;

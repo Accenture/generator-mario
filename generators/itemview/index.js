@@ -1,31 +1,26 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var path = require('path');
+var utils = require('../utils');
+var DirBase = require('../dir-base');
 
-module.exports = yeoman.generators.NamedBase.extend({
-  constructor: function () {
-    yeoman.generators.NamedBase.apply(this, arguments);
-  },
-  initializing: function () {
-    this.option('directory', {desc: 'Define own directory'});
-  },
+module.exports = DirBase.extend({
   writing: function () {
-    if (this.options.directory) {
-      var baseDir = 'app/scripts/apps/';
-      this.fs.copyTpl(
-        this.templatePath('item-view.js'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-item-view.js')),
-        {dest: baseDir + this.options.directory + '/' + this.name + '-template.hbs'});
+    this.fs.copyTpl(
+      this.templatePath('item-view.js'),
+      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.itemview)),
+      {dest: utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview)}
+    );
+    this.fs.copyTpl(
+      this.templatePath('template.hbs'),
+      this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview)),
+      {title: this.name});
 
-      this.fs.copyTpl(
-        this.templatePath('template.hbs'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-template.hbs')),
-        {title: this.name});
-
-      this.fs.copyTpl(
-        this.templatePath('item-view-test.js'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-item-view-test.js')),
-        {dest: './' + this.name + '-item-view', view: this._.capitalize(this._.camelize(this.name + '-ItemView'))});
-    }
+    this.fs.copyTpl(
+      this.templatePath('item-view-test.js'),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview)),
+      {
+        dest: utils.amd(this.name, utils.type.itemview),
+        view: utils.className(this.name, utils.type.itemview)
+      }
+    );
   }
 });
