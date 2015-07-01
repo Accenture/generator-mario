@@ -45,7 +45,7 @@ module.exports = function (grunt) {
                         // output them in the `dir` directory
                         { type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
                         { type: 'text', subdir: '.', file: 'text.txt' },
-                        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+                        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' }
                     ]
                 }
             },
