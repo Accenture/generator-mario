@@ -52,7 +52,7 @@ module.exports = function (grunt) {
             browser: {
                 configFile: 'karma.conf.js',
                 singleRun: true,
-                browsers: ['PhantomJS',  'Chrome' , 'Firefox']
+                browsers: ['PhantomJS', 'Chrome', 'Firefox']
             }
         },
         jsdoc: {
@@ -214,25 +214,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        requirejs: {
-            dist: {
-                options: {
-                    dir: 'dist',
-                    appDir: 'app',
-                    baseUrl: 'scripts',
-                    paths: {
-                        'templates': '../../.tmp/scripts/templates'
-                    },
-                    mainConfigFile: 'app/scripts/main.js',
-                    removeCombined: true,
-                    findNestedDependencies: true,
-                    optimize: 'uglify',
-                    modules: [{
-                        name: 'main'
-                    }]
-                }
-            }
-        },
         useminPrepare: {
             html: '<%= yeoman.app %>/index.html',
             options: {
@@ -297,10 +278,12 @@ module.exports = function (grunt) {
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
-                        'styles/fonts/{,*/}*.*',
-                        'bower_components/font-awesome/fonts/{,*/}*.*',
                         'jsondata/*.*',
-                        'images/*.*'
+                        'images/*.*',
+                        'bower_components/font-awesome/fonts/{,*/}*.*',
+                        'bower_components/modernizr/modernizr.js',
+                        'bower_components/requirejs/*.js',
+                        'index.html'
                     ]
                 }]
             }
@@ -308,6 +291,23 @@ module.exports = function (grunt) {
         bower: {
             all: {
                 rjsConfig: '<%= yeoman.app %>/scripts/main.js'
+            }
+        },
+        requirejs: {
+            dist: {
+                options: {
+                    dir: 'dist/scripts',
+                    paths: {
+                        'templates': '../../.tmp/scripts/templates'
+                    },
+                    mainConfigFile: 'app/scripts/main.js',
+                    optimize: 'uglify',
+                    modules: [{
+                        name: 'main'
+                    }],
+                    removeCombined: true,
+                    findNestedDependencies: true
+                }
             }
         },
         rev: {
@@ -387,8 +387,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'createDefaultTemplate',
-        'handlebars',
         'templates',
         'less',
         'useminPrepare',
@@ -406,7 +404,7 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-    grunt.registerTask('clean', [
+    grunt.registerTask('beautify', [
         'jsbeautifier:modify',
         'jshint',
         'jscs'
