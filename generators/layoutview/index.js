@@ -1,18 +1,20 @@
 'use strict';
 
-var utils = require('../utils'); 
+var utils = require('../utils');
 var DirBase = require('../dir-base');
 
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
     DirBase.apply(this, arguments);
-    this.option('template', {desc: 'specify a template to use in the layout view'});
+    this.option('template', {alias:'t', desc: 'specify a template to use in the layout view'});
   },
   initializing: function () {
+    this.options.template = this.options.template || this.options.t;
+
     if(this.options.template) {
-      this.templateName = this.options.template; 
+      this.templateName = this.options.template;
     } else {
-      this.templateName = this.name;    
+      this.templateName = this.name;
     }
   },
   writing: function () {
@@ -27,7 +29,7 @@ module.exports = DirBase.extend({
     if(! this.options.template) {
       this.fs.copyTpl(
         this.templatePath('template.hbs'),
-        this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.layoutview)),        
+        this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
         {
           title: this.name
         }
@@ -36,9 +38,9 @@ module.exports = DirBase.extend({
 
     this.fs.copyTpl(
       this.templatePath('layout-view-test.js'),
-      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview)),      
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
-        viewPath: utils.amd(this.name, utils.type.layoutview),        
+        viewPath: utils.amd(this.name, utils.type.layoutview),
         viewName: utils.className(this.name, utils.type.layoutview)
       }
     );

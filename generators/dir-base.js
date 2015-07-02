@@ -4,8 +4,10 @@ var DirectoryBase = generators.NamedBase.extend({
   text: 'create item (model, collection, view, router, controller) within specified directory',
   constructor: function (/*args, options*/) {
     generators.generators.NamedBase.apply(this, arguments);
-    this.option('directory', {desc: this.text});
+    this.option('directory', {alias:'d', desc: this.text});
     // this.options.directory = 'app/scripts/apps/';
+
+    this.options.directory = this.options.directory || this.options.d;
 
     if (!this.options.directory) {
       this.log.error('--directory option is required!');

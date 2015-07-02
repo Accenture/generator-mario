@@ -9,9 +9,11 @@ itemview.class = '';
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
     DirBase.apply(this, arguments);
-    this.option('itemview', {desc: 'specify a item view to use with the collection view (they have to be in the same directory)'});
+    this.option('itemview', {alias:'i', desc: 'specify a item view to use with the collection view (they have to be in the same directory)'});
   },
   initializing: function () {
+    this.options.itemview = this.options.itemview || this.options.i;
+
     if (this.options.itemview) {
       itemview.path = utils.amd(this.options.itemview, utils.type.itemview);
       itemview.class = utils.className(this.options.itemview, utils.type.itemview);
@@ -23,7 +25,7 @@ module.exports = DirBase.extend({
   writing: function () {
     this.fs.copyTpl(
       this.templatePath('collection-view.js'),
-      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collectionview)),      
+      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collectionview)),
       {
         childPath: itemview.path,
         childItemView: itemview.class

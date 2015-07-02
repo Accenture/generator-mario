@@ -6,10 +6,10 @@ var DirBase = require('../dir-base');
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
     DirBase.apply(this, arguments);
-    this.option('itemview', {desc: 'creates itemView within specified directory'});
+    this.option('itemview', {alias:'i', desc: 'creates itemView within specified directory'});
   },
   initializing: function () {
-    this.itemview = this.options.itemview ;
+    this.itemview = this.options.itemview || this.options.i;
     if (!this.options.itemview) {
       this.itemview = this.name + '-item-view';
     }
@@ -18,7 +18,7 @@ module.exports = DirBase.extend({
     this.fs.copyTpl(
       this.templatePath('composite-view.js'),
       // this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-view.js')),
-      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),      
+      this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
         itemview: utils.amd(this.itemview, utils.type.itemview),
         template: utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview)

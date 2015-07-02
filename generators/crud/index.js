@@ -16,9 +16,11 @@ function formatName(postfix, generator) {
 module.exports = generators.NamedBase.extend({
   constructor: function () {
     generators.generators.NamedBase.apply(this, arguments);
-    this.option('directory', {desc: 'create model within specified directory'});
+    this.option('directory', {alias:'d', desc: 'create model within specified directory'});
   },
   initializing: function () {
+    this.options.directory = this.options.directory || this.options.d;
+
     if(!this.options.directory) {
       this.log.error('--directory option is required!');
       process.exit(1);
