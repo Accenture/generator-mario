@@ -22,4 +22,13 @@ describe('aowp-marionette:model', function () {
       'app/scripts/apps/some-feature/some-feature-model-test.js'
     ]);
   });
-});
+  it('test contains AMD path', function() {
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-model-test.js', /some-feature-model/);
+  });
+  it('test contains class', function() {
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-model-test.js', /(SomeFeatureModel)/);
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-model-test.js', /new SomeFeatureModel()/);
+  });
+
+
+  });

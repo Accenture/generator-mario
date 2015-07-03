@@ -16,11 +16,17 @@ describe('aowp-marionette:collection with existing controller', function () {
       })
       .on('end', done);
   });
-
   it('creates files', function () {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-router.js'
     ]);
+  });
+  it('contains AMD dependency', function() {
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'.\/some-controller'/);
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /, SomeController/);
+  });
+  it('contains controller class', function() {
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeController/);
   });
 });
 
@@ -35,10 +41,16 @@ describe('aowp-marionette:collection without existing controller', function () {
       })
       .on('end', done);
   });
-
   it('creates files', function () {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-router.js'
     ]);
+  });
+  it('contains AMD dependency', function() {
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'.\/some-feature-controller'/);
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /, SomeFeatureController/);
+  });
+  it('contains controller class', function() {
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeFeatureController/);
   });
 });

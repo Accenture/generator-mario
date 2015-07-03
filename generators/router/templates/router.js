@@ -11,6 +11,5 @@ define([
     appRoutes: {
       '<%= name %>': 'default'
     }
-
   });
 });

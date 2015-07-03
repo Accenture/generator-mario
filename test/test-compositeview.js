@@ -4,8 +4,9 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var chai = require('chai');
-var expect = require('chai').expect;
 chai.use(require('chai-fs'));
+
+var assert = require('yeoman-generator').assert;
 
 describe('aowp-marionette:compositeview without existing itemview', function () {
   before(function (done) {
@@ -18,10 +19,22 @@ describe('aowp-marionette:compositeview without existing itemview', function () 
       .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:itemview']])
       .on('end', done);
   });
-
   it('creates files', function () {
-    expect('app/scripts/apps/fruit/apples-composite-view.js').to.be.a.file();
-    expect('app/scripts/apps/fruit/apples-composite-view-test.js').to.be.a.file();
+    assert.file([
+      'app/scripts/apps/fruit/apples-composite-view.js',
+      'app/scripts/apps/fruit/apples-composite-view-test.js'
+    ]);
+  });
+  it('contains AMD dependency', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /'.\/apples-item-view'/);
+  });
+  it('contains template', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-composite-view-template.hbs']/);
+  });
+  it('test with right content ', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view-test.js', /.\/apples-composite-view/);
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view-test.js', /, ApplesCompositeView/);
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view-test.js', /new ApplesCompositeView/);
   });
 });
 
@@ -38,7 +51,15 @@ describe('aowp-marionette:compositeview with existing itemview', function () {
   });
 
   it('creates files', function () {
-    expect('app/scripts/apps/fruit/apples-composite-view.js').to.be.a.file();
-    expect('app/scripts/apps/fruit/apples-composite-view-test.js').to.be.a.file();
+    assert.file([
+      'app/scripts/apps/fruit/apples-composite-view.js',
+      'app/scripts/apps/fruit/apples-composite-view-test.js'
+    ]);
+  });
+  it('contains AMD dependency', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /'.\/apple-item-view'/);
+  });
+  it('contains template', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-composite-view-template.hbs']/);
   });
 });
