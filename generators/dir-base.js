@@ -5,7 +5,6 @@ var DirectoryBase = generators.NamedBase.extend({
   constructor: function (/*args, options*/) {
     generators.generators.NamedBase.apply(this, arguments);
     this.option('directory', {alias:'d', desc: this.text});
-    // this.options.directory = 'app/scripts/apps/';
 
     this.options.directory = this.options.directory || this.options.d;
 

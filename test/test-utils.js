@@ -53,4 +53,13 @@ describe('utils', function () {
   it('template path with type in name', function () {
     assert.equal(utils.templateNameWithPath('my-example', 'my-example-layout-view', utils.type.layoutview), 'app/scripts/apps/my-example/my-example-layout-view-template.hbs', 'Template paths are equal');
   });
+  it('template file name', function () {
+    assert.equal(utils.templateName('my-example', utils.type.layoutview), 'my-example-layout-view-template.hbs');
+  });
+  it('template file name with suffix', function () {
+    assert.equal(utils.templateName('my-example-composite-view-template', utils.type.compositeview), 'my-example-composite-view-template.hbs');
+  });
+  it('template file name with template in name', function () {
+    assert.equal(utils.templateName('my-template-test', utils.type.compositeview), 'my-template-test-composite-view-template.hbs');
+  });
 });

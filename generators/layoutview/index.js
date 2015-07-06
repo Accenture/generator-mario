@@ -2,17 +2,18 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
+var helpers = require('../helpers');
 
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
     DirBase.apply(this, arguments);
-    this.option('template', {alias:'t', desc: 'specify a template to use in the layout view'});
+    this.option('template', {alias: 't', desc: 'specify a template to use in the layout view'});
   },
   initializing: function () {
-    this.options.template = this.options.template || this.options.t;
-
-    if(this.options.template) {
-      this.templateName = this.options.template;
+    this.template = this.options.template || this.options.t;
+    if (this.template) {
+      helpers.templatesOption(this.options.directory, this.template, utils.type.layoutview);
+      this.templateName = this.template;
     } else {
       this.templateName = this.name;
     }
@@ -26,7 +27,7 @@ module.exports = DirBase.extend({
       }
     );
 
-    if(! this.options.template) {
+    if (!this.template) {
       this.fs.copyTpl(
         this.templatePath('template.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
