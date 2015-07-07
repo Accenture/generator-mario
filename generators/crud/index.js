@@ -1,13 +1,8 @@
 'use strict';
 
 var generators = require('yeoman-generator');
-var path = require('path');
-var baseDir = 'app/scripts/apps';
 var ast = require('ast-query');
-
-function formatPath(postfix, generator) {
-  return './' + generator.name + postfix;
-}
+var utils = require('../utils');
 
 function formatName(postfix, generator) {
   return generator._.capitalize(generator._.camelize(generator.name + postfix));
@@ -16,7 +11,7 @@ function formatName(postfix, generator) {
 module.exports = generators.NamedBase.extend({
   constructor: function () {
     generators.generators.NamedBase.apply(this, arguments);
-    this.option('directory', {alias:'d', desc: 'create model within specified directory'});
+    this.option('directory', {alias:'d', desc: 'create crud within specified directory'});
   },
   initializing: function () {
     this.options.directory = this.options.directory || this.options.d;
@@ -36,15 +31,11 @@ module.exports = generators.NamedBase.extend({
     router: function() {
       this.fs.copyTpl(
         this.templatePath('router.js'),
-        this.destinationPath(
-          path.join(baseDir, this.options.directory, this.name + '-router.js')
-        ),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.router)),
         {
           name: this.name,
-          controllerPath: './' + this.name + '-controller',
-
-          //controller is not a contructor need to be lowercase first letter
-          controllerName: this._.camelize(this.name + 'Controller')
+          controllerPath: utils.amd(this.name, utils.type.controller),
+          controllerName: utils.className(this.options.directory, this.name, utils.type.controller)
         }
       );
     },
@@ -52,25 +43,23 @@ module.exports = generators.NamedBase.extend({
     controller: function () {
       this.fs.copyTpl(
         this.templatePath('controller.js'),
-        this.destinationPath(
-          path.join(baseDir, this.options.directory, this.name + '-controller.js')
-        ),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.controller)),
         {
           featureName: this.name,
           featureNameUpper: formatName('', this),
-          modelPath: formatPath('-model', this),
-          collectionPath: formatPath('-collection', this),
-          collectionViewPath: formatPath('-collection-view', this),
-          detailViewPath: formatPath('-detail-item-view', this),
-          createViewPath: formatPath('-create-item-view', this),
-          compositeViewPath: formatPath('-composite-view', this),
+          modelPath: utils.amd(this.name, utils.type.model),
+          collectionPath: utils.amd(this.name, utils.type.collection),
+          collectionViewPath: utils.amd(this.name, utils.type.collectionview),
+          detailViewPath: utils.amd(this.name + '-detail', utils.type.itemview),
+          createViewPath: utils.amd(this.name + '-create', utils.type.itemview),
+          compositeViewPath: utils.amd(this.name, utils.type.compositeview),
 
-          modelName: formatName('Model', this),
-          collectionName: formatName('Collection', this),
-          collectionViewName: formatName('CollectionView', this),
-          detailViewName: formatName('DetailItemView', this),
-          createViewName: formatName('CreateItemView', this),
-          compositeViewName: formatName('CompositeView', this)
+          modelName: utils.className(this.name, utils.type.model),
+          collectionName: utils.className(this.name, utils.type.collection),
+          collectionViewName: utils.className(this.name, utils.type.collectionview),
+          detailViewName: utils.className(this.name + '-detail', utils.type.itemview),
+          createViewName: utils.className(this.name + '-create', utils.type.itemview),
+          compositeViewName: utils.className(this.name, utils.type.compositeview)
         }
       );
     },
@@ -78,10 +67,10 @@ module.exports = generators.NamedBase.extend({
     collection: function () {
       this.fs.copyTpl(
         this.templatePath('collection.js'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-collection.js')),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collection)),
         {
-          modelName: formatName('Model', this),
-          modelPath: formatPath('-model', this)
+          modelName: utils.className(this.name, utils.type.model),
+          modelPath: utils.amd(this.name, utils.type.model)
         }
       );
     },
@@ -89,18 +78,16 @@ module.exports = generators.NamedBase.extend({
     item: function() {
       this.fs.copyTpl(
         this.templatePath('item-template.hbs'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-item-template.hbs')),
+        this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview)),
         {featureBaseRoute: this.name}
       );
 
       this.fs.copyTpl(
         this.templatePath('item-view.js'),
-        this.destinationPath(
-          path.join(baseDir, this.options.directory, this.name + '-item-view.js')
-        ),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.itemview)),
         {
           featureName: this.name,
-          templatePath: baseDir + '/' + this.options.directory + '/' + this.name + '-item-template.hbs',
+          templatePath: utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview),
           featureNameUpper: formatName('', this)
         }
       );
@@ -109,18 +96,16 @@ module.exports = generators.NamedBase.extend({
     detail: function () {
       this.fs.copy(
         this.templatePath('detail-template.hbs'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-detail-item-template.hbs'))
+        this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview))
       );
 
       this.fs.copyTpl(
         this.templatePath('detail-view.js'),
-        this.destinationPath(
-          path.join(baseDir, this.options.directory, this.name + '-detail-item-view.js')
-        ),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)),
         {
           featureName: this.name,
           featureNameUpper: formatName('', this),
-          templatePath: baseDir + '/' + this.options.directory + '/' + this.name + '-detail-item-template.hbs'
+          templatePath: utils.templateNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)
         }
       );
     },
@@ -128,18 +113,18 @@ module.exports = generators.NamedBase.extend({
     create: function() {
       this.fs.copy(
         this.templatePath('create-template.hbs'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-create-item-template.hbs'))
+        this.destinationPath(
+          utils.templateNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)
+        )
       );
 
       this.fs.copyTpl(
         this.templatePath('create-view.js'),
-        this.destinationPath(
-          path.join(baseDir, this.options.directory, this.name + '-create-item-view.js')
-        ),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)),
         {
           featureName: this.name,
           featureNameUpper: formatName('', this),
-          templatePath: baseDir + '/' + this.options.directory + '/' + this.name + '-create-item-template.hbs'
+          templatePath: utils.templateNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)
         }
       );
     },
@@ -147,21 +132,19 @@ module.exports = generators.NamedBase.extend({
     composite: function() {
       this.fs.copyTpl(
         this.templatePath('composite-template.hbs'),
-        this.destinationPath(path.join(baseDir, this.options.directory, this.name + '-composite-template.hbs')),
+        this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
         {name: this.name}
       );
 
       this.fs.copyTpl(
         this.templatePath('composite-view.js'),
-        this.destinationPath(
-          path.join(baseDir, this.options.directory, this.name + '-composite-view.js')
-        ),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
         {
           featureName: this.name,
           featureNameUpper: formatName('', this),
-          templatePath: baseDir + '/' + this.options.directory + '/' + this.name + '-composite-template.hbs',
-          itemViewPath: formatPath('-item-view', this),
-          itemViewName: formatName('ItemView', this)
+          templatePath: utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview),
+          itemViewPath: utils.amd(this.name, utils.type.itemview),
+          itemViewName: utils.className(this.name, utils.type.itemview)
         }
       );
     },

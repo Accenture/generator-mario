@@ -4,8 +4,6 @@ define([
     'backbone',
     '<%= modelPath %>'
 ], function (Backbone, <%= modelName %>) {
-    'use strict';
-
     return Backbone.Collection.extend({
         model: <%= modelName %>,
 

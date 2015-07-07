@@ -66,7 +66,7 @@ define([
         that.collection.remove(args.model.get('id'));
         Backbone.history.navigate('#<%= featureName %>', {trigger: true});
       });
-      view.listenTo(view, msg.SAVE, function(args) {
+      view.listenTo(view, msg.SAVE, function(/*args*/) {
         //TODO: model save e.g. args.model.save();
         Backbone.history.navigate('#<%= featureName %>', {trigger: true});
       });

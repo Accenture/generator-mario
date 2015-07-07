@@ -9,7 +9,7 @@ define(['marionette', 'templates'], function (Marionette, JST) {
       button: 'button.edit'
     },
     triggers: {
-      "click @ui.button": '<%= featureName %>:showDetail'
+      'click @ui.button': '<%= featureName %>:showDetail'
     }
   });
 });

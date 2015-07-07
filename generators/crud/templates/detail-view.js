@@ -21,7 +21,7 @@ define([
       var data = _.object(_.map(this.$('form').serializeArray(), _.values));
       this.model.unset('isPublished');
       this.model.set(data);
-      this.trigger('<%= featureName %>:save', {view: this, model: model});
+      this.trigger('<%= featureName %>:save', {view: this, model: this.model});
     }
   });
 });
