@@ -356,6 +356,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
+            'analyze',
             'createDefaultTemplate',
             'handlebars',
             'templates',
@@ -387,6 +388,12 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+<<<<<<< HEAD
+        'analyze',
+        'createDefaultTemplate',
+        'handlebars',
+=======
+>>>>>>> master
         'templates',
         'less',
         'useminPrepare',
@@ -404,12 +411,15 @@ module.exports = function (grunt) {
         'build'
     ]);
 
+<<<<<<< HEAD
+=======
     grunt.registerTask('beautify', [
         'jsbeautifier:modify',
         'jshint',
         'jscs'
     ]);
 
+>>>>>>> master
     grunt.registerTask('verify', [
         'jsbeautifier:verify',
         'jshint',

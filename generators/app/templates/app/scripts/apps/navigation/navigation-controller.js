@@ -13,5 +13,3 @@ define(['marionette', './navigation-item-view'], function (Marionette, Navigatio
         }
     });
 });
-
-
