@@ -35,7 +35,7 @@ module.exports = generators.NamedBase.extend({
         {
           name: this.name,
           controllerPath: utils.amd(this.name, utils.type.controller),
-          controllerName: utils.className(this.options.directory, this.name, utils.type.controller)
+          controllerName: utils.className(this.name, utils.type.controller)
         }
       );
     },
@@ -155,14 +155,32 @@ module.exports = generators.NamedBase.extend({
 
       // registering path to router in AMD
       var result = tree.callExpression('define');
-      result.arguments.at(0).push('\'apps/' + this.options.directory + '/' + this.name + '-router' + '\'');
+      var routerNameWithPath = 'apps/' + this.options.directory + '/' + this.name + '-' + utils.type.router;
+
+      var existingImports = result.arguments.at(0).nodes[0].elements;
+      var className = utils.className(this.name, utils.type.router);
+      var existingObjects = result.arguments.at(1).node.params;
+
+      //check import path exists
+      if (this._.some(existingImports, function(elem) { return elem.value === routerNameWithPath; }, this)) {
+        this.log.error('Router path conflict while updating app.js, aborting file update!');
+        return;
+      }
+
+      //check import object exists
+      if (this._.some(existingObjects, function(elem) { return elem.name === className; }, this)) {
+        this.log.error('Router Object name conflict while updating app.js, aborting file update!');
+        return;
+      }
+
+      //register import (filepath)
+      result.arguments.at(0).push('\'' + routerNameWithPath + '\'');
 
       // register router in function(X, Y, Z, OurRouter)
       result.arguments.at(1).node.params.push({
         type: 'Identifier',
-        name: formatName('-router', this)
+        name: className
       });
-
 
       var onResult = tree.var('initializeUI');
       // call new OurRouter();
