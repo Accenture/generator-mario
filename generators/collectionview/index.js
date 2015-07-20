@@ -2,6 +2,7 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
+var path = require('path');
 var itemview = {};
 itemview.path = '';
 itemview.class = '';
@@ -15,8 +16,13 @@ module.exports = DirBase.extend({
     this.options.itemview = this.options.itemview || this.options.i;
 
     if (this.options.itemview) {
-      itemview.path = utils.amd(this.options.itemview, utils.type.itemview);
-      itemview.class = utils.className(this.options.itemview, utils.type.itemview);
+      this.options.itemview = utils.truncateBasePath(this.options.itemview);
+      var pathFractions = path.parse(this.options.itemview);
+      var customViewName = pathFractions.name;
+      var customViewDir = pathFractions.dir;
+
+      itemview.path = utils.amd(customViewName, utils.type.itemview, customViewDir);
+      itemview.class = utils.className(customViewName, utils.type.itemview);
     } else {
       itemview.path = utils.amd(this.name, utils.type.itemview);
       itemview.class = utils.className(this.name, utils.type.itemview);

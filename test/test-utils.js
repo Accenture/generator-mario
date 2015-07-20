@@ -29,6 +29,9 @@ describe('utils', function () {
   it('model AMD with file name', function () {
     assert.equal(utils.amd('people-model', utils.type.model), './people-model', 'Model AMD paths are equal');
   });
+  it('amd handles custom direcotry', function() {
+    assert.equal(utils.amd('people-model', utils.type.model, 'customDirecotry'), 'apps/customDirecotry/people-model', 'Model AMD paths are equal');
+  });
   it('model ClassName', function () {
     assert.equal(utils.className('people', utils.type.model), 'PeopleModel', 'Model ClassName are equal');
   });
@@ -61,5 +64,8 @@ describe('utils', function () {
   });
   it('template file name with template in name', function () {
     assert.equal(utils.templateName('my-template-test', utils.type.compositeview), 'my-template-test-composite-view-template.hbs');
+  });
+  it('expanded path truncation', function() {
+    assert.equal(utils.truncateBasePath('app/scripts/apps/vegetables/broccoli'), 'vegetables/broccoli');
   });
 });

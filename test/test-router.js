@@ -30,14 +30,15 @@ describe('aowp-marionette:collection with existing controller', function () {
   });
 });
 
-describe('aowp-marionette:collection without existing controller', function () {
+describe('aowp-marionette:collection without existing controller expanded dirs', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators/router'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['some-feature'])
       .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:controller']])
       .withOptions({
-        directory: 'some-feature'
+        directory: 'app/scripts/apps/some-feature',
+        controller: 'app/scripts/apps/vegetables/broccoli-controller.js'
       })
       .on('end', done);
   });
@@ -47,10 +48,10 @@ describe('aowp-marionette:collection without existing controller', function () {
     ]);
   });
   it('contains AMD dependency', function() {
-    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'.\/some-feature-controller'/);
-    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /, SomeFeatureController/);
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'apps\/vegetables\/broccoli-controller'/);
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /, BroccoliController/);
   });
   it('contains controller class', function() {
-    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeFeatureController/);
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new BroccoliController/);
   });
 });

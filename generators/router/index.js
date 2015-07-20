@@ -1,6 +1,9 @@
 'use strict';
 var utils = require('../utils');
 var DirBase = require('../dir-base');
+var path = require('path');
+
+var controller = {};
 
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
@@ -11,9 +14,10 @@ module.exports = DirBase.extend({
     this.options.controller = this.options.controller || this.options.c;
     if(!this.options.controller) {
       this.composeWith('aowp-marionette:controller', {options: {directory: this.options.directory}, args: [this.name]});
-      this.controllerNameSpinal = this.name;
+      controller.name = this.name;
     } else {
-      this.controllerNameSpinal = this.options.controller;
+      this.options.controller = utils.truncateBasePath(this.options.controller);
+      controller = path.parse(this.options.controller);
     }
   },
   writing: function () {
@@ -22,8 +26,8 @@ module.exports = DirBase.extend({
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.router)),
       {
         name: this.name,
-        controllerPath: utils.amd(this.controllerNameSpinal, utils.type.controller),
-        controllerName: utils.className(this.controllerNameSpinal, utils.type.controller)
+        controllerPath: utils.amd(controller.name, utils.type.controller, controller.dir),
+        controllerName: utils.className(controller.name, utils.type.controller)
       }
     );
   }

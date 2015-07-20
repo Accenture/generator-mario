@@ -3,6 +3,7 @@
 var utils = require('../utils');
 var DirBase = require('../dir-base');
 var helpers = require('../helpers');
+var path = require('path');
 
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
@@ -11,11 +12,17 @@ module.exports = DirBase.extend({
   },
   initializing: function () {
     this.template = this.options.template || this.options.t;
+    this.customTplDir = this.options.directory;
+    this.customTplName = this.name;
+
     if (this.template) {
-      helpers.templatesOption(this.options.directory, this.template, utils.type.layoutview);
-      this.templateName = this.template;
-    } else {
-      this.templateName = this.name;
+      this.template = utils.truncateBasePath(this.template);
+
+      var pathFractions = path.parse(this.template);
+      this.customTplName = pathFractions.base;
+      this.customTplDir = pathFractions.dir;
+
+      helpers.templatesOption(this.customTplDir, this.customTplName, utils.type.itemview);
     }
   },
   writing: function () {
@@ -23,7 +30,7 @@ module.exports = DirBase.extend({
       this.templatePath('layout-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
-        templatePath: utils.templateNameWithPath(this.options.directory, this.templateName, utils.type.layoutview)
+        templatePath: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.layoutview)
       }
     );
 

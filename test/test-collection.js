@@ -63,3 +63,29 @@ describe('collection without existing model', function () {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /model: OtherFeatureModel/);
   });
 });
+
+describe('collection with existing model, expanded dirs', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/collection'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['other-feature'])
+      .withOptions({
+        directory: 'app/scripts/apps/other-feature',
+        model: 'app/scripts/apps/vegetables/broccoli-model.js'
+      })
+      .on('end', done);
+  });
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/other-feature/other-feature-collection.js',
+      'app/scripts/apps/other-feature/other-feature-collection-test.js'
+    ]);
+  });
+  it('contains AMD dependency', function () {
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /apps\/vegetables\/broccoli-model/);
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /, BroccoliModel/);
+  });
+  it('contains model Class', function () {
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /model: BroccoliModel/);
+  });
+});

@@ -2,6 +2,7 @@
 var path = require('path');
 var url = require('url');
 var baseDir = 'app/scripts/apps/';
+var appsDir = 'apps/';
 var _ = require('lodash');
 
 var hbsExt = '.hbs';
@@ -68,13 +69,26 @@ function templateNameWithPath(directory, name, type) {
   return url.resolve(baseDir + directory + '/', templatefileName(name, type));
 }
 
+function truncateBasePath(filePath) {
+  if(filePath.substring(0, 17) === baseDir) {
+    filePath = filePath.slice(17);
+  }
+
+  return filePath;
+}
+
 /**
- * creates relative AMD path from name and type
+ * creates relative AMD path from name and type if custom dir is not provided
+ * otherwise it will create a path relative to projects scripts forlder.
  * @param {String} name The name
  * @param {String} type The type saved in this.type
  */
-function amd(name, type) {
-  return './' + fileName(name, type);
+function amd(name, type, customDir) {
+  if(!customDir) {
+    return './' + fileName(name, type);
+  }
+
+  return appsDir + customDir + '/' + fileName(name, type);
 }
 
 function className(name, type) {
@@ -94,5 +108,6 @@ module.exports = {
   templateNameWithPath: templateNameWithPath,
   amd: amd,
   className: className,
-  type: _fileNames
+  type: _fileNames,
+  truncateBasePath: truncateBasePath
 };

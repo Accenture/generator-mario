@@ -1,26 +1,19 @@
 'use strict';
 
-var generators = require('yeoman-generator');
 var ast = require('ast-query');
+var DirBase = require('../dir-base');
 var utils = require('../utils');
 
 function formatName(postfix, generator) {
   return generator._.capitalize(generator._.camelize(generator.name + postfix));
 }
 
-module.exports = generators.NamedBase.extend({
+module.exports = DirBase.extend({
   constructor: function () {
-    generators.generators.NamedBase.apply(this, arguments);
+    DirBase.apply(this, arguments);
     this.option('directory', {alias:'d', desc: 'create crud within specified directory'});
   },
   initializing: function () {
-    this.options.directory = this.options.directory || this.options.d;
-
-    if(!this.options.directory) {
-      this.log.error('--directory option is required!');
-      process.exit(1);
-    }
-
     // generate model
     this.composeWith('aowp-marionette:model', {
       options: {directory: this.options.directory},

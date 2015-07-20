@@ -63,3 +63,29 @@ describe('aowp-marionette:compositeview with existing itemview', function () {
     assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-composite-view-template.hbs']/);
   });
 });
+
+describe('aowp-marionette:compositeview with existing itemview and optional dir using expanded paths', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/compositeview'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['apples'])
+      .withOptions({
+        directory: 'app/scripts/apps/fruit',
+        itemview: 'app/scripts/apps/vegetables/broccoli'
+      })
+      .on('end', done);
+  });
+
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/fruit/apples-composite-view.js',
+      'app/scripts/apps/fruit/apples-composite-view-test.js'
+    ]);
+  });
+  it('contains AMD dependency', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /'apps\/vegetables\/broccoli-item-view'/);
+  });
+  it('contains template', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-composite-view-template.hbs']/);
+  });
+});

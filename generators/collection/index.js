@@ -2,9 +2,11 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
+var path = require('path');
 var model = {};
 model.className = '';
 model.path = '';
+
 
 module.exports = DirBase.extend({
   constructor: function () {
@@ -15,8 +17,12 @@ module.exports = DirBase.extend({
     this.options.model = this.options.model || this.options.m;
     //check for model option
     if(this.options.model) {
-      model.path = utils.amd(this.options.model, utils.type.model);
-      model.className = utils.className(this.options.model, utils.type.model);
+      this.options.model = utils.truncateBasePath(this.options.model);
+
+      var pathFractions = path.parse(this.options.model);
+
+      model.path = utils.amd(pathFractions.name, utils.type.model, pathFractions.dir);
+      model.className = utils.className(pathFractions.name, utils.type.model);
     } else {
       model.path = utils.amd(this.name, utils.type.model);
       model.className = utils.className(this.name, utils.type.model);
