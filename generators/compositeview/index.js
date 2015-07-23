@@ -37,7 +37,7 @@ module.exports = DirBase.extend({
     }
 
     //template
-    this.customTplDir = this.options.directory;
+    this.customTplDir = this.options.directory.replace(/\/$/, '');
     this.customTplName = this.name;
 
     if (this.template) {

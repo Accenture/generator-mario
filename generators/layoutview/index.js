@@ -12,7 +12,7 @@ module.exports = DirBase.extend({
   },
   initializing: function () {
     this.template = this.options.template || this.options.t;
-    this.customTplDir = this.options.directory;
+    this.customTplDir = this.options.directory.replace(/\/$/, '');
     this.customTplName = this.name;
 
     if (this.template) {
