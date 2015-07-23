@@ -42,7 +42,12 @@ module.exports = yeoman.generators.Base.extend({
           message: 'What is IP address of your Phabricator server?',
           default: '127.0.0.1'
         }, function (answer) {
-          options.phabricatorIP = answer.phabricatorIP;
+          var url = answer.phabricatorIP;
+          if(url.indexOf('http') !== -1){
+            options.phabricatorIP = url;
+          }else{
+            options.phabricatorIP = 'http://' + url;
+          }
           done();
         });
       } else {
