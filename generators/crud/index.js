@@ -3,9 +3,46 @@
 var ast = require('ast-query');
 var DirBase = require('../dir-base');
 var utils = require('../utils');
+var _ = require('lodash');
+var fs = require('fs');
 
-function formatName(postfix, generator) {
-  return generator._.capitalize(generator._.camelize(generator.name + postfix));
+function registerComponent(tree, dir, name, type, generator, region) {
+  region = region || 'contentRegion';
+
+  // registering path to router in AMD
+  var result = tree.callExpression('define');
+  var componentNameWithPath = 'apps/' + dir + '/' + name + '-' + type;
+
+  var existingImports = result.arguments.at(0).nodes[0].elements;
+  var className = utils.className(name, type);
+  var existingObjects = result.arguments.at(1).node.params;
+
+  //check import path exists
+  if (_.some(existingImports, function(elem) { return elem.value === componentNameWithPath; }, generator)) {
+    generator.log.error(name + type + ' path conflict while updating app.js, aborting file update!');
+    return tree;
+  }
+
+  //check import object exists
+  if (_.some(existingObjects, function(elem) { return elem.name === className; }, generator)) {
+    generator.log.error(name + type + 'Router Object name conflict while updating app.js, aborting file update!');
+    return tree;
+  }
+
+  //register import (filepath)
+  result.arguments.at(0).push('\'' + componentNameWithPath + '\'');
+
+  // register router in function(X, Y, Z, OurRouter)
+  result.arguments.at(1).node.params.push({
+    type: 'Identifier',
+    name: className
+  });
+
+  var onResult = tree.var('initializeUI');
+  // call new OurRouter();
+  onResult.value().body.append('new ' + className + '({region: rootView.' + region + '});');
+
+  return tree;
 }
 
 module.exports = DirBase.extend({
@@ -39,7 +76,6 @@ module.exports = DirBase.extend({
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.controller)),
         {
           featureName: this.name,
-          featureNameUpper: formatName('', this),
           modelPath: utils.amd(this.name, utils.type.model),
           collectionPath: utils.amd(this.name, utils.type.collection),
           collectionViewPath: utils.amd(this.name, utils.type.collectionview),
@@ -81,7 +117,6 @@ module.exports = DirBase.extend({
         {
           featureName: this.name,
           templatePath: utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview),
-          featureNameUpper: formatName('', this)
         }
       );
     },
@@ -97,7 +132,6 @@ module.exports = DirBase.extend({
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)),
         {
           featureName: this.name,
-          featureNameUpper: formatName('', this),
           templatePath: utils.templateNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)
         }
       );
@@ -116,7 +150,6 @@ module.exports = DirBase.extend({
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)),
         {
           featureName: this.name,
-          featureNameUpper: formatName('', this),
           templatePath: utils.templateNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)
         }
       );
@@ -134,7 +167,6 @@ module.exports = DirBase.extend({
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
         {
           featureName: this.name,
-          featureNameUpper: formatName('', this),
           templatePath: utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview),
           itemViewPath: utils.amd(this.name, utils.type.itemview),
           itemViewName: utils.className(this.name, utils.type.itemview)
@@ -142,44 +174,29 @@ module.exports = DirBase.extend({
       );
     },
 
-    registerRouter: function () {
+    registerFeatures: function () {
       var filePath = this.destinationPath('app/scripts/app.js');
       var tree = ast(this.fs.read(filePath));
 
-      // registering path to router in AMD
-      var result = tree.callExpression('define');
-      var routerNameWithPath = 'apps/' + this.options.directory + '/' + this.name + '-' + utils.type.router;
-
-      var existingImports = result.arguments.at(0).nodes[0].elements;
-      var className = utils.className(this.name, utils.type.router);
-      var existingObjects = result.arguments.at(1).node.params;
-
-      //check import path exists
-      if (this._.some(existingImports, function(elem) { return elem.value === routerNameWithPath; }, this)) {
-        this.log.error('Router path conflict while updating app.js, aborting file update!');
-        return;
+      if(!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
+        tree = registerComponent(tree, 'sidebar', 'sidebar', utils.type.controller, this, 'sidebarRegion');
       }
-
-      //check import object exists
-      if (this._.some(existingObjects, function(elem) { return elem.name === className; }, this)) {
-        this.log.error('Router Object name conflict while updating app.js, aborting file update!');
-        return;
-      }
-
-      //register import (filepath)
-      result.arguments.at(0).push('\'' + routerNameWithPath + '\'');
-
-      // register router in function(X, Y, Z, OurRouter)
-      result.arguments.at(1).node.params.push({
-        type: 'Identifier',
-        name: className
-      });
-
-      var onResult = tree.var('initializeUI');
-      // call new OurRouter();
-      onResult.value().body.append('new ' + formatName('-router', this) + '({region: rootView.contentRegion});');
+      tree = registerComponent(tree, this.options.directory, this.name, utils.type.router, this);
 
       this.fs.write(filePath, tree.toString());
+    },
+
+    sidebarFeature: function () {
+      if(!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
+        console.log('Copying sidebar files ...');
+        this.fs.copy(
+          this.templatePath('sidebar'),
+          this.destinationPath('app/scripts/apps/sidebar')
+        );
+      } else {
+        console.log('Skipping sidebar files ...');
+      }
     }
+
   }
 });

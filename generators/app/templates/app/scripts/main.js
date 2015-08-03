@@ -39,7 +39,8 @@ require.config({
         underscore: '../bower_components/underscore/underscore',
         bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',
         handlebars: '../bower_components/handlebars/handlebars.runtime',
-        marionette: '../bower_components/backbone.marionette/lib/backbone.marionette'
+        marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
+        radio: '../bower_components/backbone.radio/build/backbone.radio'
     }
 });
 

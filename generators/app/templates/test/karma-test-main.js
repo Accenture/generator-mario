@@ -24,10 +24,10 @@ require.config({
     jquery: '../bower_components/jquery/dist/jquery',
     underscore: '../bower_components/underscore/underscore',
     backbone: '../bower_components/backbone/backbone',
+    radio: '../bower_components/backbone.radio/build/backbone.radio.js',
     marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
     handlebars: '../bower_components/handlebars/handlebars.runtime',
     templates: '../../.tmp/scripts/templates'
-
   },
 
   // dynamically load all test files

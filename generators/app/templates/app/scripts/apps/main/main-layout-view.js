@@ -6,10 +6,10 @@ define(['marionette', 'templates'], function (Marionette, JST) {
     return Marionette.LayoutView.extend({
         template: JST['app/scripts/apps/main/main-layout-view-template.hbs'],
         regions: {
-            'contentRegion': '#content',
-            'navigationRegion': '#navigation'
+            'navigationRegion': '#navigation',
+            'sidebarRegion': '#sidebar',
+            'contentRegion': '#content'
         },
         el: '#wrapper'
     });
 });
-
