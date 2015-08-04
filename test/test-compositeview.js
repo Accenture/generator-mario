@@ -5,6 +5,9 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 var chai = require('chai');
 chai.use(require('chai-fs'));
+var sinon = require('sinon');
+var existTest = require('../generators/path-verification');
+var stub;
 
 var assert = require('yeoman-generator').assert;
 
@@ -40,6 +43,9 @@ describe('aowp-marionette:compositeview without existing itemview', function () 
 
 describe('aowp-marionette:compositeview with existing itemview', function () {
   before(function (done) {
+    stub = sinon.stub(existTest, 'verifyPath', function () {
+      return true;
+    });
     helpers.run(path.join(__dirname, '../generators/compositeview'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['apples'])
@@ -62,10 +68,17 @@ describe('aowp-marionette:compositeview with existing itemview', function () {
   it('contains template', function () {
     assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-composite-view-template.hbs']/);
   });
+  afterEach(function(done){
+    stub.restore();
+    done();
+  });
 });
 
 describe('aowp-marionette:compositeview with existing itemview and optional dir using expanded paths', function () {
   before(function (done) {
+    stub = sinon.stub(existTest, 'verifyPath', function () {
+      return true;
+    });
     helpers.run(path.join(__dirname, '../generators/compositeview'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['apples'])
@@ -74,6 +87,10 @@ describe('aowp-marionette:compositeview with existing itemview and optional dir 
         itemview: 'app/scripts/apps/vegetables/broccoli'
       })
       .on('end', done);
+  });
+  afterEach(function(done){
+    stub.restore();
+    done();
   });
 
   it('creates files', function () {

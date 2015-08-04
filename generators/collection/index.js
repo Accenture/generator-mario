@@ -2,6 +2,7 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
+var pathVerification = require('../path-verification');
 var path = require('path');
 var model = {};
 model.className = '';
@@ -20,6 +21,7 @@ module.exports = DirBase.extend({
       this.options.model = utils.truncateBasePath(this.options.model);
 
       var pathFractions = path.parse(this.options.model);
+      pathVerification.verifyPath(pathFractions.dir, pathFractions.name, utils.type.model);
 
       model.path = utils.amd(pathFractions.name, utils.type.model, pathFractions.dir);
       model.className = utils.className(pathFractions.name, utils.type.model);

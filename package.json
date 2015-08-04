@@ -33,6 +33,7 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
-    "mocha": "*"
+    "mocha": "*",
+    "sinon": "^1.15.4"
   }
 }

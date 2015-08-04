@@ -2,6 +2,7 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
+var pathVerification = require('../path-verification');
 var path = require('path');
 var itemview = {};
 itemview.path = '';
@@ -20,6 +21,8 @@ module.exports = DirBase.extend({
       var pathFractions = path.parse(this.options.itemview);
       var customViewName = pathFractions.name;
       var customViewDir = pathFractions.dir;
+
+      pathVerification.verifyPath(pathFractions.dir, pathFractions.name, utils.type.itemview);
 
       itemview.path = utils.amd(customViewName, utils.type.itemview, customViewDir);
       itemview.class = utils.className(customViewName, utils.type.itemview);

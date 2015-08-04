@@ -3,10 +3,16 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
+var sinon = require('sinon');
 var os = require('os');
+var existTest = require('../generators/path-verification');
+var stub;
 
 describe('aowp-marionette:collection with existing model', function () {
   before(function (done) {
+    stub = sinon.stub(existTest, 'verifyPath', function () {
+      return true;
+    });
     helpers.run(path.join(__dirname, '../generators/collection'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['some-feature'])
@@ -35,6 +41,10 @@ describe('aowp-marionette:collection with existing model', function () {
   });
   it('test contains class', function() {
     assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-test.js', /new SomeFeatureCollection()/);
+  });
+  afterEach(function(done){
+    stub.restore();
+    done();
   });
 });
 
@@ -66,6 +76,9 @@ describe('collection without existing model', function () {
 
 describe('collection with existing model, expanded dirs', function () {
   before(function (done) {
+    stub = sinon.stub(existTest, 'verifyPath', function () {
+      return true;
+    });
     helpers.run(path.join(__dirname, '../generators/collection'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['other-feature'])
@@ -74,6 +87,10 @@ describe('collection with existing model, expanded dirs', function () {
         model: 'app/scripts/apps/vegetables/broccoli-model.js'
       })
       .on('end', done);
+  });
+  afterEach(function(done){
+    stub.restore();
+    done();
   });
   it('creates files', function () {
     assert.file([

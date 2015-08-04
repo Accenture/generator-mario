@@ -2,7 +2,7 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
-var helpers = require('../helpers');
+var pathVerification = require('../path-verification');
 var path = require('path');
 
 module.exports = DirBase.extend({
@@ -12,7 +12,7 @@ module.exports = DirBase.extend({
   },
   initializing: function () {
     this.template = this.options.template || this.options.t;
-    this.customTplDir = this.options.directory.replace(/\/$/, '');
+    this.customTplDir = this.options.directory || this.name;
     this.customTplName = this.name;
 
     if (this.template) {
@@ -20,9 +20,11 @@ module.exports = DirBase.extend({
 
       var pathFractions = path.parse(this.template);
       this.customTplName = pathFractions.base;
-      this.customTplDir = pathFractions.dir;
+      if(pathFractions.dir) {
+         this.customTplDir = pathFractions.dir;
+      }
 
-      helpers.templatesOption(this.customTplDir, this.customTplName, utils.type.itemview);
+      pathVerification.verifyPath(pathFractions.dir, pathFractions.name, utils.type.template);
     }
   },
   writing: function () {

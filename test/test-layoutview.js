@@ -6,6 +6,9 @@ var os = require('os');
 var chai = require('chai');
 chai.use(require('chai-fs'));
 var assert = require('yeoman-generator').assert;
+var sinon = require('sinon');
+var existTest = require('../generators/path-verification');
+var stub;
 
 
 describe('aowp-marionette:layoutview without template option', function () {
@@ -37,6 +40,9 @@ describe('aowp-marionette:layoutview without template option', function () {
 
 describe('aowp-marionette:layoutview with directory option', function () {
   before(function (done) {
+    stub = sinon.stub(existTest, 'verifyPath', function () {
+      return true;
+    });
     helpers.run(path.join(__dirname, '../generators/layoutview'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['apples'])
@@ -51,5 +57,12 @@ describe('aowp-marionette:layoutview with directory option', function () {
       'app/scripts/apps/fruit/apples-layout-view.js',
       'app/scripts/apps/fruit/apples-layout-view-test.js'
     ]);
+  });
+  it('contains template', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-layout-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-layout-view-template.hbs']/);
+  });
+  afterEach(function(done){
+    stub.restore();
+    done();
   });
 });

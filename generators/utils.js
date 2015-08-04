@@ -54,6 +54,11 @@ function getCollectionFileName(name) {
 }
 
 function fileNameWithPath(directory, name, type) {
+  var pathObject = path.parse(name);
+
+  if (pathObject.ext.length !== 0) {
+    return path.join(baseDir, directory, fileName(name, type));
+  }
   return path.join(baseDir, directory, fileName(name, type) + _jsext);
 }
 
@@ -92,6 +97,10 @@ function amd(name, type, customDir) {
 }
 
 function className(name, type) {
+  var pathObject = path.parse(name);
+  if (pathObject.ext.length !== 0) {
+    name = pathObject.name;
+  }
   if (name.lastIndexOf(type) === (name.length - type.length)) {
     name = name.substring(0, name.length - 1 - type.length);
   }

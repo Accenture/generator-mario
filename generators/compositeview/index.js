@@ -2,8 +2,11 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
-var helpers = require('../helpers');
 var path = require('path');
+var pathVerification = require('../path-verification');
+var itemview = {};
+itemview.path = '';
+itemview.class = '';
 
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
@@ -29,6 +32,8 @@ module.exports = DirBase.extend({
       var customViewName = pathFractions.name;
       var customViewDir = pathFractions.dir;
 
+      pathVerification.verifyPath(pathFractions.dir, pathFractions.name, utils.type.itemview);
+
       this.customView.path = utils.amd(customViewName, utils.type.itemview, customViewDir);
       this.customView.class = utils.className(customViewName, utils.type.itemview);
     } else {
@@ -37,7 +42,7 @@ module.exports = DirBase.extend({
     }
 
     //template
-    this.customTplDir = this.options.directory.replace(/\/$/, '');
+    this.customTplDir = this.options.directory || this.name;
     this.customTplName = this.name;
 
     if (this.template) {
@@ -45,9 +50,12 @@ module.exports = DirBase.extend({
 
       pathFractions = path.parse(this.template);
       this.customTplName = pathFractions.base;
-      this.customTplDir = pathFractions.dir;
 
-      helpers.templatesOption(this.customTplDir, this.customTplName, utils.type.itemview);
+      if(pathFractions.dir) {
+         this.customTplDir = pathFractions.dir;
+      }
+
+      pathVerification.verifyPath(this.options.directory, this.template, utils.type.template);
     }
   },
 
@@ -56,7 +64,8 @@ module.exports = DirBase.extend({
       this.templatePath('composite-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
-        itemview: this.customView.path,
+        childPath: this.customView.path,
+        childItemView: this.customView.class,
         template: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.compositeview)
       }
     );
@@ -67,6 +76,7 @@ module.exports = DirBase.extend({
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview))
       );
     }
+
     if (!this.itemview) {
       this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
     }
