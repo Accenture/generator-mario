@@ -8,6 +8,9 @@ var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
 
+var webpack = require("webpack");
+var webpackConfig = require('./webpack.config.js');
+
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 module.exports = function (grunt) {
@@ -75,39 +78,9 @@ module.exports = function (grunt) {
                 }
             }
         },
-        watch: {
-            options: {
-                nospawn: true,
-                livereload: true
-            },
-            less: {
-                options: {
-                    livereload: false
-                },
-                files: ['<%= yeoman.app %>/styles/*.less'],
-                task: ['less:dist']
-            },
-            livereload: {
-                options: {
-                    livereload: grunt.option('livereloadport') || LIVERELOAD_PORT
-                },
-                files: [
-                    '<%= yeoman.app %>/*.html',
-                    '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
-                    '{.tmp,<%= yeoman.app %>}/scripts/**/*.{js,hbs}',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    'test/spec/**/*.js'
-                ]
-            },
-            handlebars: {
-                files: ['<%= yeoman.app %>/scripts/**/*.hbs'],
-                tasks: ['handlebars']
-            }
-        },
         connect: {
             options: {
-                port: grunt.option('port') || SERVER_PORT,
-                hostname: '0.0.0.0'
+                port: grunt.option('port') || SERVER_PORT
             },
             proxies: [{
                 context: ['/api'],
@@ -119,56 +92,24 @@ module.exports = function (grunt) {
                 port: 8081,
                 ws: true
             }],
-            livereload: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            proxySnippet,
-                            lrSnippet,
-                            mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app)
-                        ];
-                    }
+
+            server: {
+              options: {
+                // keepalive: true,
+                middleware: function (connect) {
+                  return [
+                    mountFolder(connect, '.tmp')
+                  ];
                 }
-            },
-            test: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            lrSnippet,
-                            mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'test'),
-                            mountFolder(connect, yeomanConfig.app)
-                        ];
-                    }
-                }
-            },
-            testInBrowser: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            proxySnippet,
-                            mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'test'),
-                            mountFolder(connect, yeomanConfig.app)
-                        ];
-                    }
-                }
-            },
-            dist: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            proxySnippet,
-                            mountFolder(connect, yeomanConfig.dist)
-                        ];
-                    }
-                }
+              }
             }
         },
         open: {
+            options: {
+              delay: 1000
+            },
             server: {
-                path: 'http://localhost:<%= connect.options.port %>'
+                path: 'http://localhost:<%= connect.options.port %>/webpack-dev-server/'
             }
         },
         clean: {
@@ -221,7 +162,7 @@ module.exports = function (grunt) {
             }
         },
         usemin: {
-            html: ['<%= yeoman.dist %>/{,*/}*.html'],
+            // html: ['<%= yeoman.dist %>/{,*/}*.html'],
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
             options: {
                 dirs: ['<%= yeoman.dist %>']
@@ -241,7 +182,9 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     '<%= yeoman.dist %>/styles/main.css': [
-                        '.tmp/styles/{,*/}*.css'
+                        '.tmp/styles/{,*/}*.css',
+                        '<%= yeoman.app %>/bower_components/foundation/css/foundation.css',
+                        '<%= yeoman.app %>/styles/{,*/}*.css'
                     ]
                 }
             }
@@ -286,46 +229,34 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        bower: {
-            all: {
-                rjsConfig: '<%= yeoman.app %>/scripts/main.js'
-            }
+        webpack: {
+          options: webpackConfig,
+          build: {
+            keepAlive: false,
+            plugins: webpackConfig.plugins.concat(
+              new webpack.optimize.DedupePlugin(),
+              new webpack.optimize.UglifyJsPlugin()
+            )
+          }
         },
-        requirejs: {
-            dist: {
-                options: {
-                    dir: 'dist/scripts',
-                    paths: {
-                        'templates': '../../.tmp/scripts/templates'
-                    },
-                    mainConfigFile: 'app/scripts/main.js',
-                    optimize: 'uglify',
-                    modules: [{
-                        name: 'main'
-                    }],
-                    removeCombined: true,
-                    findNestedDependencies: true
-                }
+        'webpack-dev-server': {
+          options: {
+            webpack: webpackConfig,
+            port: SERVER_PORT,
+            publicPath: '/scripts/',
+            contentBase: './app/'
+          },
+          start: {
+            keepAlive: true,
+            watch: true,
+            plugins: webpackConfig.plugins.concat(
+              new webpack.HotModuleReplacementPlugin()
+            ),
+            webpack: {
+              debug: true,
+              devtool: 'source-map'
             }
-        },
-        rev: {
-            dist: {
-                files: {
-                    src: [
-                        '<%= yeoman.dist %>/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '/styles/fonts/{,*/}*.*',
-                        'jsondata/*.*'
-                    ]
-                }
-            }
-        },
-        less: { // task
-            dist: { // target
-                files: { // dictionary of files
-                    '.tmp/styles/main.css': '<%= yeoman.app %>/styles/main.less' // 'destination': 'source'
-                }
-            }
+          }
         }
     });
 
@@ -346,23 +277,18 @@ module.exports = function (grunt) {
         if (target === 'test') {
             return grunt.task.run([
                 'templates',
-                'connect:test',
+                // 'connect:test',
                 'open:test',
                 'watch'
             ]);
         }
 
         grunt.task.run([
-            'clean:server',
-            'analyze',
-            'createDefaultTemplate',
-            'handlebars',
-            'templates',
-            'less:dist',
-            'configureProxies',
-            'connect:livereload',
-            'open:server',
-            'watch'
+          'clean:server',
+          'createDefaultTemplate',
+          'handlebars',
+          'open:server',
+          'webpack-dev-server'
         ]);
     });
 
@@ -385,14 +311,8 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean:dist',
-        'analyze',
-        'createDefaultTemplate',
-        'handlebars',
         'templates',
-        'less',
-        'useminPrepare',
-        'requirejs',
+        'webpack:build',
         'imagemin',
         'cssmin',
         'copy',

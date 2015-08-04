@@ -56,20 +56,49 @@ module.exports = yeoman.generators.Base.extend({
 
     }.bind(this));
   },
+  webpackPrompt: function () {
+    var done = this.async();
+    this.prompt({
+      type: 'confirm',
+      name: 'useWebpack',
+      message: 'Would you like to use Webpack instead of requireJS (experimental)?',
+      default: false
+    }, function (answer) {
+      options.useWebpack = answer.useWebpack;
+      done();
+    }.bind(this));
+  },
   writing: {
     app: function () {
-      var templates = ['bower.json', 'Gruntfile.js', 'karma.conf.js', '.jsbeautifyrc', '.gitignore', '.bowerrc', 'app', 'test'];
-      this.fs.copyTpl(
-        this.templatePath('package.json'),
-        this.destinationPath('package.json'),
-        {appName: options.appName}
-      );
+      var templates = ['bower.json', '.jsbeautifyrc', '.gitignore', '.bowerrc', 'app', 'test', 'karma.conf.js', 'Gruntfile.js'];
+
       templates.forEach(function (name) {
         this.fs.copy(
           this.templatePath(name),
           this.destinationPath(name)
         );
       }, this);
+
+      this.fs.copyTpl(
+        this.templatePath('package.json'),
+        this.destinationPath('package.json'),
+        {appName: options.appName}
+      );
+
+      if(options.useWebpack) {
+        this.fs.copy(
+          this.templatePath('webpack'),
+          this.destinationPath(),
+          {appName: options.appName}
+        );
+
+        this.fs.copyTpl(
+          this.templatePath('webpack/package.json'),
+          this.destinationPath('package.json'),
+          {appName: options.appName}
+        );
+      }
+
       if (options.phabricatorDeps) {
         this.fs.copy(
           this.templatePath('.arclint'),
