@@ -53,7 +53,7 @@ describe('aowp-marionette:app with arcanist file default URL', function () {
     ]);
   });
   it('sets phabricator uri', function() {
-    assert.fileContent('.arcconfig', /"conduit_uri" : "http:\/\/127\.0\.0\.1\/"/);
+    assert.fileContent('.arcconfig', /conduit_uri" : "http:\/\/127.0.0.1/);
   });
 });
 
@@ -81,6 +81,6 @@ describe('aowp-marionette:app with arcanist and specified URL', function () {
     ]);
   });
   it('sets default phabricator uri', function() {
-    assert.fileContent('.arcconfig', /"conduit_uri" : "http:\/\/phabricator.mydomain.com\/"/);
+    assert.fileContent('.arcconfig', /conduit_uri" : "http:\/\/phabricator.mydomain.com/);
   });
 });

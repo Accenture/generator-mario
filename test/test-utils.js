@@ -3,6 +3,7 @@
 var utils = require('../generators/utils');
 var chai = require('chai');
 var assert = chai.assert;
+var path = require('path');
 
 describe('utils', function () {
   it('model file name', function () {
@@ -15,13 +16,13 @@ describe('utils', function () {
     assert.equal(utils.testName('people', utils.type.model), 'people-model-test', 'Model test file name are equal');
   });
   it('model with path', function () {
-    assert.equal(utils.fileNameWithPath('people', 'people', utils.type.model), 'app\\scripts\\apps\\people\\people-model.js', 'Model test file name are equal');
+    assert.equal(utils.fileNameWithPath('people', 'people', utils.type.model), path.join('app', 'scripts', 'apps', 'people', 'people-model.js'), 'Model test file name are equal');
   });
   it('layoutview with path', function () {
-    assert.equal(utils.fileNameWithPath('my-example', 'my-example', utils.type.layoutview), 'app\\scripts\\apps\\my-example\\my-example-layout-view.js', 'Layout view file name are equal');
+    assert.equal(utils.fileNameWithPath('my-example', 'my-example', utils.type.layoutview), path.join('app', 'scripts', 'apps', 'my-example', 'my-example-layout-view.js'), 'Layout view file name are equal');
   });
   it('layoutview with type in name', function () {
-    assert.equal(utils.fileNameWithPath('my-example', 'my-example-layout-view', utils.type.layoutview), 'app\\scripts\\apps\\my-example\\my-example-layout-view.js', 'Layout view file name are equal');
+    assert.equal(utils.fileNameWithPath('my-example', 'my-example-layout-view', utils.type.layoutview), path.join('app', 'scripts', 'apps', 'my-example', 'my-example-layout-view.js'), 'Layout view file name are equal');
   });
   it('model AMD', function () {
     assert.equal(utils.amd('people', utils.type.model), './people-model', 'Model AMD paths are equal');
@@ -48,7 +49,7 @@ describe('utils', function () {
     assert.equal(utils.testName('people-collection', utils.type.collection), 'people-collection-test', 'Test name');
   });
   it('test name with path', function () {
-    assert.equal(utils.testNameWithPath('people', 'people', utils.type.collection), 'app\\scripts\\apps\\people\\people-collection-test.js', 'Test name');
+    assert.equal(utils.testNameWithPath('people', 'people', utils.type.collection), path.join('app', 'scripts', 'apps', 'people', 'people-collection-test.js'), 'Test name');
   });
   it('template path', function () {
     assert.equal(utils.templateNameWithPath('address', 'address', utils.type.itemview), 'app/scripts/apps/address/address-item-view-template.hbs', 'Template paths are equal');
