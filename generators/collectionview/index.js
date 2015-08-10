@@ -11,10 +11,10 @@ itemview.class = '';
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
     DirBase.apply(this, arguments);
-    this.option('itemview', {alias:'i', desc: 'specify a item view to use with the collection view (they have to be in the same directory)'});
+    this.option('itemview', {alias:'itv', desc: 'specify a item view to use with the collection view (they have to be in the same directory)'});
   },
   initializing: function () {
-    this.options.itemview = this.options.itemview || this.options.i;
+    this.options.itemview = this.options.itemview || this.options.itv;
 
     if (this.options.itemview) {
       this.options.itemview = utils.truncateBasePath(this.options.itemview);

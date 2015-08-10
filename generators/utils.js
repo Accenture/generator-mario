@@ -107,6 +107,10 @@ function className(name, type) {
   return _.capitalize(_.camelCase(name + _.capitalize(_.camelCase(type))));
 }
 
+function variableName(name){
+  return name.substr(0,1).toLowerCase()+ name.substr(1);
+}
+
 module.exports = {
   fileName: fileName,
   testName: testName,
@@ -117,6 +121,7 @@ module.exports = {
   templateNameWithPath: templateNameWithPath,
   amd: amd,
   className: className,
+  varName: variableName,
   type: _fileNames,
   truncateBasePath: truncateBasePath
 };

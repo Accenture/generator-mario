@@ -11,11 +11,11 @@ itemview.class = '';
 module.exports = DirBase.extend({
   constructor: function (/*args, options*/) {
     DirBase.apply(this, arguments);
-    this.option('itemview', {alias: 'i', desc: 'creates itemView within specified directory'});
+    this.option('itemview', {alias: 'itv', desc: 'creates itemView within specified directory'});
     this.option('template', {alias: 't', desc: 'reuse existing template for composite view'});
   },
   initializing: function () {
-    this.itemview = this.options.itemview || this.options.i;
+    this.itemview = this.options.itemview || this.options.itv;
     this.template = this.options.template || this.options.t;
 
     //item view
