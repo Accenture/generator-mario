@@ -498,6 +498,7 @@ define([
 ```
 
 Fill the collection with some sample data and feed the collection into a new collection view, *app/scripts/app.js*:
+
 ```javascript
 var initializeUI = function () {
         var rootView = new MainLayoutView();

@@ -70,7 +70,7 @@ module.exports = yeoman.generators.Base.extend({
   },
   writing: {
     app: function () {
-      var templates = ['bower.json', '.jsbeautifyrc', '.gitignore', '.bowerrc', 'app', 'test', 'karma.conf.js', 'Gruntfile.js'];
+      var templates = ['bower.json', '.jsbeautifyrc', '.bowerrc', 'app', 'test', 'karma.conf.js', 'Gruntfile.js'];
 
       templates.forEach(function (name) {
         this.fs.copy(
@@ -110,6 +110,13 @@ module.exports = yeoman.generators.Base.extend({
           {ip: options.phabricatorIP}
         );
       }
+
+      // rename-copy gitignore manually
+      // (.gitignore files get removed upon `npm install`)
+      this.fs.copy(
+        this.templatePath('gitignore'),
+        this.destinationPath('.gitignore')
+      );
     },
     projectfiles: function () {
       var templates = ['.editorconfig', '.jshintrc'];
