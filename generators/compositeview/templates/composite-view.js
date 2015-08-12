@@ -1,10 +1,9 @@
 'use strict';
 define([
-  'app',
   'marionette',
   'templates',
   '<%= childPath %>'
-], function (App, Marionette, JST, <%= childItemView %>) {
+], function (Marionette, JST, <%= childItemView %>) {
 
   return Marionette.CompositeView.extend({
     tagName: 'div',

@@ -28,10 +28,24 @@ module.exports = DirBase.extend({
     }
   },
   writing: function () {
+    var ecma = this.config.get('ecma');
+    var sourceDir = '';
+    if (ecma === 6) {
+        sourceDir = 'es6/';
+    }
     this.fs.copyTpl(
-      this.templatePath('item-view.js'),
+      this.templatePath(sourceDir + 'item-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.itemview)),
       {dest: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.itemview)}
+    );
+
+    this.fs.copyTpl(
+      this.templatePath(sourceDir + 'item-view-test.js'),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview)),
+      {
+        dest: utils.amd(this.name, utils.type.itemview),
+        view: utils.className(this.name, utils.type.itemview)
+      }
     );
 
     if (!this.template) {
@@ -42,13 +56,5 @@ module.exports = DirBase.extend({
       );
     }
 
-    this.fs.copyTpl(
-      this.templatePath('item-view-test.js'),
-      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview)),
-      {
-        dest: utils.amd(this.name, utils.type.itemview),
-        view: utils.className(this.name, utils.type.itemview)
-      }
-    );
   }
 });

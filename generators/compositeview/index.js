@@ -60,8 +60,14 @@ module.exports = DirBase.extend({
   },
 
   writing: function () {
+    var ecma = this.config.get('ecma');
+    var sourceDir = '';
+    if (ecma === 6) {
+      sourceDir = 'es6/';
+    }
+
     this.fs.copyTpl(
-      this.templatePath('composite-view.js'),
+      this.templatePath(sourceDir + 'composite-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
         childPath: this.customView.path,
@@ -82,7 +88,7 @@ module.exports = DirBase.extend({
     }
 
     this.fs.copyTpl(
-      this.templatePath('composite-view-test.js'),
+      this.templatePath(sourceDir + 'composite-view-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
         compview: utils.amd(this.name, utils.type.compositeview),

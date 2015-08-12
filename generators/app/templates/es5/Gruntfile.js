@@ -26,6 +26,9 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
+
+
+
         karma: {
             unit: {
                 configFIle: 'karma.conf.js',
@@ -373,7 +376,10 @@ module.exports = function (grunt) {
         'karma:browser'
     ]);
 
-    grunt.registerTask('templates', [
+
+
+
+grunt.registerTask('templates', [
         'clean:dist',
         'createDefaultTemplate',
         'handlebars'

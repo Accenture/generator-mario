@@ -32,8 +32,13 @@ module.exports = DirBase.extend({
     }
   },
   writing: function () {
+    var ecma = this.config.get('ecma');
+    var sourceDir = '';
+    if (ecma === 6) {
+      sourceDir = 'es6/';
+    }
     this.fs.copyTpl(
-      this.templatePath('collection.js'),
+      this.templatePath(sourceDir + 'collection.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory , this.name, utils.type.collection)),
       {
         modelPath: model.path,
@@ -41,12 +46,13 @@ module.exports = DirBase.extend({
       }
     );
     this.fs.copyTpl(
-      this.templatePath('collection-test.js'),
+      this.templatePath(sourceDir + 'collection-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collection)),
       {
         collectionPath: utils.amd(this.name, utils.type.collection),
         collectionNameCamelCase: utils.className(this.name, utils.type.collection)
       }
     );
+
   }
 });

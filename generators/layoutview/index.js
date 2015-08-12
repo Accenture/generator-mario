@@ -28,8 +28,14 @@ module.exports = DirBase.extend({
     }
   },
   writing: function () {
+    var ecma = this.config.get('ecma');
+    var sourceDir = '';
+    if (ecma === 6) {
+        sourceDir = 'es6/';
+    }
+
     this.fs.copyTpl(
-      this.templatePath('layout-view.js'),
+      this.templatePath(sourceDir + 'layout-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
         templatePath: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.layoutview)
@@ -47,7 +53,7 @@ module.exports = DirBase.extend({
     }
 
     this.fs.copyTpl(
-      this.templatePath('layout-view-test.js'),
+      this.templatePath(sourceDir + 'layout-view-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
         viewPath: utils.amd(this.name, utils.type.layoutview),

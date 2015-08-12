@@ -5,13 +5,18 @@ var DirBase = require('../dir-base');
 
 module.exports = DirBase.extend({
   writing: function () {
+    var ecma = this.config.get('ecma');
+    var sourceDir = '';
+    if (ecma === 6) {
+        sourceDir = 'es6/';
+    }
     this.fs.copyTpl(
-      this.templatePath('model.js'),
+      this.templatePath(sourceDir + 'model.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.model))
     );
 
     this.fs.copyTpl(
-      this.templatePath('model-test.js'),
+      this.templatePath(sourceDir + 'model-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.model)),
       {
         modelPath: utils.amd(this.name, utils.type.model),

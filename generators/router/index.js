@@ -23,8 +23,13 @@ module.exports = DirBase.extend({
     }
   },
   writing: function () {
+    var ecma = this.config.get('ecma');
+    var sourceDir = '';
+    if (ecma === 6) {
+      sourceDir = 'es6/';
+    }
     this.fs.copyTpl(
-      this.templatePath('router.js'),
+      this.templatePath(sourceDir + 'router.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.router)),
       {
         name: this.name,

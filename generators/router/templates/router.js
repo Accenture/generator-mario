@@ -1,8 +1,8 @@
 'use strict';
 
 define([
-  'backbone', 'marionette', '<%= controllerPath %>'
-], function(Backbone, Marionette, <%= controllerName %>) {
+  'marionette', '<%= controllerPath %>'
+], function(Marionette, <%= controllerName %>) {
 
   return Marionette.AppRouter.extend({
     initialize: function(options) {

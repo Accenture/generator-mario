@@ -32,8 +32,16 @@ module.exports = DirBase.extend({
     }
   },
   writing: function () {
+    if (!this.options.itemview) {
+      this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
+    }
+    var ecma = this.config.get('ecma');
+    var sourceDir = '';
+    if (ecma === 6) {
+      sourceDir = 'es6/';
+    }
     this.fs.copyTpl(
-      this.templatePath('collection-view.js'),
+      this.templatePath(sourceDir + 'collection-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collectionview)),
       {
         childPath: itemview.path,
@@ -41,15 +49,12 @@ module.exports = DirBase.extend({
       }
     );
     this.fs.copyTpl(
-      this.templatePath('collection-view-test.js'),
+      this.templatePath(sourceDir + 'collection-view-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collectionview)),
       {
         viewPath: utils.amd(this.name, utils.type.collectionview),
         viewName: utils.className(this.name, utils.type.collectionview)
       }
     );
-    if (!this.options.itemview) {
-      this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
-    }
   }
 });
