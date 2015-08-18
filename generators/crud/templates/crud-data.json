@@ -1,0 +1,32 @@
+[
+	{
+		"text": "This is just a sample text", 
+		"author": "Sample", 
+		"created": 1439545097459, 
+		"isPublished": true
+	},
+	{
+		"text": "This is just an example text", 
+		"author": "Example", 
+		"created": 1439545097459, 
+		"isPublished": false
+	},
+	{
+		"text": "This is just a mapple text", 
+		"author": "Mapple", 
+		"created": 1439545097459, 
+		"isPublished": true
+	},
+	{
+		"text": "This is just an apple text", 
+		"author": "Apple", 
+		"created": 1439545097459, 
+		"isPublished": true
+	},
+	{
+		"text": "This is just an orange text", 
+		"author": "Orange", 
+		"created": 1439545097459, 
+		"isPublished": false
+	}
+]

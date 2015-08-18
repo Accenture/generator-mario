@@ -99,7 +99,8 @@ module.exports = DirBase.extend({
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collection)),
         {
           modelName: utils.className(this.name, utils.type.model),
-          modelPath: utils.amd(this.name, utils.type.model)
+          modelPath: utils.amd(this.name, utils.type.model),
+          jsonUrl: '/jsondata/' + this.name + '-crud-data.json'
         }
       );
     },
@@ -171,6 +172,13 @@ module.exports = DirBase.extend({
           itemViewPath: utils.amd(this.name, utils.type.itemview),
           itemViewName: utils.className(this.name, utils.type.itemview)
         }
+      );
+    },
+
+    dataJSON: function() {
+      this.fs.copy(
+        this.templatePath('crud-data.json'),
+        this.destinationPath('app/jsondata/' + this.name + '-crud-data.json')
       );
     },
 
