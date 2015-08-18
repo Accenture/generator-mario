@@ -12,7 +12,7 @@ describe('aowp-marionette:app', function () {
       .withOptions({ 'skip-install': true })
       .withPrompt({
         someOption: true,
-        appName: 'demo-application'
+        projectName: 'demo-application'
       })
       .on('end', done);
   });

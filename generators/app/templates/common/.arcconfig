@@ -1,5 +1,5 @@
 {
- "project_id" : "aowp-marionette",
+ "project_id" : "<%= appName %>",
  "conduit_uri" : "<%= ip %>",
  "lint.engine" : "ArcanistConfigurationDrivenLintEngine",
  "lint.engine.single.linter" : "ArcanistJSHintLinter",
