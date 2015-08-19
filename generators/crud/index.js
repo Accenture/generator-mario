@@ -120,6 +120,16 @@ module.exports = DirBase.extend({
           templatePath: utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview),
         }
       );
+
+      this.fs.copyTpl(
+        this.templatePath('item-view-test.js'),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview)),
+        {
+          itemViewPath: utils.amd(this.name, utils.type.itemview),
+          itemViewName: utils.className(this.name, utils.type.itemview),
+          featureName: this.name
+        }
+      );
     },
 
     detail: function () {
@@ -134,6 +144,16 @@ module.exports = DirBase.extend({
         {
           featureName: this.name,
           templatePath: utils.templateNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)
+        }
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('detail-view-test.js'),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)),
+        {
+          detailItemViewPath: utils.amd(this.name + '-detail', utils.type.itemview),
+          detailItemViewName: utils.className(this.name + '-detail', utils.type.itemview),
+          featureName: this.name
         }
       );
     },
@@ -154,6 +174,16 @@ module.exports = DirBase.extend({
           templatePath: utils.templateNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)
         }
       );
+
+      this.fs.copyTpl(
+        this.templatePath('create-view-test.js'),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)),
+        {
+          createItemViewPath: utils.amd(this.name + '-create', utils.type.itemview),
+          createItemViewName: utils.className(this.name + '-create', utils.type.itemview),
+          featureName: this.name
+        }
+      );
     },
 
     composite: function() {
@@ -171,6 +201,16 @@ module.exports = DirBase.extend({
           templatePath: utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview),
           itemViewPath: utils.amd(this.name, utils.type.itemview),
           itemViewName: utils.className(this.name, utils.type.itemview)
+        }
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('composite-view-test.js'),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
+        {
+          compositeViewPath: utils.amd(this.name, utils.type.compositeview),
+          compositeViewName: utils.className(this.name, utils.type.compositeview),
+          featureName: this.name
         }
       );
     },

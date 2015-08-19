@@ -9,7 +9,8 @@ define([
   describe('SidebarItemView', function () {
     beforeEach(function () {
       this.model = new Backbone.Model({
-        id: '1'
+        name: 'Sample',
+        count: 20
       });
       this.view = new SidebarItemView({model: this.model});
       this.view.render();
@@ -18,8 +19,11 @@ define([
     it('render() should return the view object', function () {
       expect(this.view.render()).to.equal(this.view);
     });
-    it('id should equal 1', function () {
-      expect(this.view.render().$('h2').text()).to.equal('1');
+    it('name should equal Sample', function () {
+      expect(this.view.render().$('.text-capitalize').text()).to.equal('Sample');
+    });
+    it('count should equal 20', function () {
+      expect(this.view.render().$('.badge.pull-right').text()).to.equal('20');
     });
   });
 });

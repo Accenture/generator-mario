@@ -13,6 +13,7 @@ module.exports = function (config) {
             {pattern: 'app/bower_components/jquery/dist/jquery.js', included: false},
             {pattern: 'app/bower_components/underscore/underscore.js', included: false},
             {pattern: 'app/bower_components/backbone/backbone.js', included: false},
+            {pattern: 'app/bower_components/backbone.radio/build/backbone.radio.js', included: false},
             {pattern: 'app/bower_components/backbone.marionette/lib/backbone.marionette.js', included: false},
             {pattern: 'app/bower_components/handlebars/handlebars.runtime.js', included: false},
             {pattern: 'app/bower_components/bootstrap/dist/js/bootstrap.min.js', included: false},
