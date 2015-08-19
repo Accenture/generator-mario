@@ -5,6 +5,6 @@ require([
     'app',
     'bootstrap',
     '../styles/main.less'
-], function (App) {
+], function(App) {
     App.start();
 });

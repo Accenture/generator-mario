@@ -27,15 +27,43 @@ var appFiles = function(){
         }
     );
 
+    var prefix = (this.ecma === 'es6') ? 'es6/' : 'es5/';
+    var esmaSpecificTemplates = ['app/scripts', 'Gruntfile.js'];
+
+    esmaSpecificTemplates.forEach(function (name) {
+        // skip gruntfile for gulp configuration
+        if(this.useGulp && name === 'Gruntfile.js') {
+          return;   
+        }
+
+        this.fs.copy(
+          this.templatePath(prefix + name),
+          this.destinationPath(name)
+        );
+
+    }, this);
+
     if(this.useWebpack) {
         this.fs.copy(
             this.templatePath('webpack'),
-            this.destinationPath(),
-            {appName: this.projectName}
+            this.destinationPath()
         );
 
         this.fs.copyTpl(
             this.templatePath('webpack/package.json'),
+            this.destinationPath('package.json'),
+            {appName: this.projectName}
+        );
+    }
+
+    if(this.useGulp) {
+        this.fs.copy(
+            this.templatePath('gulp'),
+            this.destinationPath()
+        );
+
+        this.fs.copyTpl(
+            this.templatePath('gulp/package.json'),
             this.destinationPath('package.json'),
             {appName: this.projectName}
         );
@@ -58,10 +86,9 @@ var appFiles = function(){
         this.destinationPath('karma.conf.js'),
         {options: this.answers}
     );
-    this.fs.copyTpl(
+    this.fs.copy(
         this.templatePath('common/test/karma-test-main.js'),
-        this.destinationPath('test/karma-test-main.js'),
-        {options: this.answers}
+        this.destinationPath('test/karma-test-main.js')
     );
 
     // rename-copy gitignore manually

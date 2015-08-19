@@ -1,7 +1,7 @@
 'use strict';
 
 var projectFiles = function(){
-    var templates = ['.editorconfig', '.jshintrc'];
+    var templates = ['.editorconfig', '.jshintrc', '.jscsrc'];
 
     templates.forEach(function (name) {
         this.fs.copy(

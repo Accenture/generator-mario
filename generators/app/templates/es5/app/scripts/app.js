@@ -6,7 +6,7 @@ define([
     'apps/main/main-layout-view',
     'apps/navigation/navigation-controller',
     'apps/home/home-router'
-], function (
+], function(
     Backbone,
     Marionette,
     helpers,
@@ -17,7 +17,7 @@ define([
     helpers.initialize();
     var App = new Marionette.Application();
 
-    var initializeUI = function () {
+    var initializeUI = function() {
         var rootView = new MainLayoutView();
         rootView.render();
         new NavigationController({
@@ -28,13 +28,12 @@ define([
         });
     };
 
-    App.on('start', function () {
+    App.on('start', function() {
         initializeUI();
         if (Backbone.history) {
             Backbone.history.start();
         }
     });
-
 
     return App;
 });

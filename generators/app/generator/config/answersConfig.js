@@ -18,7 +18,6 @@ var answersConfig = function () {
 
   // Project Info
   this.projectName = this.answers.projectName;
-  this.useWebpack = this.answers.useWebpack;
   this.phabricatorDeps = this.answers.phabricatorDeps;
   this.phabricatorIP = this.answers.phabricatorIP;
   this.ecma = this.answers.ecma;

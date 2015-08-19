@@ -21,7 +21,7 @@ require.config({
         },
         handlebars: {
             exports: 'Handlebars',
-            init: function () {
+            init: function() {
                 this.Handlebars = Handlebars;
                 return this.Handlebars;
             }
@@ -47,6 +47,6 @@ require.config({
 require([
     'app',
     'bootstrap'
-], function (App) {
+], function(App) {
     App.start();
 });

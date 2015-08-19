@@ -7,16 +7,32 @@ var path = require('path');
 var config = [];
 var tasks = {};
 
+/* 
+ * Order here is to determine when to call which part of the code.
+ * (init prompt comes first, copying files after that and installing dependencies comes last)
+ *
+ * Names in the order array must match the variable name assigned to code in partial files otherwise 
+ * they will be put at the end of the array.
+ *
+ * Take a look at the function in the helpers/grabFiles.js file.
+ */
 var order = [
+    //prompts
     'existing',
     'initPrompts',
-    'arcanistPrompts',
+    'buildToolPrompts',
     'ecmaPrompts',
-    'webpackPrompts',
-    'answers',
+    'arcanistPrompts',
+
+    //config & env setup
+    'answersConfig',
     'saveConfig',
+
+    //copy
     'appFiles',
     'projectFiles',
+    
+    //install
     'installConfig'
 ];
 
