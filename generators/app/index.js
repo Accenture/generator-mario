@@ -53,5 +53,6 @@ config.forEach(function(item) {
 module.exports =  yeoman.generators.Base.extend(_.merge({
   init: function () {
     this.pkg = require('../../package.json');
+
   }
 },tasks));
