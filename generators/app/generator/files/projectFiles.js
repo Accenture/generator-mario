@@ -1,7 +1,7 @@
 'use strict';
 
 var projectFiles = function(){
-    var templates = ['.editorconfig', '.jshintrc', '.jscsrc'];
+    var templates = ['.editorconfig', '.jscsrc'];
 
     templates.forEach(function (name) {
         this.fs.copy(
@@ -10,6 +10,11 @@ var projectFiles = function(){
         );
     }, this);
 
+    this.fs.copyTpl(
+        this.templatePath('common/_.jshintrc'),
+        this.destinationPath('.jshintrc'),
+        {options: this.answers}
+  	);
 };
 
 module.exports = projectFiles;

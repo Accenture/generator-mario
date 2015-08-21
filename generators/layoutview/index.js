@@ -35,7 +35,7 @@ module.exports = DirBase.extend({
     }
 
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'layout-view.js'),
+      this.templatePath(sourceDir + '_layout-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
         templatePath: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.layoutview)
@@ -44,7 +44,7 @@ module.exports = DirBase.extend({
 
     if (!this.template) {
       this.fs.copyTpl(
-        this.templatePath('template.hbs'),
+        this.templatePath('_template.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
         {
           title: this.name
@@ -53,7 +53,7 @@ module.exports = DirBase.extend({
     }
 
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'layout-view-test.js'),
+      this.templatePath(sourceDir + '_layout-view-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
         viewPath: utils.amd(this.name, utils.type.layoutview),

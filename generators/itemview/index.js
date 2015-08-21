@@ -34,13 +34,13 @@ module.exports = DirBase.extend({
         sourceDir = 'es6/';
     }
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'item-view.js'),
+      this.templatePath(sourceDir + '_item-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.itemview)),
       {dest: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.itemview)}
     );
 
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'item-view-test.js'),
+      this.templatePath(sourceDir + '_item-view-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview)),
       {
         dest: utils.amd(this.name, utils.type.itemview),
@@ -50,7 +50,7 @@ module.exports = DirBase.extend({
 
     if (!this.template) {
       this.fs.copyTpl(
-        this.templatePath('template.hbs'),
+        this.templatePath('_template.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview)),
         {title: this.name}
       );

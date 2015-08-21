@@ -136,7 +136,7 @@ module.exports = DirBase.extend({
         sourceDir = 'es6/';
     }
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'controller.js'),
+      this.templatePath(sourceDir + '_controller.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.controller)),
       {
         name: utils.fileName(this.name, utils.type.controller),

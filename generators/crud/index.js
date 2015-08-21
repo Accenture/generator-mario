@@ -60,7 +60,7 @@ module.exports = DirBase.extend({
   writing: {
     router: function() {
       this.fs.copyTpl(
-        this.templatePath('router.js'),
+        this.templatePath('_router.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.router)),
         {
           name: this.name,
@@ -72,7 +72,7 @@ module.exports = DirBase.extend({
 
     controller: function () {
       this.fs.copyTpl(
-        this.templatePath('controller.js'),
+        this.templatePath('_controller.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.controller)),
         {
           featureName: this.name,
@@ -95,7 +95,7 @@ module.exports = DirBase.extend({
 
     collection: function () {
       this.fs.copyTpl(
-        this.templatePath('collection.js'),
+        this.templatePath('_collection.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collection)),
         {
           modelName: utils.className(this.name, utils.type.model),
@@ -107,13 +107,13 @@ module.exports = DirBase.extend({
 
     item: function() {
       this.fs.copyTpl(
-        this.templatePath('item-template.hbs'),
+        this.templatePath('_item-template.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview)),
         {featureBaseRoute: this.name}
       );
 
       this.fs.copyTpl(
-        this.templatePath('item-view.js'),
+        this.templatePath('_item-view.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.itemview)),
         {
           featureName: this.name,
@@ -139,7 +139,7 @@ module.exports = DirBase.extend({
       );
 
       this.fs.copyTpl(
-        this.templatePath('detail-view.js'),
+        this.templatePath('_detail-view.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)),
         {
           featureName: this.name,
@@ -167,7 +167,7 @@ module.exports = DirBase.extend({
       );
 
       this.fs.copyTpl(
-        this.templatePath('create-view.js'),
+        this.templatePath('_create-view.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)),
         {
           featureName: this.name,
@@ -188,13 +188,13 @@ module.exports = DirBase.extend({
 
     composite: function() {
       this.fs.copyTpl(
-        this.templatePath('composite-template.hbs'),
+        this.templatePath('_composite-template.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
         {name: this.name}
       );
 
       this.fs.copyTpl(
-        this.templatePath('composite-view.js'),
+        this.templatePath('_composite-view.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
         {
           featureName: this.name,

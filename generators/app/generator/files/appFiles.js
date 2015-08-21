@@ -13,13 +13,13 @@ var appFiles = function(){
     }, this);
 
     this.fs.copyTpl(
-        this.templatePath('common/bower.json'),
+        this.templatePath('common/_bower.json'),
         this.destinationPath('bower.json'),
         {appName: this.projectName}
     );
 
     this.fs.copyTpl(
-        this.templatePath('common/package.json'),
+        this.templatePath('common/_package.json'),
         this.destinationPath('package.json'),
         {
             appName: this.projectName,
@@ -48,7 +48,7 @@ var appFiles = function(){
           this.templatePath('es6/grunt-tasks'),
           this.destinationPath('grunt-tasks')
         );
-      }
+    }
 
     if(this.useWebpack) {
         this.fs.copy(
@@ -82,14 +82,14 @@ var appFiles = function(){
             this.destinationPath('.arclint')
         );
         this.fs.copyTpl(
-            this.templatePath('common/.arcconfig'),
+            this.templatePath('common/_.arcconfig'),
             this.destinationPath('.arcconfig'),
             {ip: this.phabricatorIP, appName: this.projectName}
         );
     }
 
     this.fs.copyTpl(
-        this.templatePath('common/karma.conf.js'),
+        this.templatePath('common/_karma.conf.js'),
         this.destinationPath('karma.conf.js'),
         {options: this.answers}
     );

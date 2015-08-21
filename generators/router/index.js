@@ -29,7 +29,7 @@ module.exports = DirBase.extend({
       sourceDir = 'es6/';
     }
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'router.js'),
+      this.templatePath(sourceDir + '_router.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.router)),
       {
         name: this.name,

@@ -11,12 +11,12 @@ module.exports = DirBase.extend({
         sourceDir = 'es6/';
     }
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'model.js'),
+      this.templatePath(sourceDir + '_model.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.model))
     );
 
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'model-test.js'),
+      this.templatePath(sourceDir + '_model-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.model)),
       {
         modelPath: utils.amd(this.name, utils.type.model),

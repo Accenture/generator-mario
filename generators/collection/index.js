@@ -38,7 +38,7 @@ module.exports = DirBase.extend({
       sourceDir = 'es6/';
     }
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'collection.js'),
+      this.templatePath(sourceDir + '_collection.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory , this.name, utils.type.collection)),
       {
         modelPath: model.path,
@@ -46,7 +46,7 @@ module.exports = DirBase.extend({
       }
     );
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'collection-test.js'),
+      this.templatePath(sourceDir + '_collection-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collection)),
       {
         collectionPath: utils.amd(this.name, utils.type.collection),

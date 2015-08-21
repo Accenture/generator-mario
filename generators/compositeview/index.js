@@ -67,7 +67,7 @@ module.exports = DirBase.extend({
     }
 
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'composite-view.js'),
+      this.templatePath(sourceDir + '_composite-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
         childPath: this.customView.path,
@@ -78,7 +78,7 @@ module.exports = DirBase.extend({
 
     if (!this.template) {
       this.fs.copyTpl(
-        this.templatePath('composite-view.hbs'),
+        this.templatePath('_composite-view.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview))
       );
     }
@@ -88,7 +88,7 @@ module.exports = DirBase.extend({
     }
 
     this.fs.copyTpl(
-      this.templatePath(sourceDir + 'composite-view-test.js'),
+      this.templatePath(sourceDir + '_composite-view-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
         compview: utils.amd(this.name, utils.type.compositeview),
