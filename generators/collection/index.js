@@ -30,6 +30,10 @@ module.exports = DirBase.extend({
       model.className = utils.className(this.name, utils.type.model);
       this.composeWith('aowp-marionette:model', {options: {directory: this.options.directory}, args: [this.name]});
     }
+    this.utils = new utils.Utils();
+    if (this.options.tests === 'separate') {
+      this.utils.testBaseDir = 'test/apps';
+    }
   },
   writing: function () {
     var ecma = this.config.get('ecma');
@@ -37,6 +41,7 @@ module.exports = DirBase.extend({
     if (ecma === 6) {
       sourceDir = 'es6/';
     }
+
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_collection.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory , this.name, utils.type.collection)),
@@ -47,12 +52,11 @@ module.exports = DirBase.extend({
     );
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_collection-test.js'),
-      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collection)),
+      this.destinationPath(this.utils.testNameWithPath(this.options.directory, this.name, utils.type.collection)),
       {
-        collectionPath: utils.amd(this.name, utils.type.collection),
+        collectionPath: utils.amd(this.name, utils.type.collection, this.options.directory),
         collectionNameCamelCase: utils.className(this.name, utils.type.collection)
       }
     );
-
   }
 });

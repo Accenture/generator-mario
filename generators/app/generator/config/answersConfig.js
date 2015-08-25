@@ -12,7 +12,8 @@ var answersConfig = function () {
       this.initPrompts,
       this.arcanistPrompts,
       this.webpackPrompts,
-      this.ecmaPrompts
+      this.ecmaPrompts,
+      this.tests
     );
   }
 
@@ -21,6 +22,7 @@ var answersConfig = function () {
   this.phabricatorDeps = this.answers.phabricatorDeps;
   this.phabricatorIP = this.answers.phabricatorIP;
   this.ecma = this.answers.ecma;
+  this.tests = this.answers.tests;
 };
 
 module.exports = answersConfig;

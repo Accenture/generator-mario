@@ -4,7 +4,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  './home-item-view'
+  'apps/home/home-item-view'
 ], function ($, _, Backbone, HomeItemView) {
   'use strict';
 

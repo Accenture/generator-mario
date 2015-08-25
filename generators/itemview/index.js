@@ -26,6 +26,10 @@ module.exports = DirBase.extend({
 
       pathVerification.verifyPath(this.customTplDir, pathFractions.name, utils.type.template);
     }
+    this.utils = new utils.Utils();
+    if (this.options.tests === 'separate') {
+      this.utils.testBaseDir = 'test/apps';
+    }
   },
   writing: function () {
     var ecma = this.config.get('ecma');
@@ -33,6 +37,7 @@ module.exports = DirBase.extend({
     if (ecma === 6) {
         sourceDir = 'es6/';
     }
+
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_item-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.itemview)),
@@ -41,9 +46,9 @@ module.exports = DirBase.extend({
 
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_item-view-test.js'),
-      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview)),
+      this.destinationPath(this.utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview)),
       {
-        dest: utils.amd(this.name, utils.type.itemview),
+        dest: utils.amd(this.name, utils.type.itemview, this.options.directory),
         view: utils.className(this.name, utils.type.itemview)
       }
     );

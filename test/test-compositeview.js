@@ -106,3 +106,22 @@ describe('aowp-marionette:compositeview with existing itemview and optional dir 
     assert.fileContent('app/scripts/apps/fruit/apples-composite-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-composite-view-template.hbs']/);
   });
 });
+
+describe('aowp-marionette:compositeview with tests in separate dir', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/compositeview'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['apples'])
+      .withOptions({
+        tests: 'separate'
+      })
+      .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:itemview']])
+      .on('end', done);
+  });
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/apples/apples-composite-view.js',
+      'test/apps/apples/apples-composite-view-test.js'
+    ]);
+  });
+});

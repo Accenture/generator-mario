@@ -1,4 +1,4 @@
-import HomeItemView from './home-item-view';
+import HomeItemView from 'apps/home/home-item-view';
 import {Model} from 'backbone';
 
 describe('HomeItemView', () => {

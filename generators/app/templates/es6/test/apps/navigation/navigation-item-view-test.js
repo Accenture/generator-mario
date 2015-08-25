@@ -1,5 +1,5 @@
 import {Model} from 'backbone';
-import NavigationItemView from './navigation-item-view';
+import NavigationItemView from 'apps/navigation/navigation-item-view';
 
 describe('NavigationItemView', () => {
     let view;

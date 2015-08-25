@@ -106,3 +106,23 @@ describe('aowp-marionette:collectionview with existing itemview, expanded dirs',
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /childView: BroccoliItemView/);
   });
 });
+
+describe('aowp-marionette:collectionview with tests in separate dir', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/collectionview'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['some-feature'])
+      .withOptions({
+        tests: 'separate'
+      })
+      .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:itemview']])
+      .on('end', done);
+  });
+
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/some-feature/some-feature-collection-view.js',
+      'test/apps/some-feature/some-feature-collection-view-test.js'
+    ]);
+  });
+});

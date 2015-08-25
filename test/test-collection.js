@@ -106,3 +106,22 @@ describe('collection with existing model, expanded dirs', function () {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /model: BroccoliModel/);
   });
 });
+
+describe('collection with tests in separate dir', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/collection'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['other-feature'])
+      .withOptions({
+        tests: 'separate'
+      })
+      .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:model']])
+      .on('end', done);
+  });
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/other-feature/other-feature-collection.js',
+      'test/apps/other-feature/other-feature-collection-test.js'
+    ]);
+  });
+});

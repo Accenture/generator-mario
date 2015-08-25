@@ -26,6 +26,11 @@ module.exports = DirBase.extend({
 
       pathVerification.verifyPath(pathFractions.dir, pathFractions.name, utils.type.template);
     }
+
+    this.utils = new utils.Utils();
+    if (this.options.tests === 'separate') {
+      this.utils.testBaseDir = 'test/apps';
+    }
   },
   writing: function () {
     var ecma = this.config.get('ecma');
@@ -54,9 +59,9 @@ module.exports = DirBase.extend({
 
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_layout-view-test.js'),
-      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
+      this.destinationPath(this.utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
-        viewPath: utils.amd(this.name, utils.type.layoutview),
+        viewPath: utils.amd(this.name, utils.type.layoutview, this.options.directory),
         viewName: utils.className(this.name, utils.type.layoutview)
       }
     );

@@ -19,7 +19,8 @@ module.exports = function (config) {
             {pattern: 'app/bower_components/bootstrap/dist/js/bootstrap.min.js', included: false},
             'app/bower_components/modernizr/modernizr.js',
             {pattern: '.tmp/scripts/templates.js', included: false},
-            {pattern: 'app/scripts/**/*.js', included: false},
+            {pattern: 'app/scripts/**/*.js', included: false}, <% if (options.tests === 'separate') { %>
+            {pattern: 'test/apps/**/*.js', included: false}, <% } %>
             'test/karma-test-main.js'
         ],
         // list of files to exclude
@@ -27,7 +28,9 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'app/scripts/apps/**/*.js': [<% if (options.ecma === 'es6') { %>'babel', <% } %>'coverage']
+            'app/scripts/apps/**/*.js': [<% if (options.ecma === 'es6') { %>'babel', <% } %>'coverage']<% if (options.ecma === 'es6' && options.tests === 'separate') { %> ,
+            'test/apps/**/*.js': ['babel']
+            <% } %>
         },
         <% if (options.ecma === 'es6') { %>
         babelPreprocessor: {

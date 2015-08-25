@@ -14,6 +14,11 @@ var DirectoryBase = generators.NamedBase.extend({
     }
 
     this.options.directory = utils.truncateBasePath(this.options.directory);
+
+    if(this.config.get('tests')) {
+      this.options.tests = this.config.get('tests');
+    }
+
   }
 });
 

@@ -2,7 +2,7 @@
 
 define([
   'underscore',
-  'app',
+  'app/scripts/app',
   'backbone',
   'marionette',
   'templates'

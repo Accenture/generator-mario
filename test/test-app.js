@@ -84,3 +84,68 @@ describe('aowp-marionette:app with arcanist and specified URL', function () {
     assert.fileContent('.arcconfig', /conduit_uri" : "http:\/\/phabricator.mydomain.com/);
   });
 });
+
+describe('aowp-marionette:app with tests in separate directory', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/app'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withOptions({ 'skip-install': true })
+      .withPrompt({
+        someOption: true,
+        phabricatorDeps: true,
+        phabricatorIP: 'phabricator.mydomain.com',
+        tests : 'separate'
+      })
+      .on('end', done);
+  });
+
+  it('creates files', function () {
+    assert.file([
+      'bower.json',
+      'package.json',
+      '.editorconfig',
+      '.jshintrc',
+      '.arcconfig',
+      '.arclint',
+      'karma.conf.js',
+      'test/karma-test-main.js'
+    ]);
+  });
+  it('karma.conf.js with configuration for separate dirs', function() {
+    assert.fileContent('karma.conf.js', /pattern: 'test\/apps/);
+  });
+  it('karma-test-main.js for source in separate directory', function() {
+    assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/\(test\)\\\.js/);
+  });
+});
+
+describe('aowp-marionette:app with tests in app directory', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/app'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withOptions({ 'skip-install': true })
+      .withPrompt({
+        someOption: true,
+        phabricatorDeps: true,
+        phabricatorIP: 'phabricator.mydomain.com',
+        tests : 'appcode'
+      })
+      .on('end', done);
+  });
+
+  it('creates files', function () {
+    assert.file([
+      'bower.json',
+      'package.json',
+      '.editorconfig',
+      '.jshintrc',
+      '.arcconfig',
+      '.arclint',
+      'karma.conf.js',
+      'test/karma-test-main.js'
+    ]);
+  });
+  it('karma-test-main.js for source in appcode directory', function() {
+    assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/app/);
+  });
+});

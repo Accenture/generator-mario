@@ -49,7 +49,8 @@ describe('utils', function () {
     assert.equal(utils.testName('people-collection', utils.type.collection), 'people-collection-test', 'Test name');
   });
   it('test name with path', function () {
-    assert.equal(utils.testNameWithPath('people', 'people', utils.type.collection), path.join('app', 'scripts', 'apps', 'people', 'people-collection-test.js'), 'Test name');
+    var myUtils = new utils.Utils();
+    assert.equal(myUtils.testNameWithPath('people', 'people', utils.type.collection), path.join('app', 'scripts', 'apps', 'people', 'people-collection-test.js'), 'Test name');
   });
   it('template path', function () {
     assert.equal(utils.templateNameWithPath('address', 'address', utils.type.itemview), 'app/scripts/apps/address/address-item-view-template.hbs', 'Template paths are equal');

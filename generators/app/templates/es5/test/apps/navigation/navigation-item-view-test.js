@@ -4,7 +4,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  './navigation-item-view'
+  'apps/navigation/navigation-item-view'
 ], function ($, _, Backbone, NavigationItemView) {
   'use strict';
 

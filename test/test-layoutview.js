@@ -66,3 +66,23 @@ describe('aowp-marionette:layoutview with directory option', function () {
     done();
   });
 });
+
+
+describe('aowp-marionette:layoutview with tests in separate dir', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/layoutview'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['apples'])
+      .withOptions({
+        tests: 'separate'
+      })
+      .on('end', done);
+  });
+
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/apples/apples-layout-view.js',
+      'test/apps/apples/apples-layout-view-test.js'
+    ]);
+  });
+});

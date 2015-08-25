@@ -57,6 +57,10 @@ module.exports = DirBase.extend({
 
       pathVerification.verifyPath(this.options.directory, this.template, utils.type.template);
     }
+    this.utils = new utils.Utils();
+    if (this.options.tests === 'separate') {
+      this.utils.testBaseDir = 'test/apps';
+    }
   },
 
   writing: function () {
@@ -65,7 +69,6 @@ module.exports = DirBase.extend({
     if (ecma === 6) {
       sourceDir = 'es6/';
     }
-
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_composite-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
@@ -89,10 +92,10 @@ module.exports = DirBase.extend({
 
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_composite-view-test.js'),
-      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
+      this.destinationPath(this.utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
-        compview: utils.amd(this.name, utils.type.compositeview),
-        viewName: utils.className(this.name, utils.type.compositeview),
+        compview: utils.amd(this.name, utils.type.compositeview, this.options.directory),
+        viewName: utils.className(this.name, utils.type.compositeview)
       }
     );
   }

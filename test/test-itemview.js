@@ -54,3 +54,23 @@ describe('aowp-marionette:itemview with options', function () {
     ]);
   });
 });
+
+describe('aowp-marionette:itemview with tests in separate dir ', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/itemview'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['some-feature'])
+      .withOptions({
+        tests: 'separate'
+      })
+      .on('end', done);
+  });
+
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/some-feature/some-feature-item-view.js',
+      'test/apps/some-feature/some-feature-item-view-test.js',
+      'app/scripts/apps/some-feature/some-feature-item-view-template.hbs'
+    ]);
+  });
+});

@@ -33,7 +33,7 @@ var appFiles = function(){
     esmaSpecificTemplates.forEach(function (name) {
         // skip gruntfile for gulp configuration
         if(this.useGulp && name === 'Gruntfile.js') {
-          return;   
+          return;
         }
 
         this.fs.copy(
@@ -87,15 +87,31 @@ var appFiles = function(){
             {ip: this.phabricatorIP, appName: this.projectName}
         );
     }
+    var tests = [
+      'apps/home/home-item-view-test.js',
+      'apps/home/home-model-test.js',
+      'apps/navigation/navigation-item-view-test.js'
+    ];
+
+    this.log('-------------------------------------');
+    this.log('Writing tests');
+    var destPrefix = (this.tests === 'separate' ?  'test/': 'app/scripts/');
+    tests.forEach(function(name) {
+      this.fs.copy(
+        this.templatePath(prefix + 'test/' + name),
+        this.destinationPath(destPrefix + name)
+      );
+    }, this);
 
     this.fs.copyTpl(
         this.templatePath('common/_karma.conf.js'),
         this.destinationPath('karma.conf.js'),
         {options: this.answers}
     );
-    this.fs.copy(
+    this.fs.copyTpl(
         this.templatePath('common/test/karma-test-main.js'),
-        this.destinationPath('test/karma-test-main.js')
+        this.destinationPath('test/karma-test-main.js'),
+        {options: this.answers}
     );
 
     // rename-copy gitignore manually

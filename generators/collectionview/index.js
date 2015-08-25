@@ -30,6 +30,10 @@ module.exports = DirBase.extend({
       itemview.path = utils.amd(this.name, utils.type.itemview);
       itemview.class = utils.className(this.name, utils.type.itemview);
     }
+    this.utils = new utils.Utils();
+    if (this.options.tests === 'separate') {
+      this.utils.testBaseDir = 'test/apps';
+    }
   },
   writing: function () {
     if (!this.options.itemview) {
@@ -40,6 +44,7 @@ module.exports = DirBase.extend({
     if (ecma === 6) {
       sourceDir = 'es6/';
     }
+
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_collection-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collectionview)),
@@ -50,9 +55,9 @@ module.exports = DirBase.extend({
     );
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_collection-view-test.js'),
-      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collectionview)),
+      this.destinationPath(this.utils.testNameWithPath(this.options.directory, this.name, utils.type.collectionview)),
       {
-        viewPath: utils.amd(this.name, utils.type.collectionview),
+        viewPath: utils.amd(this.name, utils.type.collectionview, this.options.directory),
         viewName: utils.className(this.name, utils.type.collectionview)
       }
     );

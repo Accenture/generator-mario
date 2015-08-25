@@ -21,6 +21,13 @@ var _fileNames = {
   router: 'router'
 };
 
+function Utils() {
+  this.testBaseDir = 'app/scripts/apps';
+  this.testNameWithPath = function (directory, name, type) {
+    return path.join(this.testBaseDir, directory, testfileName(name, type) + _jsext);
+  };
+}
+
 function fileName(name, type) {
   if (name.lastIndexOf(type) === -1) {
     return name + _deliter + type;
@@ -123,5 +130,6 @@ module.exports = {
   className: className,
   varName: variableName,
   type: _fileNames,
-  truncateBasePath: truncateBasePath
+  truncateBasePath: truncateBasePath,
+  Utils: Utils
 };

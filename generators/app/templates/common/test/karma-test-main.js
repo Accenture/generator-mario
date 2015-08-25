@@ -1,8 +1,8 @@
 'use strict';
 
-var allRequiredFiles = [];
-
-var SRC_REGEXP = /app\/scripts\/apps\/.+\.js$/;
+var allRequiredFiles = []; <% if (options.tests === 'appcode') { %>
+var SRC_REGEXP = /app\/scripts\/apps\/.+\.js$/; <% } else if(options.tests === 'separate') { %>
+var SRC_REGEXP = /(test)\.js$/; <% } %>
 var REQUIRE_BASE_URL = '/base/app/scripts';
 
 var pathToSourceFile = function(path) {
@@ -12,7 +12,11 @@ var pathToSourceFile = function(path) {
 Object.keys(window.__karma__.files).forEach(function(file) {
   if (SRC_REGEXP.test(file)) {
     // Normalize paths to RequireJS module names.
+    <% if (options.tests === 'appcode') { %>
     allRequiredFiles.push(pathToSourceFile(file));
+    <% } else { %>
+    allRequiredFiles.push(file);
+    <% } %>
   }
 });
 
