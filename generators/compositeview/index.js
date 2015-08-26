@@ -65,7 +65,7 @@ module.exports = DirBase.extend({
 
   writing: function () {
     var ecma = this.config.get('ecma');
-    var sourceDir = '';
+    var sourceDir = 'es5/';
     if (ecma === 6) {
       sourceDir = 'es6/';
     }
@@ -81,7 +81,7 @@ module.exports = DirBase.extend({
 
     if (!this.template) {
       this.fs.copyTpl(
-        this.templatePath('_composite-view.hbs'),
+        this.templatePath('_composite-view-template.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.compositeview))
       );
     }

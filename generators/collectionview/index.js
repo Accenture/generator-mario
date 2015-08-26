@@ -40,7 +40,7 @@ module.exports = DirBase.extend({
       this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
     }
     var ecma = this.config.get('ecma');
-    var sourceDir = '';
+    var sourceDir = 'es5/';
     if (ecma === 6) {
       sourceDir = 'es6/';
     }
