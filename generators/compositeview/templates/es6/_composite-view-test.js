@@ -1,7 +1,7 @@
 import {Collection} from 'backbone';
 import <%= viewName %> from '<%= compview %>';
 
-describe('ApplesCompositeView', () => {
+describe('<%= viewName %>', () => {
   let view;
   beforeEach(() => {
     let collection = new Collection([

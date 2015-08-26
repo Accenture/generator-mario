@@ -33,7 +33,7 @@ module.exports = DirBase.extend({
     }
   },
   writing: function () {
-    var ecma = this.config.get('ecma');
+    var ecma = this.options.ecma;
     var sourceDir = 'es5/';
     if (ecma === 6) {
         sourceDir = 'es6/';

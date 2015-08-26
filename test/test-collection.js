@@ -74,6 +74,36 @@ describe('collection without existing model', function () {
   });
 });
 
+describe('collection without existing model ES6', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/collection'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['other-feature'])
+      .withOptions({
+        ecma: 6,
+        tests: 'appcode'
+      })
+      .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:model']])
+      .on('end', done);
+  });
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/other-feature/other-feature-collection.js',
+      'app/scripts/apps/other-feature/other-feature-collection-test.js'
+    ]);
+  });
+  it('contains model module dependency', function () {
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /import OtherFeatureModel from '.\/other-feature-model'/);
+  });
+  it('contains model Class', function () {
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /model: OtherFeatureModel/);
+  });
+  it('test imports collection module', function () {
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-test.js', /import OtherFeatureCollection from 'apps\/other-feature\/other-feature-collection'/);
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-test.js', /new OtherFeatureCollection\(\)/);
+  });
+});
+
 describe('collection with existing model, expanded dirs', function () {
   before(function (done) {
     stub = sinon.stub(existTest, 'verifyPath', function () {

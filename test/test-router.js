@@ -72,3 +72,37 @@ describe('aowp-marionette:router without existing controller expanded dirs', fun
     assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new BroccoliController/);
   });
 });
+
+
+describe('aowp-marionette:router es6', function () {
+  before(function (done) {
+    stub = sinon.stub(existTest, 'verifyPath', function () {
+      return true;
+    });
+    helpers.run(path.join(__dirname, '../generators/router'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['some-feature'])
+      .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:controller']])
+      .withOptions({
+        directory: 'app/scripts/apps/some-feature',
+        controller: 'app/scripts/apps/vegetables/broccoli-controller.js',
+        ecma: 6
+      })
+      .on('end', done);
+  });
+  afterEach(function(done){
+    stub.restore();
+    done();
+  });
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/some-feature/some-feature-router.js'
+    ]);
+  });
+  it('contains module dependency', function() {
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /import BroccoliController from 'apps\/vegetables\/broccoli-controller'/);
+  });
+  it('contains route', function() {
+    assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'some-feature': 'default'/);
+  });
+});

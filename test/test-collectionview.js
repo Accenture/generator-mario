@@ -47,6 +47,36 @@ describe('aowp-marionette:collectionview with existing itemview', function () {
   });
 });
 
+describe('aowp-marionette:collectionview ES6', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/collectionview'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['other-feature'])
+      .withOptions({
+        ecma: 6
+      })
+      .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:itemview']])
+      .on('end', done);
+  });
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/other-feature/other-feature-collection-view.js',
+      'app/scripts/apps/other-feature/other-feature-collection-view-test.js'
+    ]);
+  });
+  it('contains module import', function () {
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /import OtherFeatureItemView from '.\/other-feature-item-view'/);
+  });
+  it('contains childView', function () {
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /childView: OtherFeatureItemView/);
+  });
+  it('test contains view', function () {
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view-test.js', /import OtherFeatureCollectionView from 'apps\/other-feature\/other-feature-collection-view'/);
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view-test.js', /describe\('OtherFeatureCollectionView view'/);
+    assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view-test.js', /view = new OtherFeatureCollectionView/);
+  });
+});
+
 describe('aowp-marionette:collectionview without existing itemview', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators/collectionview'))

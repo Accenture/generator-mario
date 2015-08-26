@@ -4,14 +4,14 @@ var utils = require('../utils');
 var DirBase = require('../dir-base');
 
 module.exports = DirBase.extend({
-    initializing: function () {
+  initializing: function () {
       this.utils = new utils.Utils();
       if (this.options.tests === 'separate') {
         this.utils.testBaseDir = 'test/apps';
       }
     },
-    writing: function () {
-    var ecma = this.config.get('ecma');
+  writing: function () {
+    var ecma = this.options.ecma;
     var sourceDir = 'es5/';
     if (ecma === 6) {
         sourceDir = 'es6/';

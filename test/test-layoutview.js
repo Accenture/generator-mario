@@ -38,6 +38,35 @@ describe('aowp-marionette:layoutview without template option', function () {
   });
 });
 
+describe('aowp-marionette:layoutview ES6', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../generators/layoutview'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withArguments(['apples'])
+      .withOptions({
+        directory: 'fruit',
+        ecma: 6
+      })
+      .on('end', done);
+  });
+
+  it('creates files', function () {
+    assert.file([
+      'app/scripts/apps/fruit/apples-layout-view.js',
+      'app/scripts/apps/fruit/apples-layout-view-test.js'
+    ]);
+  });
+  it('contains template', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-layout-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-layout-view-template.hbs']/);
+  });
+  it('test with right content', function () {
+    assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /import ApplesLayoutView from 'apps\/fruit\/apples-layout-view'/);
+    assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /describe\('ApplesLayoutView view/);
+    assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /new ApplesLayoutView/);
+  });
+});
+
+
 describe('aowp-marionette:layoutview with directory option', function () {
   before(function (done) {
     stub = sinon.stub(existTest, 'verifyPath', function () {
