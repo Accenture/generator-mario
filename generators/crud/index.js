@@ -91,6 +91,15 @@ module.exports = DirBase.extend({
           compositeViewName: utils.className(this.name, utils.type.compositeview)
         }
       );
+
+      this.fs.copyTpl(
+        this.templatePath('controller-test.js'),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller)),
+        {
+          controllerPath: utils.amd(this.name, utils.type.controller),
+          controllerName: utils.className(this.name, utils.type.controller)
+        }
+      );
     },
 
     collection: function () {

@@ -9,8 +9,7 @@ define([
   describe('<%= itemViewName %>', function () {
     beforeEach(function () {
       this.model = new Backbone.Model({
-        text: 'Sample',
-        id: 20
+        text: 'Sample'
       });
       this.view = new <%= itemViewName %>({model: this.model});
       this.view.render();
@@ -24,9 +23,6 @@ define([
     });
     it('name should equal Sample', function () {
       expect(this.view.render().$('.text').text()).to.equal('Sample');
-    });
-    it('id should equal 20', function () {
-      expect(this.view.render().$('.id').text()).to.equal('20');
     });
 
     it('click event should trigger spy', function() {

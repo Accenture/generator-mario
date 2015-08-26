@@ -12,7 +12,6 @@ define([
 
       this.model = new Backbone.Model({
         text: 'Sample',
-        id: 20,
         author: 'This Guy',
         created: this.date,
         isPublished: false
@@ -37,10 +36,6 @@ define([
 
     it('author should equal This Guy', function () {
       expect(this.view.render().$('#author').val()).to.equal('This Guy');
-    });
-
-    it('id should equal 20', function () {
-      expect(this.view.render().$('.id').text()).to.equal('Item Detail of ID#20');
     });
 
     it('remove click event should trigger spy', function() {

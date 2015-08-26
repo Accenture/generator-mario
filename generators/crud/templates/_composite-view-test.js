@@ -6,8 +6,8 @@ define([
   describe('<%= compositeViewName %>', function () {
     beforeEach(function () {
       this.collection = new Backbone.Collection([
-        {id: 1, text: 'This is just a sample text', author: 'Sample', created: Date.now(), isPublished: true},
-        {id: 2, text: 'This is just an example text', author: 'Example', created: Date.now(), isPublished: false},
+        {text: 'This is just a sample text', author: 'Sample', created: Date.now(), isPublished: true},
+        {text: 'This is just an example text', author: 'Example', created: Date.now(), isPublished: false},
       ]);
       this.view = new <%= compositeViewName %>({collection: this.collection});
       this.view.render();
