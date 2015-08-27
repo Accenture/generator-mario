@@ -15,10 +15,8 @@ module.exports = DirBase.extend({
     this.option('compositeview', {alias:'cmv', desc: 'create '});
     this.option('model', {alias:'m', desc: 'create '});
     this.option('collection', {alias:'c', desc: 'create '});
-
   },
   initializing: function () {
-
     this.directory = this.options.directory || this.options.d;
     this.itemview = this.options.itemview || this.options.itv;
     this.collectionview = this.options.collectionview || this.options.clv;
@@ -59,7 +57,6 @@ module.exports = DirBase.extend({
       }
 
       pathVerification.verifyPath(this.customMdlDir, mdlPathFractions.name, utils.type.model);
-
       items.push({path:utils.amd(mdlPathFractions.name, utils.type.model, mdlPathFractions.dir), name:'Model', type:'model'});
     }
 
@@ -74,7 +71,6 @@ module.exports = DirBase.extend({
       }
 
       pathVerification.verifyPath(this.customCllDir, cllPathFractions.name, utils.type.collection);
-
       items.push({path:utils.amd(cllPathFractions.name, utils.type.collection, cllPathFractions.dir), name:'Collection', type:'collection'});
     }
 
@@ -91,8 +87,10 @@ module.exports = DirBase.extend({
       pathVerification.verifyPath(this.customItvDir, itvPathFractions.name, utils.type.itemview);
 
       var itvName = utils.className(itvPathFractions.name, utils.type.itemview);
-
       items.push({path:utils.amd(itvPathFractions.name, utils.type.itemview, itvPathFractions.dir), name:itvName, varName:utils.varName(itvName), type:'itemview'});
+
+      // if itemview is present, ignore all other
+      return;
     }
 
     if(this.collectionview){
@@ -106,10 +104,11 @@ module.exports = DirBase.extend({
       }
 
       pathVerification.verifyPath(this.customClvDir, clvPathFractions.name, utils.type.collectionview);
-
       var clvName = utils.className(clvPathFractions.name, utils.type.collectionview);
-
       items.push({path:utils.amd(clvPathFractions.name, utils.type.collectionview, clvPathFractions.dir), name:clvName, varName:utils.varName(clvName), type:'collectionview'});
+
+      // if collectionview is present, ignore all other
+      return;
     }
 
     if(this.compositeview){
@@ -123,10 +122,11 @@ module.exports = DirBase.extend({
       }
 
       pathVerification.verifyPath(this.customCmvDir, cmvPathFractions.name, utils.type.compositeview);
-
       var cmvName = utils.className(cmvPathFractions.name, utils.type.compositeview);
-
       items.push({path:utils.amd(cmvPathFractions.name, utils.type.compositeview, cmvPathFractions.dir), name:cmvName, varName:utils.varName(cmvName), type:'compositeview'});
+
+      // if compositeview is present, ignore all other
+      return;
     }
   },
   writing: function () {
@@ -135,6 +135,7 @@ module.exports = DirBase.extend({
     if (ecma === 6) {
         sourceDir = 'es6/';
     }
+
     this.fs.copyTpl(
       this.templatePath(sourceDir + '_controller.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.controller)),
@@ -143,5 +144,15 @@ module.exports = DirBase.extend({
         items: items
       }
     );
+
+    this.fs.copyTpl(
+      this.templatePath(sourceDir + '_controller-test.js'),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller)),
+      {
+        controllerPath: utils.amd(this.name, utils.type.controller, this.options.directory),
+        controllerClassName: utils.className(this.name, utils.type.controller)
+      }
+    );
+
   }
 });

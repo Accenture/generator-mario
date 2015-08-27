@@ -306,9 +306,13 @@ Generated file structure:
       |- <controller-name>-controller.js
 ```
 ### Controller
+A controller contains the logic behind your application. It controls views and data sent into and from the views. Controller is also responsible for communicating with other components of your application via the channeling system (Backbone.Radio).
+
+A controller sub-generator is capable of generating template controller file. Using additional flags it enables you to import and initialize various views (item view, collection view, composite view) and feed them with appropriate data class (model or collection).
+
 Controller is generated via command:
 
-`yo aowp-marionette:controller <controller-name> [--directory <folder-name>]`
+`yo aowp-marionette:controller <controller-name> [--directory <folder-name>] [[-m <path-to-model> --itv <path-to-item-view] | [-c <path-to-collection> --clv <path-to-collectionview>] | [-m <path-to-model> -c <path-to-collection> --cmv <path-to-composite-view>]]`
 
 Generated file structure:
 
