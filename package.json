@@ -14,7 +14,7 @@
     "node": ">=0.12.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha"
   },
   "files": [
     "generators"
@@ -33,6 +33,7 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
+    "istanbul": "^0.3.18",
     "mocha": "*",
     "sinon": "^1.15.4"
   }
