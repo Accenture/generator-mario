@@ -16,7 +16,7 @@ define(['handlebars'], function (Handlebars) {
         var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var dayName = '';
 
-        if(date) {
+        if (date) {
           var d = new Date(date);
           dayName = dayNames[d.getDay()];
         }

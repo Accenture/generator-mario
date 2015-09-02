@@ -25,7 +25,7 @@ define([
       this.listenTo(this.channel, 'crud-update', function (modelData) {
         var model = collection.findWhere({name: modelData.name});
 
-        if(model) {
+        if (model) {
           model.set('count', modelData.count);
         } else {
           collection.add(new SidebarModel(modelData));

@@ -6,14 +6,14 @@ define([
   './sidebar-controller',
 ], function (Backbone, Marionette, SidebarController) {
   var data = {
-    name: 'test-feature', 
-    count: 5, 
+    name: 'test-feature',
+    count: 5,
     baseRoute: '/test'
   };
 
   var data2 = {
-    name: 'test-feature2', 
-    count: 10, 
+    name: 'test-feature2',
+    count: 10,
     baseRoute: '/test2'
   };
 
@@ -38,7 +38,7 @@ define([
     it('should react to item click', function () {
       this.region.$el.find('li').trigger('click');
       expect(this.spy.callCount).to.be.equal(1);
-    });    
+    });
 
     it('should react to crud update', function () {
       this.controller.channel.trigger('crud-update', data2);

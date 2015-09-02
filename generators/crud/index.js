@@ -240,7 +240,7 @@ module.exports = DirBase.extend({
       }
       tree = registerComponent(tree, this.options.directory, this.name, utils.type.router, this);
 
-      this.fs.write(filePath, tree.toString());
+      this.fs.write(filePath, tree.toString() + '\n'); // add new line to comply with jscs
     },
 
     sidebarFeature: function () {

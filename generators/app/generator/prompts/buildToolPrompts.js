@@ -26,7 +26,6 @@ var buildToolPrompts = function() {
       case buildTools.webpack:
         this.useWebpack = true;
         this.skipEcmaPromp = true;
-        console.log('using webpack...');
         break;
     }
     done();

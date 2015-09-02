@@ -20,7 +20,7 @@ define([
       this.view = new <%= detailItemViewName %>({model: this.model});
       this.view.render();
 
-      this.eventSpy = sinon.spy();  
+      this.eventSpy = sinon.spy();
       this.triggerSpy = sinon.spy();
       this.view.listenTo(this.view, '<%= featureName %>:removeItem', this.triggerSpy);
       this.view.listenTo(this.view, '<%= featureName %>:save', this.eventSpy);
@@ -42,7 +42,7 @@ define([
       this.view.$el.find('button.remove').trigger('click');
       expect(this.triggerSpy.callCount).to.be.equal(1);
     });
-    
+
     it('save click event should trigger spy', function() {
       this.view.$el.find('button.save').trigger('click');
       expect(this.eventSpy.callCount).to.be.equal(1);

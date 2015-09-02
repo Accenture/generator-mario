@@ -1,7 +1,6 @@
-/*global define*/
+'use strict';
 
 define(['marionette', 'templates'], function (Marionette, JST) {
-    'use strict';
 
     return Marionette.LayoutView.extend({
         template: JST['app/scripts/apps/main/main-layout-view-template.hbs'],

@@ -65,14 +65,14 @@ define([
 
     it('detail method should react to save click', function() {
       this.controller.detail(this.cid);
-      
+
       this.region.$el.find('button.save').trigger('click');
       expect(this.spy.callCount).to.be.equal(1);
     });
 
     it('detail method should react to remove click', function() {
       this.controller.detail(this.cid);
-      
+
       this.region.$el.find('button.remove').trigger('click');
       expect(this.spy.callCount).to.be.equal(1);
     });

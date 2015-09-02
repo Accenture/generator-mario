@@ -24,5 +24,4 @@ App.on('start', function () {
     }
 });
 
-
 export default App;

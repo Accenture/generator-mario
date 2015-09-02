@@ -5,7 +5,6 @@ define([
   'marionette',
   './navigation-controller',
 ], function (Backbone, Marionette, NavigationController) {
-  
   describe('NavigationController', function () {
     beforeEach(function () {
       this.region = new Marionette.Region({el: 'body'});

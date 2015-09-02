@@ -23,6 +23,5 @@ define([
       expect(this.view.render().$el.find('h2').length).to.equal(2);
     });
 
-
   });
 });

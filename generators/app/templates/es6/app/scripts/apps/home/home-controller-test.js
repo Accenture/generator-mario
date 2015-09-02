@@ -1,6 +1,6 @@
 import {Region} from 'marionette';
 import HomeController from './home-controller';
-  
+
 describe('HomeController', function () {
   beforeEach(function () {
     this.region = new Region({el: 'body'});

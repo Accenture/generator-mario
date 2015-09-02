@@ -12,6 +12,6 @@ describe('<%= controllerClassName %>', () => {
   });
 
   it.skip('default method should render view', () => {
-      throw new Error('default method not implemented yet');
-    });
+    throw new Error('default method not implemented yet');
+  });
 });

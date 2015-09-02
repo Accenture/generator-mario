@@ -5,7 +5,6 @@ define([
   'marionette',
   './home-controller',
 ], function (Backbone, Marionette, HomeController) {
-  
   describe('HomeController', function () {
     beforeEach(function () {
       this.region = new Marionette.Region({el: 'body'});

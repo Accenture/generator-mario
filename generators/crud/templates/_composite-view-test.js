@@ -12,7 +12,7 @@ define([
       this.view = new <%= compositeViewName %>({collection: this.collection});
       this.view.render();
 
-      this.eventSpy = sinon.spy();  
+      this.eventSpy = sinon.spy();
       this.view.listenTo(this.view, '<%= featureName %>:navigateNew', this.eventSpy);
     });
 

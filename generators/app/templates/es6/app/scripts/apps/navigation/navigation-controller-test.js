@@ -1,6 +1,6 @@
 import {Region} from 'marionette';
 import NavigationController from './navigation-controller';
-  
+
 describe('NavigationController', function () {
   beforeEach(function () {
     this.region = new Region({el: 'body'});
