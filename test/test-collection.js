@@ -8,9 +8,9 @@ var os = require('os');
 var existTest = require('../generators/path-verification');
 var stub;
 
-describe('aowp-marionette:collection with existing model', function () {
-  before(function (done) {
-    stub = sinon.stub(existTest, 'verifyPath', function () {
+describe('aowp-marionette:collection with existing model', function() {
+  before(function(done) {
+    stub = sinon.stub(existTest, 'verifyPath', function() {
       return true;
     });
     helpers.run(path.join(__dirname, '../generators/collection'))
@@ -22,17 +22,17 @@ describe('aowp-marionette:collection with existing model', function () {
       })
       .on('end', done);
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-collection.js',
       'app/scripts/apps/some-feature/some-feature-collection-test.js'
     ]);
   });
-  it('view contains AMD dependency', function () {
+  it('view contains AMD dependency', function() {
     assert.fileContent('app/scripts/apps/some-feature/some-feature-collection.js', /.\/some-model/);
     assert.fileContent('app/scripts/apps/some-feature/some-feature-collection.js', /, SomeModel/);
   });
-  it('view contains model Class', function () {
+  it('view contains model Class', function() {
     assert.fileContent('app/scripts/apps/some-feature/some-feature-collection.js', /model: SomeModel/);
   });
   it('test contains AMD path', function() {
@@ -42,14 +42,14 @@ describe('aowp-marionette:collection with existing model', function () {
   it('test contains class', function() {
     assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-test.js', /new SomeFeatureCollection()/);
   });
-  afterEach(function(done){
+  afterEach(function(done) {
     stub.restore();
     done();
   });
 });
 
-describe('collection without existing model', function () {
-  before(function (done) {
+describe('collection without existing model', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/collection'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['other-feature'])
@@ -59,23 +59,23 @@ describe('collection without existing model', function () {
       .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:model']])
       .on('end', done);
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/other-feature/other-feature-collection.js',
       'app/scripts/apps/other-feature/other-feature-collection-test.js'
     ]);
   });
-  it('contains AMD dependency', function () {
+  it('contains AMD dependency', function() {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /.\/other-feature-model/);
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /, OtherFeatureModel/);
   });
-  it('contains model Class', function () {
+  it('contains model Class', function() {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /model: OtherFeatureModel/);
   });
 });
 
-describe('collection without existing model ES6', function () {
-  before(function (done) {
+describe('collection without existing model ES6', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/collection'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['other-feature'])
@@ -86,27 +86,27 @@ describe('collection without existing model ES6', function () {
       .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:model']])
       .on('end', done);
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/other-feature/other-feature-collection.js',
       'app/scripts/apps/other-feature/other-feature-collection-test.js'
     ]);
   });
-  it('contains model module dependency', function () {
+  it('contains model module dependency', function() {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /import OtherFeatureModel from '.\/other-feature-model'/);
   });
-  it('contains model Class', function () {
+  it('contains model Class', function() {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /model: OtherFeatureModel/);
   });
-  it('test imports collection module', function () {
+  it('test imports collection module', function() {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-test.js', /import OtherFeatureCollection from 'apps\/other-feature\/other-feature-collection'/);
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-test.js', /new OtherFeatureCollection\(\)/);
   });
 });
 
-describe('collection with existing model, expanded dirs', function () {
-  before(function (done) {
-    stub = sinon.stub(existTest, 'verifyPath', function () {
+describe('collection with existing model, expanded dirs', function() {
+  before(function(done) {
+    stub = sinon.stub(existTest, 'verifyPath', function() {
       return true;
     });
     helpers.run(path.join(__dirname, '../generators/collection'))
@@ -118,27 +118,27 @@ describe('collection with existing model, expanded dirs', function () {
       })
       .on('end', done);
   });
-  afterEach(function(done){
+  afterEach(function(done) {
     stub.restore();
     done();
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/other-feature/other-feature-collection.js',
       'app/scripts/apps/other-feature/other-feature-collection-test.js'
     ]);
   });
-  it('contains AMD dependency', function () {
+  it('contains AMD dependency', function() {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /apps\/vegetables\/broccoli-model/);
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /, BroccoliModel/);
   });
-  it('contains model Class', function () {
+  it('contains model Class', function() {
     assert.fileContent('app/scripts/apps/other-feature/other-feature-collection.js', /model: BroccoliModel/);
   });
 });
 
-describe('collection with tests in separate dir', function () {
-  before(function (done) {
+describe('collection with tests in separate dir', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/collection'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['other-feature'])
@@ -148,7 +148,7 @@ describe('collection with tests in separate dir', function () {
       .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:model']])
       .on('end', done);
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/other-feature/other-feature-collection.js',
       'test/apps/other-feature/other-feature-collection-test.js'

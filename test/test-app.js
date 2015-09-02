@@ -5,8 +5,8 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 
-describe('aowp-marionette:app', function () {
-  before(function (done) {
+describe('aowp-marionette:app', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
@@ -17,7 +17,7 @@ describe('aowp-marionette:app', function () {
       .on('end', done);
   });
 
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'bower.json',
       'package.json',
@@ -30,8 +30,8 @@ describe('aowp-marionette:app', function () {
   });
 });
 
-describe('aowp-marionette:app with arcanist file default URL', function () {
-  before(function (done) {
+describe('aowp-marionette:app with arcanist file default URL', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
@@ -42,7 +42,7 @@ describe('aowp-marionette:app with arcanist file default URL', function () {
       .on('end', done);
   });
 
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'bower.json',
       'package.json',
@@ -57,8 +57,8 @@ describe('aowp-marionette:app with arcanist file default URL', function () {
   });
 });
 
-describe('aowp-marionette:app with arcanist and specified URL', function () {
-  before(function (done) {
+describe('aowp-marionette:app with arcanist and specified URL', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
@@ -70,7 +70,7 @@ describe('aowp-marionette:app with arcanist and specified URL', function () {
       .on('end', done);
   });
 
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'bower.json',
       'package.json',
@@ -85,8 +85,8 @@ describe('aowp-marionette:app with arcanist and specified URL', function () {
   });
 });
 
-describe('aowp-marionette:app with tests in separate directory', function () {
-  before(function (done) {
+describe('aowp-marionette:app with tests in separate directory', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
@@ -94,12 +94,12 @@ describe('aowp-marionette:app with tests in separate directory', function () {
         someOption: true,
         phabricatorDeps: true,
         phabricatorIP: 'phabricator.mydomain.com',
-        tests : 'separate'
+        tests: 'separate'
       })
       .on('end', done);
   });
 
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'bower.json',
       'package.json',
@@ -119,8 +119,8 @@ describe('aowp-marionette:app with tests in separate directory', function () {
   });
 });
 
-describe('aowp-marionette:app with tests in app directory', function () {
-  before(function (done) {
+describe('aowp-marionette:app with tests in app directory', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
@@ -128,12 +128,12 @@ describe('aowp-marionette:app with tests in app directory', function () {
         someOption: true,
         phabricatorDeps: true,
         phabricatorIP: 'phabricator.mydomain.com',
-        tests : 'appcode'
+        tests: 'appcode'
       })
       .on('end', done);
   });
 
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'bower.json',
       'package.json',

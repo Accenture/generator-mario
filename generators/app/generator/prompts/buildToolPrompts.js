@@ -5,7 +5,7 @@ var buildToolPrompts = function() {
     grunt: 'grunt',
     gulp: 'gulp',
     webpack: 'webpack (experimental)'
-  }
+  };
 
   var done = this.async();
   this.prompt({
@@ -14,8 +14,8 @@ var buildToolPrompts = function() {
     message: 'What build tool would you lile to use?',
     choices: [buildTools.grunt, buildTools.gulp, buildTools.webpack],
     default: buildTools.grunt
-  }, function (answer) {
-    switch(answer.buildTool) {
+  }, function(answer) {
+    switch (answer.buildTool) {
       case buildTools.grunt:
         this.useGrunt = true;
         break;

@@ -6,11 +6,11 @@ var pathVerification = require('../path-verification');
 var path = require('path');
 
 module.exports = DirBase.extend({
-  constructor: function (/*args, options*/) {
+  constructor: function(/*args, options*/) {
     DirBase.apply(this, arguments);
     this.option('template', {alias: 't', desc: 'specify a template to use in the layout view'});
   },
-  initializing: function () {
+  initializing: function() {
     this.template = this.options.template || this.options.t;
     this.customTplDir = this.options.directory || this.name;
     this.customTplName = this.name;
@@ -20,7 +20,7 @@ module.exports = DirBase.extend({
 
       var pathFractions = path.parse(this.template);
       this.customTplName = pathFractions.base;
-      if(pathFractions.dir) {
+      if (pathFractions.dir) {
          this.customTplDir = pathFractions.dir;
       }
 
@@ -32,7 +32,7 @@ module.exports = DirBase.extend({
       this.utils.testBaseDir = 'test/apps';
     }
   },
-  writing: function () {
+  writing: function() {
     var ecma = this.options.ecma;
     var sourceDir = 'es5/';
     if (ecma === 6) {

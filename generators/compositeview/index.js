@@ -9,12 +9,12 @@ itemview.path = '';
 itemview.class = '';
 
 module.exports = DirBase.extend({
-  constructor: function (/*args, options*/) {
+  constructor: function(/*args, options*/) {
     DirBase.apply(this, arguments);
     this.option('itemview', {alias: 'itv', desc: 'creates itemView within specified directory'});
     this.option('template', {alias: 't', desc: 'reuse existing template for composite view'});
   },
-  initializing: function () {
+  initializing: function() {
     this.itemview = this.options.itemview || this.options.itv;
     this.template = this.options.template || this.options.t;
 
@@ -51,7 +51,7 @@ module.exports = DirBase.extend({
       pathFractions = path.parse(this.template);
       this.customTplName = pathFractions.base;
 
-      if(pathFractions.dir) {
+      if (pathFractions.dir) {
          this.customTplDir = pathFractions.dir;
       }
 
@@ -63,7 +63,7 @@ module.exports = DirBase.extend({
     }
   },
 
-  writing: function () {
+  writing: function() {
     var ecma = this.options.ecma;
     var sourceDir = 'es5/';
     if (ecma === 6) {

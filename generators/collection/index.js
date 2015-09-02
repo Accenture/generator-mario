@@ -8,16 +8,15 @@ var model = {};
 model.className = '';
 model.path = '';
 
-
 module.exports = DirBase.extend({
-  constructor: function () {
+  constructor: function() {
     DirBase.apply(this, arguments);
-    this.option('model', {alias:'m', desc: 'specify a model name to use with the collection (they have to be in the same directory)'});
+    this.option('model', {alias: 'm', desc: 'specify a model name to use with the collection (they have to be in the same directory)'});
   },
-  initializing: function () {
+  initializing: function() {
     this.options.model = this.options.model || this.options.m;
     //check for model option
-    if(this.options.model) {
+    if (this.options.model) {
       this.options.model = utils.truncateBasePath(this.options.model);
 
       var pathFractions = path.parse(this.options.model);
@@ -35,7 +34,7 @@ module.exports = DirBase.extend({
       this.utils.testBaseDir = 'test/apps';
     }
   },
-  writing: function () {
+  writing: function() {
     var ecma = this.options.ecma;
     var sourceDir = 'es5/';
     if (ecma === 6) {

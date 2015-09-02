@@ -7,13 +7,13 @@ var path = require('path');
 var controller = {};
 
 module.exports = DirBase.extend({
-  constructor: function (/*args, options*/) {
+  constructor: function(/*args, options*/) {
     DirBase.apply(this, arguments);
-    this.option('controller', {alias:'c',desc: 'specify a controller name to use with the router (they have to be in the same directory)'});
+    this.option('controller', {alias: 'c',desc: 'specify a controller name to use with the router (they have to be in the same directory)'});
   },
-  initializing: function () {
+  initializing: function() {
     this.controller = this.options.controller || this.options.c;
-    if(!this.controller) {
+    if (!this.controller) {
       this.composeWith('aowp-marionette:controller', {options: {directory: this.options.directory}, args: [this.name]});
       controller.name = this.name;
     } else {
@@ -22,7 +22,7 @@ module.exports = DirBase.extend({
       pathVerification.verifyPath(controller.dir, controller.name, utils.type.controller);
     }
   },
-  writing: function () {
+  writing: function() {
     var ecma = this.options.ecma;
     var sourceDir = 'es5/';
     if (ecma === 6) {

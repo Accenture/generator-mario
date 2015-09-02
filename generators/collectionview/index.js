@@ -9,11 +9,11 @@ itemview.path = '';
 itemview.class = '';
 
 module.exports = DirBase.extend({
-  constructor: function (/*args, options*/) {
+  constructor: function(/*args, options*/) {
     DirBase.apply(this, arguments);
-    this.option('itemview', {alias:'itv', desc: 'specify a item view to use with the collection view (they have to be in the same directory)'});
+    this.option('itemview', {alias: 'itv', desc: 'specify a item view to use with the collection view (they have to be in the same directory)'});
   },
-  initializing: function () {
+  initializing: function() {
     this.options.itemview = this.options.itemview || this.options.itv;
 
     if (this.options.itemview) {
@@ -35,7 +35,7 @@ module.exports = DirBase.extend({
       this.utils.testBaseDir = 'test/apps';
     }
   },
-  writing: function () {
+  writing: function() {
     if (!this.options.itemview) {
       this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
     }

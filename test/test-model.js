@@ -5,8 +5,8 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 
-describe('aowp-marionette:model with tests', function () {
-  before(function (done) {
+describe('aowp-marionette:model with tests', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/model'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['some-feature'])
@@ -16,7 +16,7 @@ describe('aowp-marionette:model with tests', function () {
       })
       .on('end', done);
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-model.js',
       'app/scripts/apps/some-feature/some-feature-model-test.js'
@@ -31,8 +31,8 @@ describe('aowp-marionette:model with tests', function () {
   });
 });
 
-describe('aowp-marionette:model ES6', function () {
-  before(function (done) {
+describe('aowp-marionette:model ES6', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/model'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['some-feature'])
@@ -41,7 +41,7 @@ describe('aowp-marionette:model ES6', function () {
       })
       .on('end', done);
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-model.js',
       'app/scripts/apps/some-feature/some-feature-model-test.js'
@@ -56,8 +56,8 @@ describe('aowp-marionette:model ES6', function () {
   });
 });
 
-describe('aowp-marionette:model with separate tests', function () {
-  before(function (done) {
+describe('aowp-marionette:model with separate tests', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/model'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withArguments(['some-feature'])
@@ -66,7 +66,7 @@ describe('aowp-marionette:model with separate tests', function () {
       })
       .on('end', done);
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-model.js',
       'test/apps/some-feature/some-feature-model-test.js'

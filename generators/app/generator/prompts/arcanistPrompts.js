@@ -1,6 +1,6 @@
 'use strict';
 
-var arcanistPrompts  = function () {
+var arcanistPrompts  = function() {
     var done = this.async();
     var that = this;
     this.prompt({
@@ -8,7 +8,7 @@ var arcanistPrompts  = function () {
         name: 'phabricatorDeps',
         message: 'Would you like to include Arcanist config files?',
         default: false
-    }, function (answer) {
+    }, function(answer) {
         if (answer.phabricatorDeps) {
             that.arcanistPrompts.phabricatorDeps = answer.phabricatorDeps;
             this.prompt({
@@ -16,7 +16,7 @@ var arcanistPrompts  = function () {
                 name: 'phabricatorIP',
                 message: 'What is IP address of your Phabricator server?',
                 default: '127.0.0.1'
-            }, function (answer) {
+            }, function(answer) {
                 var url = answer.phabricatorIP + '';
                 if (url.indexOf('http') !== -1) {
                     that.arcanistPrompts.phabricatorIP = url;

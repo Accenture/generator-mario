@@ -1,6 +1,6 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-var _ = require('lodash');
+var lodash = require('lodash');
 var grabFiles = require('./helpers/grabFiles');
 var path = require('path');
 
@@ -51,8 +51,8 @@ config.forEach(function(item) {
     tasks[item.name] = item.code;
 });
 
-module.exports =  yeoman.generators.Base.extend(_.merge({
-  init: function () {
+module.exports =  yeoman.generators.Base.extend(lodash.merge({
+  init: function() {
     this.pkg = require('../../package.json');
 
   }

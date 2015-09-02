@@ -3,7 +3,7 @@
 var ast = require('ast-query');
 var DirBase = require('../dir-base');
 var utils = require('../utils');
-var _ = require('lodash');
+var lodash = require('lodash');
 var fs = require('fs');
 
 function registerComponent(tree, dir, name, type, generator, region) {
@@ -18,13 +18,13 @@ function registerComponent(tree, dir, name, type, generator, region) {
   var existingObjects = result.arguments.at(1).node.params;
 
   //check import path exists
-  if (_.some(existingImports, function(elem) { return elem.value === componentNameWithPath; }, generator)) {
+  if (lodash.some(existingImports, function(elem) { return elem.value === componentNameWithPath; }, generator)) {
     generator.log.error(name + type + ' path conflict while updating app.js, aborting file update!');
     return tree;
   }
 
   //check import object exists
-  if (_.some(existingObjects, function(elem) { return elem.name === className; }, generator)) {
+  if (lodash.some(existingObjects, function(elem) { return elem.name === className; }, generator)) {
     generator.log.error(name + type + 'Router Object name conflict while updating app.js, aborting file update!');
     return tree;
   }
@@ -46,11 +46,11 @@ function registerComponent(tree, dir, name, type, generator, region) {
 }
 
 module.exports = DirBase.extend({
-  constructor: function () {
+  constructor: function() {
     DirBase.apply(this, arguments);
-    this.option('directory', {alias:'d', desc: 'create crud within specified directory'});
+    this.option('directory', {alias: 'd', desc: 'create crud within specified directory'});
   },
-  initializing: function () {
+  initializing: function() {
     // generate model
     this.composeWith('aowp-marionette:model', {
       options: {directory: this.options.directory},
@@ -70,7 +70,7 @@ module.exports = DirBase.extend({
       );
     },
 
-    controller: function () {
+    controller: function() {
       this.fs.copyTpl(
         this.templatePath('_controller.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.controller)),
@@ -102,7 +102,7 @@ module.exports = DirBase.extend({
       );
     },
 
-    collection: function () {
+    collection: function() {
       this.fs.copyTpl(
         this.templatePath('_collection.js'),
         this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collection)),
@@ -141,7 +141,7 @@ module.exports = DirBase.extend({
       );
     },
 
-    detail: function () {
+    detail: function() {
       this.fs.copy(
         this.templatePath('detail-template.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview))
@@ -231,11 +231,11 @@ module.exports = DirBase.extend({
       );
     },
 
-    registerFeatures: function () {
+    registerFeatures: function() {
       var filePath = this.destinationPath('app/scripts/app.js');
       var tree = ast(this.fs.read(filePath));
 
-      if(!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
+      if (!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
         tree = registerComponent(tree, 'sidebar', 'sidebar', utils.type.controller, this, 'sidebarRegion');
       }
       tree = registerComponent(tree, this.options.directory, this.name, utils.type.router, this);
@@ -243,8 +243,8 @@ module.exports = DirBase.extend({
       this.fs.write(filePath, tree.toString() + '\n'); // add new line to comply with jscs
     },
 
-    sidebarFeature: function () {
-      if(!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
+    sidebarFeature: function() {
+      if (!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
         console.log('Copying sidebar files ...');
         this.fs.copy(
           this.templatePath('sidebar'),

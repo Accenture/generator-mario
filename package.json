@@ -2,18 +2,19 @@
   "name": "generator-aowp-marionette",
   "version": "0.0.5",
   "description": "Yeoman generator",
-  "license": "MIT",
+  "license": "",
   "main": "generators/app/index.js",
-  "repository": "lukaasp/generator-aowp-marionette",
+  "repository": "",
   "author": {
     "name": "",
     "email": "",
-    "url": "https://github.com/lukaasp"
+    "url": ""
   },
   "engines": {
     "node": ">=0.12.0"
   },
   "scripts": {
+    "pretest": "jshint generators test && jscs generators test",
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha"
   },
   "files": [
@@ -33,6 +34,7 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
+    "jscs": "^2.1.1",
     "istanbul": "^0.3.18",
     "mocha": "*",
     "sinon": "^1.15.4"

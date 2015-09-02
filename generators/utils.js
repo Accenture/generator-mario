@@ -3,7 +3,7 @@ var path = require('path');
 var url = require('url');
 var baseDir = 'app/scripts/apps/';
 var appsDir = 'apps/';
-var _ = require('lodash');
+var lodash = require('lodash');
 
 var hbsExt = '.hbs';
 var testSuffix = 'test',
@@ -20,13 +20,6 @@ var _fileNames = {
   controller: 'controller',
   router: 'router'
 };
-
-function Utils() {
-  this.testBaseDir = 'app/scripts/apps';
-  this.testNameWithPath = function (directory, name, type) {
-    return path.join(this.testBaseDir, directory, testfileName(name, type) + _jsext);
-  };
-}
 
 function fileName(name, type) {
   if (name.lastIndexOf(type) === -1) {
@@ -47,6 +40,13 @@ function testName(name, type) {
 
 function testfileName(name, type) {
   return fileName(name, type) + _deliter + testSuffix;
+}
+
+function Utils() {
+  this.testBaseDir = 'app/scripts/apps';
+  this.testNameWithPath = function(directory, name, type) {
+    return path.join(this.testBaseDir, directory, testfileName(name, type) + _jsext);
+  };
 }
 
 function templatefileName(name, type) {
@@ -82,7 +82,7 @@ function templateNameWithPath(directory, name, type) {
 }
 
 function truncateBasePath(filePath) {
-  if(filePath.substring(0, 17) === baseDir) {
+  if (filePath.substring(0, 17) === baseDir) {
     filePath = filePath.slice(17);
   }
 
@@ -92,11 +92,12 @@ function truncateBasePath(filePath) {
 /**
  * creates relative AMD path from name and type if custom dir is not provided
  * otherwise it will create a path relative to projects scripts forlder.
+ *
  * @param {String} name The name
  * @param {String} type The type saved in this.type
  */
 function amd(name, type, customDir) {
-  if(!customDir) {
+  if (!customDir) {
     return './' + fileName(name, type);
   }
 
@@ -111,11 +112,11 @@ function className(name, type) {
   if (name.lastIndexOf(type) === (name.length - type.length)) {
     name = name.substring(0, name.length - 1 - type.length);
   }
-  return _.capitalize(_.camelCase(name + _.capitalize(_.camelCase(type))));
+  return lodash.capitalize(lodash.camelCase(name + lodash.capitalize(lodash.camelCase(type))));
 }
 
-function variableName(name){
-  return name.substr(0,1).toLowerCase()+ name.substr(1);
+function variableName(name) {
+  return name.substr(0,1).toLowerCase() + name.substr(1);
 }
 
 module.exports = {

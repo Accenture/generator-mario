@@ -4,7 +4,7 @@ var fs = require('fs');
 
 function verifyPath(directory, name, type) {
   try {
-    if(type === utils.type.tempalte) {
+    if (type === utils.type.tempalte) {
       console.log('Trying template: ', utils.templateNameWithPath(directory, name, type));
       fs.statSync(utils.templateNameWithPath(directory, name, type));
     } else {

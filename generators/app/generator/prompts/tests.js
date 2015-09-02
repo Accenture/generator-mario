@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function() {
   var done = this.async();
   this.prompt({
     type: 'list',
@@ -9,14 +9,14 @@ module.exports = function () {
     store: true,
     message: 'Where would you like to store your test files?',
     choices: ['With my app code', 'Separately'],
-    filter: function (val) {
+    filter: function(val) {
       var filterMap = {
         'With my app code': 'appcode',
         'Separately': 'separate'
       };
       return filterMap[val];
     }
-  }, function (answer) {
+  }, function(answer) {
     this.config.set('tests', answer.tests);
     this.tests = {tests: answer.tests};
     done();

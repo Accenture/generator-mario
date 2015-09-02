@@ -1,6 +1,6 @@
 'use strict';
 
-var installConfig = function () {
+var installConfig = function() {
     this.installDependencies({
         skipInstall: this.options['skip-install']
     });

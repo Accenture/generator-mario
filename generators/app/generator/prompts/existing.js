@@ -1,6 +1,6 @@
 'use strict';
 
-var existingConfigPrompt = function () {
+var existingConfigPrompt = function() {
   var done = this.async();
   if (this.config.get('config')) {
     this.prompt([{
@@ -12,8 +12,7 @@ var existingConfigPrompt = function () {
       this.existingConfig = answers.existingConfig;
       done();
     }.bind(this));
-  }
-  else {
+  } else {
     done();
   }
 };

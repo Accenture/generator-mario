@@ -1,6 +1,6 @@
 'use strict';
 
-var saveConfig = function () {
+var saveConfig = function() {
   if (!this.existingConfig) {
     this.config.set('config', this.answers);
   }

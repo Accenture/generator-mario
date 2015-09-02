@@ -1,11 +1,11 @@
 'use strict';
 
-var appFiles = function(){
+var appFiles = function() {
     var templates = ['.jsbeautifyrc', '.bowerrc',
         'app/images', 'app/jsondata', 'app/styles', 'app/.htaccess', 'app/404.html', 'app/favicon.ico',
         'app/index.html','app/.htaccess', 'app/robots.txt', 'app/scripts/main.js', 'grunt-tasks', 'Gruntfile.js'];
 
-    templates.forEach(function (name) {
+    templates.forEach(function(name) {
         this.fs.copy(
             this.templatePath('common/' + name),
             this.destinationPath(name)
@@ -30,9 +30,9 @@ var appFiles = function(){
     var prefix = (this.ecma === 'es6') ? 'es6/' : 'es5/';
     var esmaSpecificTemplates = ['app/scripts'];
 
-    esmaSpecificTemplates.forEach(function (name) {
+    esmaSpecificTemplates.forEach(function(name) {
         // skip gruntfile for gulp configuration
-        if(this.useGulp && name === 'Gruntfile.js') {
+        if (this.useGulp && name === 'Gruntfile.js') {
           return;
         }
 
@@ -43,14 +43,14 @@ var appFiles = function(){
 
     }, this);
 
-    if(this.ecma === 'es6') {
+    if (this.ecma === 'es6') {
         this.fs.copy(
           this.templatePath('es6/grunt-tasks'),
           this.destinationPath('grunt-tasks')
         );
     }
 
-    if(this.useWebpack) {
+    if (this.useWebpack) {
         this.fs.copy(
             this.templatePath('webpack'),
             this.destinationPath()
@@ -63,7 +63,7 @@ var appFiles = function(){
         );
     }
 
-    if(this.useGulp) {
+    if (this.useGulp) {
         this.fs.copy(
             this.templatePath('gulp'),
             this.destinationPath()
@@ -95,7 +95,7 @@ var appFiles = function(){
 
     this.log('-------------------------------------');
     this.log('Writing tests');
-    var destPrefix = (this.tests === 'separate' ?  'test/': 'app/scripts/');
+    var destPrefix = (this.tests === 'separate' ?  'test/' : 'app/scripts/');
     tests.forEach(function(name) {
       this.fs.copy(
         this.templatePath(prefix + 'test/' + name),

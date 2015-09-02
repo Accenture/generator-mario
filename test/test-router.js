@@ -8,9 +8,9 @@ var sinon = require('sinon');
 var existTest = require('../generators/path-verification');
 var stub;
 
-describe('aowp-marionette:collection with existing controller', function () {
-  before(function (done) {
-    stub = sinon.stub(existTest, 'verifyPath', function () {
+describe('aowp-marionette:collection with existing controller', function() {
+  before(function(done) {
+    stub = sinon.stub(existTest, 'verifyPath', function() {
       return true;
     });
     helpers.run(path.join(__dirname, '../generators/router'))
@@ -22,7 +22,7 @@ describe('aowp-marionette:collection with existing controller', function () {
       })
       .on('end', done);
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-router.js'
     ]);
@@ -34,15 +34,15 @@ describe('aowp-marionette:collection with existing controller', function () {
   it('contains controller class', function() {
     assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeController/);
   });
-  afterEach(function(done){
+  afterEach(function(done) {
     stub.restore();
     done();
   });
 });
 
-describe('aowp-marionette:router without existing controller expanded dirs', function () {
-  before(function (done) {
-    stub = sinon.stub(existTest, 'verifyPath', function () {
+describe('aowp-marionette:router without existing controller expanded dirs', function() {
+  before(function(done) {
+    stub = sinon.stub(existTest, 'verifyPath', function() {
       return true;
     });
     helpers.run(path.join(__dirname, '../generators/router'))
@@ -55,11 +55,11 @@ describe('aowp-marionette:router without existing controller expanded dirs', fun
       })
       .on('end', done);
   });
-  afterEach(function(done){
+  afterEach(function(done) {
     stub.restore();
     done();
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-router.js'
     ]);
@@ -73,10 +73,9 @@ describe('aowp-marionette:router without existing controller expanded dirs', fun
   });
 });
 
-
-describe('aowp-marionette:router es6', function () {
-  before(function (done) {
-    stub = sinon.stub(existTest, 'verifyPath', function () {
+describe('aowp-marionette:router es6', function() {
+  before(function(done) {
+    stub = sinon.stub(existTest, 'verifyPath', function() {
       return true;
     });
     helpers.run(path.join(__dirname, '../generators/router'))
@@ -90,11 +89,11 @@ describe('aowp-marionette:router es6', function () {
       })
       .on('end', done);
   });
-  afterEach(function(done){
+  afterEach(function(done) {
     stub.restore();
     done();
   });
-  it('creates files', function () {
+  it('creates files', function() {
     assert.file([
       'app/scripts/apps/some-feature/some-feature-router.js'
     ]);

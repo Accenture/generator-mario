@@ -1,14 +1,13 @@
 'use strict';
 
-var _ = require('lodash');
+var lodash = require('lodash');
 
-var answersConfig = function () {
+var answersConfig = function() {
 
   if (this.existingConfig) {
     this.answers = this.config.get('config');
-  }
-  else {
-    this.answers = _.merge(
+  } else {
+    this.answers = lodash.merge(
       this.initPrompts,
       this.arcanistPrompts,
       this.webpackPrompts,
