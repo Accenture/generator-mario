@@ -1,7 +1,6 @@
 'use strict';
 var utils = require('../utils');
 var DirBase = require('../dir-base');
-var pathVerification = require('../path-verification');
 var path = require('path');
 
 var controller = {};
@@ -19,17 +18,12 @@ module.exports = DirBase.extend({
     } else {
       this.options.controller = utils.truncateBasePath(this.options.controller);
       controller = path.parse(this.options.controller);
-      pathVerification.verifyPath(controller.dir, controller.name, utils.type.controller);
+      utils.verifyPath(utils.fileNameWithPath(controller.dir, controller.name, utils.type.controller));
     }
   },
   writing: function() {
-    var ecma = this.options.ecma;
-    var sourceDir = 'es5/';
-    if (ecma === 6) {
-      sourceDir = 'es6/';
-    }
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_router.js'),
+      this.templatePath(this.sourceDir + '_router.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.router)),
       {
         name: this.name,

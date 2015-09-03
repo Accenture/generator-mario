@@ -3,7 +3,6 @@
 var utils = require('../utils');
 var DirBase = require('../dir-base');
 var path = require('path');
-var pathVerification = require('../path-verification');
 var itemview = {};
 itemview.path = '';
 itemview.class = '';
@@ -32,7 +31,7 @@ module.exports = DirBase.extend({
       var customViewName = pathFractions.name;
       var customViewDir = pathFractions.dir;
 
-      pathVerification.verifyPath(pathFractions.dir, pathFractions.name, utils.type.itemview);
+      utils.verifyPath(utils.fileNameWithPath(pathFractions.dir, pathFractions.name, utils.type.itemview));
 
       this.customView.path = utils.amd(customViewName, utils.type.itemview, customViewDir);
       this.customView.class = utils.className(customViewName, utils.type.itemview);
@@ -55,22 +54,12 @@ module.exports = DirBase.extend({
          this.customTplDir = pathFractions.dir;
       }
 
-      pathVerification.verifyPath(this.options.directory, this.template, utils.type.template);
-    }
-    this.utils = new utils.Utils();
-    if (this.options.tests === 'separate') {
-      this.utils.testBaseDir = 'test/apps';
+      utils.verifyPath(utils.templateNameWithPath(this.options.directory, this.template, utils.type.template));
     }
   },
-
   writing: function() {
-    var ecma = this.options.ecma;
-    var sourceDir = 'es5/';
-    if (ecma === 6) {
-      sourceDir = 'es6/';
-    }
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_composite-view.js'),
+      this.templatePath(this.sourceDir + '_composite-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
       {
         childPath: this.customView.path,
@@ -91,8 +80,8 @@ module.exports = DirBase.extend({
     }
 
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_composite-view-test.js'),
-      this.destinationPath(this.utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
+      this.templatePath(this.sourceDir + '_composite-view-test.js'),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview, this.testBaseDir)),
       {
         compview: utils.amd(this.name, utils.type.compositeview, this.options.directory),
         viewName: utils.className(this.name, utils.type.compositeview)

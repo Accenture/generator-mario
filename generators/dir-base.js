@@ -21,6 +21,9 @@ var DirectoryBase = generators.NamedBase.extend({
     if (this.config.get('tests')) {
       this.options.tests = this.config.get('tests');
     }
+
+    this.testBaseDir = (this.options.tests === 'separate') ? 'test/apps' : 'app/scripts/apps';
+    this.sourceDir = (this.options.ecma === 6) ? 'es6/' : 'es5/';
   }
 });
 

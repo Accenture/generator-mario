@@ -49,20 +49,39 @@ describe('utils', function() {
     assert.equal(utils.testName('people-collection', utils.type.collection), 'people-collection-test', 'Test name');
   });
   it('test name with path', function() {
-    var myUtils = new utils.Utils();
-    assert.equal(myUtils.testNameWithPath('people', 'people', utils.type.collection), path.join('app', 'scripts', 'apps', 'people', 'people-collection-test.js'), 'Test name');
+    assert.equal(utils.testNameWithPath('people', 'people', utils.type.collection), path.join('app', 'scripts', 'apps', 'people', 'people-collection-test.js'), 'Test name');
   });
-  it('template path', function() {
+  it('template templateName file name', function() {
+    assert.equal(utils.templateName('my-example', utils.type.layoutview), 'my-example-layout-view-template.hbs');
+  });
+  it('template templateName file name with suffix', function() {
+    assert.equal(utils.templateName('my-example-composite-view-template', utils.type.compositeview), 'my-example-composite-view-template.hbs');
+  });
+  it('template templateName file name with template in name', function() {
+    assert.equal(utils.templateName('my-template-test', utils.type.compositeview), 'my-template-test-composite-view-template.hbs');
+  });
+  it('template templateNameWithPath path', function() {
     assert.equal(utils.templateNameWithPath('address', 'address', utils.type.itemview), 'app/scripts/apps/address/address-item-view-template.hbs', 'Template paths are equal');
   });
-  it('template path with type in name', function() {
+  it('template templateNameWithPath path with type in name', function() {
     assert.equal(utils.templateNameWithPath('my-example', 'my-example-layout-view', utils.type.layoutview), 'app/scripts/apps/my-example/my-example-layout-view-template.hbs', 'Template paths are equal');
+  });
+  it('template templateNameWithPath', function() {
+    assert.equal(utils.templateNameWithPath('address', 'address', utils.type.compositeview), 'app/scripts/apps/address/address-composite-view-template.hbs');
   });
   it('template file name', function() {
     assert.equal(utils.templateName('my-example', utils.type.layoutview), 'my-example-layout-view-template.hbs');
   });
+  it('template templateNameWithPath with extension in name', function() {
+    assert.equal(utils.templateNameWithPath('my-directory', 'my-template.hbs', utils.type.compositeview), 'app/scripts/apps/my-directory/my-template.hbs');
+  });
   it('template file name with suffix', function() {
     assert.equal(utils.templateName('my-example-composite-view-template', utils.type.compositeview), 'my-example-composite-view-template.hbs');
+  });
+  it('templatefileName', function() {
+    assert.equal(utils.templateName('my-test', utils.type.compositeview), 'my-test-composite-view-template.hbs');
+    assert.equal(utils.templateName('my-test-composite-view-template', utils.type.compositeview), 'my-test-composite-view-template.hbs');
+    assert.equal(utils.templateName('my-test-composite-view-template.hbs', utils.type.compositeview), 'my-test-composite-view-template.hbs');
   });
   it('template file name with template in name', function() {
     assert.equal(utils.templateName('my-template-test', utils.type.compositeview), 'my-template-test-composite-view-template.hbs');

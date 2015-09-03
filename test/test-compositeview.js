@@ -6,7 +6,7 @@ var os = require('os');
 var chai = require('chai');
 chai.use(require('chai-fs'));
 var sinon = require('sinon');
-var existTest = require('../generators/path-verification');
+var existTest = require('../generators/utils');
 var stub;
 
 var assert = require('yeoman-generator').assert;

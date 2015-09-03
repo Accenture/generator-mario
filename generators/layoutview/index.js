@@ -2,7 +2,6 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
-var pathVerification = require('../path-verification');
 var path = require('path');
 
 module.exports = DirBase.extend({
@@ -24,23 +23,12 @@ module.exports = DirBase.extend({
          this.customTplDir = pathFractions.dir;
       }
 
-      pathVerification.verifyPath(pathFractions.dir, pathFractions.name, utils.type.template);
-    }
-
-    this.utils = new utils.Utils();
-    if (this.options.tests === 'separate') {
-      this.utils.testBaseDir = 'test/apps';
+      utils.verifyPath(utils.templateNameWithPath(pathFractions.dir, pathFractions.name, utils.type.template));
     }
   },
   writing: function() {
-    var ecma = this.options.ecma;
-    var sourceDir = 'es5/';
-    if (ecma === 6) {
-        sourceDir = 'es6/';
-    }
-
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_layout-view.js'),
+      this.templatePath(this.sourceDir + '_layout-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
         templatePath: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.layoutview)
@@ -58,8 +46,8 @@ module.exports = DirBase.extend({
     }
 
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_layout-view-test.js'),
-      this.destinationPath(this.utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
+      this.templatePath(this.sourceDir + '_layout-view-test.js'),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview, this.testBaseDir)),
       {
         viewPath: utils.amd(this.name, utils.type.layoutview, this.options.directory),
         viewName: utils.className(this.name, utils.type.layoutview)

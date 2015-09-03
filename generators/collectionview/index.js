@@ -2,7 +2,6 @@
 
 var utils = require('../utils');
 var DirBase = require('../dir-base');
-var pathVerification = require('../path-verification');
 var path = require('path');
 var itemview = {};
 itemview.path = '';
@@ -22,7 +21,7 @@ module.exports = DirBase.extend({
       var customViewName = pathFractions.name;
       var customViewDir = pathFractions.dir;
 
-      pathVerification.verifyPath(pathFractions.dir, pathFractions.name, utils.type.itemview);
+      utils.verifyPath(utils.fileNameWithPath(pathFractions.dir, pathFractions.name, utils.type.itemview));
 
       itemview.path = utils.amd(customViewName, utils.type.itemview, customViewDir);
       itemview.class = utils.className(customViewName, utils.type.itemview);
@@ -30,23 +29,13 @@ module.exports = DirBase.extend({
       itemview.path = utils.amd(this.name, utils.type.itemview);
       itemview.class = utils.className(this.name, utils.type.itemview);
     }
-    this.utils = new utils.Utils();
-    if (this.options.tests === 'separate') {
-      this.utils.testBaseDir = 'test/apps';
-    }
   },
   writing: function() {
     if (!this.options.itemview) {
       this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
     }
-    var ecma = this.options.ecma;
-    var sourceDir = 'es5/';
-    if (ecma === 6) {
-      sourceDir = 'es6/';
-    }
-
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_collection-view.js'),
+      this.templatePath(this.sourceDir + '_collection-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.collectionview)),
       {
         childPath: itemview.path,
@@ -54,8 +43,8 @@ module.exports = DirBase.extend({
       }
     );
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_collection-view-test.js'),
-      this.destinationPath(this.utils.testNameWithPath(this.options.directory, this.name, utils.type.collectionview)),
+      this.templatePath(this.sourceDir + '_collection-view-test.js'),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collectionview, this.testBaseDir)),
       {
         viewPath: utils.amd(this.name, utils.type.collectionview, this.options.directory),
         viewName: utils.className(this.name, utils.type.collectionview)

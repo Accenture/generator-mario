@@ -7,7 +7,7 @@ var chai = require('chai');
 chai.use(require('chai-fs'));
 var assert = require('yeoman-generator').assert;
 var sinon = require('sinon');
-var existTest = require('../generators/path-verification');
+var existTest = require('../generators/utils');
 var stub;
 
 describe('aowp-marionette:layoutview without template option', function() {

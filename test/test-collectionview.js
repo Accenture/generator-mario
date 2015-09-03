@@ -5,7 +5,7 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var sinon = require('sinon');
-var existTest = require('../generators/path-verification');
+var existTest = require('../generators/utils');
 var stub;
 
 describe('aowp-marionette:collectionview with existing itemview', function() {

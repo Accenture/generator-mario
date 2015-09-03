@@ -5,7 +5,7 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var sinon = require('sinon');
 var os = require('os');
-var existTest = require('../generators/path-verification');
+var existTest = require('../generators/utils');
 var stub;
 
 describe('aowp-marionette:collection with existing model', function() {

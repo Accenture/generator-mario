@@ -4,7 +4,7 @@ var url = require('url');
 var baseDir = 'app/scripts/apps/';
 var appsDir = 'apps/';
 var lodash = require('lodash');
-
+var fs = require('fs');
 var hbsExt = '.hbs';
 var testSuffix = 'test',
   templateSufix = 'template',
@@ -42,15 +42,11 @@ function testfileName(name, type) {
   return fileName(name, type) + _deliter + testSuffix;
 }
 
-function Utils() {
-  this.testBaseDir = 'app/scripts/apps';
-  this.testNameWithPath = function(directory, name, type) {
-    return path.join(this.testBaseDir, directory, testfileName(name, type) + _jsext);
-  };
-}
-
 function templatefileName(name, type) {
-  if (name.lastIndexOf(templateSufix) !== -1 && (name.lastIndexOf(templateSufix) === (name.length - templateSufix.length))) {
+  if (name.lastIndexOf(hbsExt) !== -1 && (name.length - hbsExt.length) > 0 && name.lastIndexOf(hbsExt) === (name.length - hbsExt.length)) {
+    return name;
+  }
+  if (name.lastIndexOf(templateSufix) !== -1 && ((name.length - templateSufix.length) > 0) && (name.lastIndexOf(templateSufix) === (name.length - templateSufix.length))) {
     return name + hbsExt;
   }
   return fileName(name, type) + _deliter + templateSufix + hbsExt;
@@ -69,7 +65,14 @@ function fileNameWithPath(directory, name, type) {
   return path.join(baseDir, directory, fileName(name, type) + _jsext);
 }
 
-function testWithPath(directory, name, type) {
+function testNameWithPath(directory, name, type, testDirectory) {
+  return path.join(testDirectory, directory, testfileName(name, type) + _jsext);
+}
+
+function testWithPath(directory, name, type, testDirectory) {
+  if (testDirectory !== undefined) {
+    return testNameWithPath(directory, name, type, testDirectory);
+  }
   return path.join(baseDir, directory, testfileName(name, type) + _jsext);
 }
 
@@ -116,7 +119,17 @@ function className(name, type) {
 }
 
 function variableName(name) {
-  return name.substr(0,1).toLowerCase() + name.substr(1);
+  return name.substr(0, 1).toLowerCase() + name.substr(1);
+}
+
+function verifyPath(fileName) {
+  try {
+    fs.statSync(fileName);
+  }
+  catch (e) {
+    console.error(fileName + ' does not exist');
+    process.exit(1);
+  }
 }
 
 module.exports = {
@@ -132,5 +145,5 @@ module.exports = {
   varName: variableName,
   type: _fileNames,
   truncateBasePath: truncateBasePath,
-  Utils: Utils
+  verifyPath: verifyPath
 };

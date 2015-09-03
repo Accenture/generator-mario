@@ -1,7 +1,6 @@
 'use strict';
 var utils = require('../utils');
 var DirBase = require('../dir-base');
-var pathVerification = require('../path-verification');
 var path = require('path');
 
 var items = [];
@@ -56,7 +55,10 @@ module.exports = DirBase.extend({
         this.customMdlDir = mdlPathFractions.dir;
       }
 
-      pathVerification.verifyPath(this.customMdlDir, mdlPathFractions.name, utils.type.model);
+      //pathVerification.verifyPath(this.customMdlDir, mdlPathFractions.name, utils.type.model);
+      items.push({path: utils.amd(mdlPathFractions.name, utils.type.model, mdlPathFractions.dir), name: 'Model', type: 'model'});
+      utils.verifyPath(utils.fileNameWithPath(this.customMdlDir, mdlPathFractions.name, utils.type.model));
+
       items.push({path: utils.amd(mdlPathFractions.name, utils.type.model, mdlPathFractions.dir), name: 'Model', type: 'model'});
     }
 
@@ -70,7 +72,10 @@ module.exports = DirBase.extend({
         this.customCllDir = cllPathFractions.dir;
       }
 
-      pathVerification.verifyPath(this.customCllDir, cllPathFractions.name, utils.type.collection);
+      //pathVerification.verifyPath(this.customCllDir, cllPathFractions.name, utils.type.collection);
+      items.push({path: utils.amd(cllPathFractions.name, utils.type.collection, cllPathFractions.dir), name: 'Collection', type: 'collection'});
+      utils.verifyPath(utils.fileNameWithPath(this.customCllDir, cllPathFractions.name, utils.type.collection));
+
       items.push({path: utils.amd(cllPathFractions.name, utils.type.collection, cllPathFractions.dir), name: 'Collection', type: 'collection'});
     }
 
@@ -84,7 +89,7 @@ module.exports = DirBase.extend({
         this.customItvDir = itvPathFractions.dir;
       }
 
-      pathVerification.verifyPath(this.customItvDir, itvPathFractions.name, utils.type.itemview);
+      utils.verifyPath(utils.fileNameWithPath(this.customItvDir, itvPathFractions.name, utils.type.itemview));
 
       var itvName = utils.className(itvPathFractions.name, utils.type.itemview);
       items.push({path: utils.amd(itvPathFractions.name, utils.type.itemview, itvPathFractions.dir), name: itvName, varName: utils.varName(itvName), type: 'itemview'});
@@ -103,7 +108,9 @@ module.exports = DirBase.extend({
         this.customClvDir = clvPathFractions.dir;
       }
 
-      pathVerification.verifyPath(this.customClvDir, clvPathFractions.name, utils.type.collectionview);
+      //pathVerification.verifyPath(this.customClvDir, clvPathFractions.name, utils.type.collectionview);
+      utils.verifyPath(utils.fileNameWithPath(this.customClvDir, clvPathFractions.name, utils.type.collectionview));
+
       var clvName = utils.className(clvPathFractions.name, utils.type.collectionview);
       items.push({path: utils.amd(clvPathFractions.name, utils.type.collectionview, clvPathFractions.dir), name: clvName, varName: utils.varName(clvName), type: 'collectionview'});
 
@@ -121,7 +128,9 @@ module.exports = DirBase.extend({
         this.customCmvDir = cmvPathFractions.dir;
       }
 
-      pathVerification.verifyPath(this.customCmvDir, cmvPathFractions.name, utils.type.compositeview);
+      //pathVerification.verifyPath(this.customCmvDir, cmvPathFractions.name, utils.type.compositeview);
+      utils.verifyPath(utils.fileNameWithPath(this.customCmvDir, cmvPathFractions.name, utils.type.compositeview));
+
       var cmvName = utils.className(cmvPathFractions.name, utils.type.compositeview);
       items.push({path: utils.amd(cmvPathFractions.name, utils.type.compositeview, cmvPathFractions.dir), name: cmvName, varName: utils.varName(cmvName), type: 'compositeview'});
 
@@ -130,23 +139,16 @@ module.exports = DirBase.extend({
     }
   },
   writing: function() {
-    var ecma = this.config.get('ecma');
-    var sourceDir = 'es5/';
-    if (ecma === 6) {
-        sourceDir = 'es6/';
-    }
-
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_controller.js'),
+      this.templatePath(this.sourceDir + '_controller.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.controller)),
       {
         name: utils.fileName(this.name, utils.type.controller),
         items: items
       }
     );
-
     this.fs.copyTpl(
-      this.templatePath(sourceDir + '_controller-test.js'),
+      this.templatePath(this.sourceDir + '_controller-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller)),
       {
         controllerPath: utils.amd(this.name, utils.type.controller, this.options.directory),
