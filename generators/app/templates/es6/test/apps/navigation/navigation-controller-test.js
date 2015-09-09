@@ -1,5 +1,5 @@
 import {Region} from 'marionette';
-import NavigationController from './navigation-controller';
+import NavigationController from 'apps/navigation/navigation-controller';
 
 describe('NavigationController', function () {
   beforeEach(function () {

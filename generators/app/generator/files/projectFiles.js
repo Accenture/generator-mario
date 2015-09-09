@@ -15,6 +15,13 @@ var projectFiles = function() {
         this.destinationPath('.jshintrc'),
         {options: this.answers}
     );
+
+    // rename-copy gitignore manually
+    // (.gitignore files get removed upon `npm install`)
+    this.fs.copy(
+        this.templatePath('gitignore'),
+        this.destinationPath('.gitignore')
+    );
 };
 
 module.exports = projectFiles;

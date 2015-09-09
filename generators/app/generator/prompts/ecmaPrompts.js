@@ -2,6 +2,8 @@
 
 var ecmaPrompts = function() {
     if (this.skipEcmaPromp) {
+      this.ecmaPrompts = {ecma: 'es5'};
+
       return;
     }
 
@@ -9,8 +11,7 @@ var ecmaPrompts = function() {
     this.prompt({
       type: 'list',
       name: 'ecma',
-      default: 0,
-      store: true,
+      default: 'ECMAScript 5 (ES5)',
       message: 'Which version of ECMAScript Standard would you like to use?',
       choices: ['ECMAScript 5 (ES5)', 'ECMAScript 2015 (ES6)']
     }, function(answer) {

@@ -1,8 +1,11 @@
 'use strict';
 define([
   'backbone',
+  'helpers/handlebars-helpers',
   '<%= compositeViewPath %>'
-], function (Backbone, <%= compositeViewName %>) {
+], function (Backbone, helpers, <%= compositeViewName %>) {
+  helpers.initialize();
+
   describe('<%= compositeViewName %>', function () {
     beforeEach(function () {
       this.collection = new Backbone.Collection([

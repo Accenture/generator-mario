@@ -15,6 +15,8 @@ var gulp = require('gulp',{
   base: 'Gulpfile.js'
 });
 
+var del = require('del');
+
 var gulpLoadPlugins = require('gulp-load-plugins');
 var plugins = gulpLoadPlugins({
   pattern: ['gulp-*'],
@@ -92,7 +94,7 @@ gulp.task('jscs', function() {
     'app/scripts/*',
     'test/spec/{,*/}*.js'
   ])
-  .pipe(plugins.jscs())
+  .pipe(plugins.jscs({configPath: '.jscsrc'}))
   .pipe(plugins.jscsStylish());
 });
 
@@ -142,8 +144,7 @@ gulp.task('open', function() {
 });
 
 gulp.task('clean', function() {
-  gulp.src(['.tmp/', 'dist'])
-  .pipe(plugins.clean());
+  return del(['.tmp/', 'dist']);
 });
 
 gulp.task('jsbeautifier', function() {

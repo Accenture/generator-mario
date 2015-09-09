@@ -1,9 +1,91 @@
 'use strict';
 
+//build system/task automation tool
+function copyBuildSystem(generator) {
+  if (generator.useGrunt) {
+    generator.fs.copy(
+      generator.templatePath('common/grunt-tasks'),
+      generator.destinationPath('grunt-tasks')
+    );
+
+    generator.fs.copy(
+      generator.templatePath('common/Gruntfile.js'),
+      generator.destinationPath('Gruntfile.js')
+    );
+  }
+
+  //rewrite some es6 specific files if es6 is the way
+  if (generator.ecma === 'es6') {
+    generator.fs.copy(
+      generator.templatePath('es6/grunt-tasks'),
+      generator.destinationPath('grunt-tasks')
+    );
+  }
+
+  if (generator.useWebpack) {
+    generator.fs.copy(
+      generator.templatePath('webpack'),
+      generator.destinationPath()
+    );
+
+    generator.fs.copyTpl(
+      generator.templatePath('webpack/package.json'),
+      generator.destinationPath('package.json'),
+      {appName: generator.projectName}
+    );
+  }
+
+  if (generator.useGulp) {
+    generator.fs.copy(
+      generator.templatePath('gulp/Gulpfile.js'),
+      generator.destinationPath('Gulpfile.js')
+    );
+
+    generator.fs.copyTpl(
+      generator.templatePath('gulp/package.json'),
+      generator.destinationPath('package.json'),
+      {appName: generator.projectName}
+    );
+  }
+}
+
+function copyTests(generator) {
+  var prefix = (generator.ecma === 'es6') ? 'es6/' : 'es5/';
+
+  var tests = [
+    'apps/home/home-item-view-test.js',
+    'apps/home/home-model-test.js',
+    'apps/home/home-controller-test.js',
+    'apps/navigation/navigation-item-view-test.js',
+    'apps/navigation/navigation-controller-test.js'
+  ];
+
+  generator.log('-------------------------------------');
+  generator.log('Writing tests');
+  var destPrefix = (generator.tests === 'separate' ?  'test/' : 'app/scripts/');
+  tests.forEach(function(name) {
+    generator.fs.copy(
+      generator.templatePath(prefix + 'test/' + name),
+      generator.destinationPath(destPrefix + name)
+    );
+  }, generator);
+
+  generator.fs.copyTpl(
+      generator.templatePath('common/_karma.conf.js'),
+      generator.destinationPath('karma.conf.js'),
+      {options: generator.answers}
+  );
+  generator.fs.copyTpl(
+      generator.templatePath('common/test/karma-test-main.js'),
+      generator.destinationPath('test/karma-test-main.js'),
+      {options: generator.answers}
+  );
+}
+
 var appFiles = function() {
     var templates = ['.jsbeautifyrc', '.bowerrc',
         'app/images', 'app/jsondata', 'app/styles', 'app/.htaccess', 'app/404.html', 'app/favicon.ico',
-        'app/index.html','app/.htaccess', 'app/robots.txt', 'app/scripts/main.js', 'grunt-tasks', 'Gruntfile.js'];
+        'app/index.html','app/.htaccess', 'app/robots.txt', 'app/scripts/main.js'];
 
     templates.forEach(function(name) {
         this.fs.copy(
@@ -27,15 +109,13 @@ var appFiles = function() {
         }
     );
 
+    //copy files for selected build system
+    copyBuildSystem(this);
+
     var prefix = (this.ecma === 'es6') ? 'es6/' : 'es5/';
     var esmaSpecificTemplates = ['app/scripts'];
 
     esmaSpecificTemplates.forEach(function(name) {
-        // skip gruntfile for gulp configuration
-        if (this.useGulp && name === 'Gruntfile.js') {
-          return;
-        }
-
         this.fs.copy(
           this.templatePath(prefix + name),
           this.destinationPath(name)
@@ -43,38 +123,8 @@ var appFiles = function() {
 
     }, this);
 
-    if (this.ecma === 'es6') {
-        this.fs.copy(
-          this.templatePath('es6/grunt-tasks'),
-          this.destinationPath('grunt-tasks')
-        );
-    }
-
-    if (this.useWebpack) {
-        this.fs.copy(
-            this.templatePath('webpack'),
-            this.destinationPath()
-        );
-
-        this.fs.copyTpl(
-            this.templatePath('webpack/package.json'),
-            this.destinationPath('package.json'),
-            {appName: this.projectName}
-        );
-    }
-
-    if (this.useGulp) {
-        this.fs.copy(
-            this.templatePath('gulp'),
-            this.destinationPath()
-        );
-
-        this.fs.copyTpl(
-            this.templatePath('gulp/package.json'),
-            this.destinationPath('package.json'),
-            {appName: this.projectName}
-        );
-    }
+    //copy tests to specified folder
+    copyTests(this);
 
     if (this.phabricatorDeps) {
         this.fs.copy(
@@ -87,39 +137,6 @@ var appFiles = function() {
             {ip: this.phabricatorIP, appName: this.projectName}
         );
     }
-    var tests = [
-      'apps/home/home-item-view-test.js',
-      'apps/home/home-model-test.js',
-      'apps/navigation/navigation-item-view-test.js'
-    ];
-
-    this.log('-------------------------------------');
-    this.log('Writing tests');
-    var destPrefix = (this.tests === 'separate' ?  'test/' : 'app/scripts/');
-    tests.forEach(function(name) {
-      this.fs.copy(
-        this.templatePath(prefix + 'test/' + name),
-        this.destinationPath(destPrefix + name)
-      );
-    }, this);
-
-    this.fs.copyTpl(
-        this.templatePath('common/_karma.conf.js'),
-        this.destinationPath('karma.conf.js'),
-        {options: this.answers}
-    );
-    this.fs.copyTpl(
-        this.templatePath('common/test/karma-test-main.js'),
-        this.destinationPath('test/karma-test-main.js'),
-        {options: this.answers}
-    );
-
-    // rename-copy gitignore manually
-    // (.gitignore files get removed upon `npm install`)
-    this.fs.copy(
-        this.templatePath('gitignore'),
-        this.destinationPath('.gitignore')
-    );
 };
 
 module.exports = appFiles;

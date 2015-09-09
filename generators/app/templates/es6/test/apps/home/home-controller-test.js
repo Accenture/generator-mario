@@ -1,5 +1,5 @@
 import {Region} from 'marionette';
-import HomeController from './home-controller';
+import HomeController from 'apps/home/home-controller';
 
 describe('HomeController', function () {
   beforeEach(function () {

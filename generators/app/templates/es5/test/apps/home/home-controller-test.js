@@ -3,7 +3,7 @@
 define([
   'backbone',
   'marionette',
-  './home-controller',
+  'apps/home/home-controller',
 ], function (Backbone, Marionette, HomeController) {
   describe('HomeController', function () {
     beforeEach(function () {

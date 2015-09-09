@@ -149,3 +149,25 @@ describe('aowp-marionette:app with tests in app directory', function() {
     assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/app/);
   });
 });
+
+describe('app gulp setup', function() {
+  before(function(done) {
+    helpers.run(path.join(__dirname, '../generators/app'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withOptions({ 'skip-install': true })
+      .withPrompt({
+        buildTool: 'gulp'
+      })
+      .on('end', done);
+  });
+
+  it('should copy gulp file', function() {
+    assert.file(['Gulpfile.js']);
+    assert.noFile(['Gruntfile.js', 'grunt-tasks', 'webpack.config.js']);
+  });
+
+  it('should copy package.json with gulp packages', function() {
+    assert.file(['package.json']);
+    assert.fileContent('package.json', /.gulp-/);
+  });
+});
