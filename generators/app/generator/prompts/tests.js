@@ -5,8 +5,6 @@ module.exports = function() {
   this.prompt({
     type: 'list',
     name: 'tests',
-    default: 'appcode',
-    store: true,
     message: 'Where would you like to store your test files?',
     choices: ['With my app code', 'Separately'],
     filter: function(val) {
