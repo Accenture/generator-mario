@@ -28,7 +28,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'app/scripts/apps/**/*.js': [<% if (options.ecma === 'es6') { %>'babel', <% } %>'coverage']<% if (options.ecma === 'es6' && options.tests === 'separate') { %> ,
+            'app/scripts/**/*.js': [<% if (options.ecma === 'es6') { %>'babel', <% } %>'coverage']<% if (options.ecma === 'es6' && options.tests === 'separate') { %> ,
             'test/apps/**/*.js': ['babel']
             <% } %>
         },

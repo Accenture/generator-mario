@@ -5,7 +5,8 @@ export default LayoutView.extend({
   template: JST['app/scripts/apps/main/main-layout-view-template.hbs'],
   regions: {
       'contentRegion': '#content',
-      'navigationRegion': '#navigation'
+      'navigationRegion': '#navigation',
+      'sidebarRegion': '#sidebar'
   },
   el: '#wrapper'
 });

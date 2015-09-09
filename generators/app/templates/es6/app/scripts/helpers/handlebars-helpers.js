@@ -11,5 +11,17 @@ export default {
         return 'N/A';
       }
     });
+
+    Handlebars.registerHelper('formatDay', date => {
+      var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      var dayName = '';
+
+      if (date) {
+        var d = new Date(date);
+        dayName = dayNames[d.getDay()];
+      }
+
+      return dayName;
+    });
   }
 };

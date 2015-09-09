@@ -21,6 +21,7 @@ define([
     it('render() should return the view object', function () {
       expect(this.view.render()).to.equal(this.view);
     });
+
     it('name should equal Sample', function () {
       expect(this.view.render().$('.text').text()).to.equal('Sample');
     });
