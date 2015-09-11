@@ -1,4 +1,4 @@
-import SidebarCollection from './sidebar-collection';
+import SidebarCollection from 'apps/sidebar/sidebar-collection';
 
 describe('SidebarCollection', () => {
   it('has default values', () => {

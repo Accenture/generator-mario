@@ -1,8 +1,6 @@
-'use strict';
-
 import Backbone from 'backbone';
 import Marionette from 'marionette';
-import SidebarController from './sidebar-controller';
+import SidebarController from 'apps/sidebar/sidebar-controller';
 
 const data = {
   name: 'test-feature',

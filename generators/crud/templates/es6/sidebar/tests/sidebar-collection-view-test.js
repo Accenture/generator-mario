@@ -1,4 +1,4 @@
-import SidebarCollectionView from './sidebar-collection-view';
+import SidebarCollectionView from 'apps/sidebar/sidebar-collection-view';
 
 describe('SidebarCollectionView view', function() {
   beforeEach(() => {

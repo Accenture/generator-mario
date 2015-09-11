@@ -3,7 +3,7 @@
 define([
   'backbone',
   'marionette',
-  './sidebar-controller',
+  'apps/sidebar/sidebar-controller',
 ], function (Backbone, Marionette, SidebarController) {
   var data = {
     name: 'test-feature',

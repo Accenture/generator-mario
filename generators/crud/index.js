@@ -160,9 +160,9 @@ module.exports = DirBase.extend({
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_controller-test.js'),
-        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller)),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller, this.testBaseDir)),
         {
-          controllerPath: utils.amd(this.name, utils.type.controller),
+          controllerPath: utils.amd(this.name, utils.type.controller, this.options.directory),
           controllerName: utils.className(this.name, utils.type.controller)
         }
       );
@@ -198,9 +198,9 @@ module.exports = DirBase.extend({
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_item-view-test.js'),
-        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview)),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview, this.testBaseDir)),
         {
-          itemViewPath: utils.amd(this.name, utils.type.itemview),
+          itemViewPath: utils.amd(this.name, utils.type.itemview, this.options.directory),
           itemViewName: utils.className(this.name, utils.type.itemview),
           featureName: this.name
         }
@@ -224,9 +224,9 @@ module.exports = DirBase.extend({
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_detail-view-test.js'),
-        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview, this.testBaseDir)),
         {
-          detailItemViewPath: utils.amd(this.name + '-detail', utils.type.itemview),
+          detailItemViewPath: utils.amd(this.name + '-detail', utils.type.itemview, this.options.directory),
           detailItemViewName: utils.className(this.name + '-detail', utils.type.itemview),
           featureName: this.name
         }
@@ -252,9 +252,9 @@ module.exports = DirBase.extend({
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_create-view-test.js'),
-        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview, this.testBaseDir)),
         {
-          createItemViewPath: utils.amd(this.name + '-create', utils.type.itemview),
+          createItemViewPath: utils.amd(this.name + '-create', utils.type.itemview, this.options.directory),
           createItemViewName: utils.className(this.name + '-create', utils.type.itemview),
           featureName: this.name
         }
@@ -281,9 +281,9 @@ module.exports = DirBase.extend({
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_composite-view-test.js'),
-        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview)),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview, this.testBaseDir)),
         {
-          compositeViewPath: utils.amd(this.name, utils.type.compositeview),
+          compositeViewPath: utils.amd(this.name, utils.type.compositeview, this.options.directory),
           compositeViewName: utils.className(this.name, utils.type.compositeview),
           featureName: this.name
         }
@@ -331,8 +331,13 @@ module.exports = DirBase.extend({
       if (!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
         console.log('Copying sidebar files ...');
         this.fs.copy(
-          this.templatePath(this.sourceDir + 'sidebar'),
+          this.templatePath(this.sourceDir + 'sidebar/app'),
           this.destinationPath('app/scripts/apps/sidebar')
+        );
+
+        this.fs.copy(
+          this.templatePath(this.sourceDir + 'sidebar/tests'),
+          this.destinationPath(this.testBaseDir + '/sidebar')
         );
       } else {
         console.log('Skipping sidebar files ...');

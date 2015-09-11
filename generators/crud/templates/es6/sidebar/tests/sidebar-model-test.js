@@ -1,4 +1,4 @@
-import SidebarModel from './sidebar-model';
+import SidebarModel from 'apps/sidebar/sidebar-model';
 
 describe('SidebarModel', function() {
   it('has default values', () => {

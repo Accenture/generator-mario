@@ -1,4 +1,4 @@
-import SidebarItemView from './sidebar-item-view';
+import SidebarItemView from 'apps/sidebar/sidebar-item-view';
 
 describe('SidebarItemView', function() {
   beforeEach(() => {

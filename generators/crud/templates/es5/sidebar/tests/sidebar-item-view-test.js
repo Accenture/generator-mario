@@ -3,7 +3,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  './sidebar-item-view'
+  'apps/sidebar/sidebar-item-view'
 ], function ($, _, Backbone, SidebarItemView) {
 
   describe('SidebarItemView', function () {

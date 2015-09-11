@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  './sidebar-collection'
+  'apps/sidebar/sidebar-collection'
 ], function (SidebarCollection) {
   describe('SidebarCollection', function () {
     it('has default values', function () {

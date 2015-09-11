@@ -1,6 +1,6 @@
 'use strict';
 define([
-  './sidebar-model'
+  'apps/sidebar/sidebar-model'
 ], function (SidebarModel) {
   describe('SidebarModel', function () {
     it('has default values', function () {
