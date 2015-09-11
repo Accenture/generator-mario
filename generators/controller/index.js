@@ -149,7 +149,7 @@ module.exports = DirBase.extend({
     );
     this.fs.copyTpl(
       this.templatePath(this.sourceDir + '_controller-test.js'),
-      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller)),
+      this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller, this.testBaseDir)),
       {
         controllerPath: utils.amd(this.name, utils.type.controller, this.options.directory),
         controllerClassName: utils.className(this.name, utils.type.controller)
