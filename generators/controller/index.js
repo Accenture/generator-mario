@@ -55,8 +55,6 @@ module.exports = DirBase.extend({
         this.customMdlDir = mdlPathFractions.dir;
       }
 
-      //pathVerification.verifyPath(this.customMdlDir, mdlPathFractions.name, utils.type.model);
-      items.push({path: utils.amd(mdlPathFractions.name, utils.type.model, mdlPathFractions.dir), name: 'Model', type: 'model'});
       utils.verifyPath(utils.fileNameWithPath(this.customMdlDir, mdlPathFractions.name, utils.type.model));
 
       items.push({path: utils.amd(mdlPathFractions.name, utils.type.model, mdlPathFractions.dir), name: 'Model', type: 'model'});
@@ -72,8 +70,6 @@ module.exports = DirBase.extend({
         this.customCllDir = cllPathFractions.dir;
       }
 
-      //pathVerification.verifyPath(this.customCllDir, cllPathFractions.name, utils.type.collection);
-      items.push({path: utils.amd(cllPathFractions.name, utils.type.collection, cllPathFractions.dir), name: 'Collection', type: 'collection'});
       utils.verifyPath(utils.fileNameWithPath(this.customCllDir, cllPathFractions.name, utils.type.collection));
 
       items.push({path: utils.amd(cllPathFractions.name, utils.type.collection, cllPathFractions.dir), name: 'Collection', type: 'collection'});
@@ -147,6 +143,7 @@ module.exports = DirBase.extend({
         items: items
       }
     );
+
     this.fs.copyTpl(
       this.templatePath(this.sourceDir + '_controller-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller, this.testBaseDir)),

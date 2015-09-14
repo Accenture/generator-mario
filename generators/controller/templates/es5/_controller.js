@@ -1,6 +1,6 @@
 'use strict';
 
-define(['marionette'<%items.forEach(function(item){%>, '<%= item.path %>'<%});%>], function (Marionette<%items.forEach(function(item){%>, <%= item.name %><%});%>) {
+define(['marionette'<% items.forEach(function(item){ %>, '<%= item.path %>'<% }); %>], function (Marionette<% items.forEach(function(item){ %>, <%= item.name %><% }); %>) {
 
   return Marionette.Object.extend({
     initialize: function (options) {
@@ -14,7 +14,7 @@ define(['marionette'<%items.forEach(function(item){%>, '<%= item.path %>'<%});%>
       var <%= item.varName %> = new <%= item.name %>({collection: collection});
       this.region.show(<%= item.varName %>);<% } else if(item.type === 'compositeview'){ %>
       var <%= item.varName %> = new <%= item.name %>({model: model, collection: collection});
-      this.region.show(<%= item.varName %>);<%}});%>
+      this.region.show(<%= item.varName %>);<% }}); %>
     }
   });
 });

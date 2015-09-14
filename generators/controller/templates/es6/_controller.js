@@ -5,7 +5,7 @@ export default Object.extend({
   initialize(options) {
     this.region = options.region;
   },
-  default() {<% items.forEach(function(item){ %><% items.forEach(function(item){ %><% if(item.type === 'collection' || item.type === 'model') { %>
+  default() {<% items.forEach(function(item){ %><% if(item.type === 'collection' || item.type === 'model') { %>
     var <%= item.type %> = new <%= item.name %>();<% } else if(item.type === 'itemview'){ %>
     var <%= item.varName %> = new <%= item.name %>({model: model});
     this.region.show(<%= item.varName %>);<% } else if(item.type === 'collectionview'){ %>

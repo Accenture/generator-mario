@@ -5,13 +5,13 @@ define([
   '<%= controllerPath %>'
 ], function (Marionette, <%= controllerClassName %>) {
 
-  describe('<%= controllerClassName %>', function () {
-    beforeEach(function () {
+  describe('<%= controllerClassName %>', function() {
+    beforeEach(function() {
       this.region = new Marionette.Region({el: 'body'});
       this.controller = new <%= controllerClassName %>({region: this.region});
     });
 
-    it('region should be ok', function () {
+    it('region should be ok', function() {
       expect(this.region).to.be.equal(this.controller.region);
     });
 

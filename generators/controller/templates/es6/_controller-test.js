@@ -1,7 +1,7 @@
 import {Region} from 'marionette';
 import <%= controllerClassName %> from '<%= controllerPath %>';
 
-describe('<%= controllerClassName %>', () => {
+describe('<%= controllerClassName %>', function() {
   beforeEach(() => {
     this.region = new Region({el: 'body'});
     this.controller = new <%= controllerClassName %>({region: this.region});
