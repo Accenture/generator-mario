@@ -37,7 +37,7 @@ define([
     it('author should equal This Guy', function () {
       expect(this.view.render().$('#author').val()).to.equal('This Guy');
     });
-    
+
     it('remove click event should trigger spy', function() {
       this.view.$el.find('button.remove').trigger('click');
       expect(this.triggerSpy.callCount).to.be.equal(1);
