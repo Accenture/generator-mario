@@ -6,7 +6,7 @@ module.exports = function(grunt) {
                 paths: {
                     'templates': '../../.tmp/scripts/templates'
                 },
-                mainConfigFile: 'app/scripts/main.js',
+                mainConfigFile: '.tmp/scripts/main.js',
                 optimize: 'uglify',
                 modules: [{
                     name: 'main'
