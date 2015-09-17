@@ -34,8 +34,10 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
-    "jscs": "^2.1.1",
+    "escodegen": "^1.7.0",
+    "esprima": "^2.6.0",
     "istanbul": "^0.3.18",
+    "jscs": "^2.1.1",
     "mocha": "*",
     "sinon": "^1.15.4"
   }

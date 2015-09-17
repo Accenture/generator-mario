@@ -51,7 +51,7 @@ export default Marionette.Object.extend({
     view.listenTo(view, msg.CREATE_ITEM, model => {
       this.collection.add(model);
       //TODO: model.save();
-      this.channel.trigger(msg.CRUD_UPDATE, {name: feature.name, count: that.collection.length, baseRoute: feature.baseRoute});
+      this.channel.trigger(msg.CRUD_UPDATE, {name: feature.name, count: this.collection.length, baseRoute: feature.baseRoute});
       Backbone.history.navigate('#<%= featureName %>', {trigger: true});
     });
     this.region.show(view);

@@ -1,60 +1,137 @@
 'use strict';
 
-var ast = require('ast-query');
+var esprima = require('esprima');
+var escodegen = require('escodegen');
 var DirBase = require('../dir-base');
 var utils = require('../utils');
 var lodash = require('lodash');
 var fs = require('fs');
 
-function parseSourceContents(contents) {
-  contents = contents.split(/\r\n|\r|\n/g);
+function createEs6Import(className, path) {
+	//object for importing dependencies with className, path
+	//resulting expresion is in form: "import className from 'path'"
+	
+	return {
+		'type': 'ImportDeclaration',
+		'specifiers': [
+			{
+				'type': 'ImportDefaultSpecifier',
+				'local': {
+					'type': 'Identifier',
+					'name': className
+				}
+			}
+		],
+		'source': {
+			'type': 'Literal',
+			'value': path,
+			'raw': '\'' + path + '\''
+		}
+	};
+}
 
-  //get import lines
-  var imports = contents.filter(function(line) {
-    return line.lastIndexOf('import', 0) === 0;
-  });
+function createInstance(className, region) {
+	//object for registering router into initializeUI function with className, region
+	//resulting expression in in form: "new className({ region: rootView.region })"
+	
+	return {
+		'type': 'ExpressionStatement',
+		'expression': {
+			'type': 'NewExpression',
+			'callee': {
+				'type': 'Identifier',
+				'name': className
+			},
+			'arguments': [
+				{
+					'type': 'ObjectExpression',
+					'properties': [
+						{
+							'type': 'Property',
+							'key': {
+								'type': 'Identifier',
+								'name': 'region'
+							},
+							'computed': false,
+							'value': {
+								'type': 'MemberExpression',
+								'computed': false,
+								'object': {
+									'type': 'Identifier',
+									'name': 'rootView'
+								},
+								'property': {
+								'type': 'Identifier',
+								'name': region
+								}
+							},
+							'kind': 'init',
+							'method': false,
+							'shorthand': false
+						}
+					]
+				}
+			]
+		}
+	};
+}
 
-  //get export line
-  var exportLine = contents.filter(function(line) {
-    return line.lastIndexOf('export', 0) === 0;
-  });
+function findMainContentIndex(tree) {
+	return lodash.findIndex(tree.body, {
+		'expression': {
+			'callee': {
+				'type': 'Identifier',
+				'name': 'define'
+			}
+		}
+	});
+}
 
-  //get code parsable via ast
-  var code = contents.filter(function(line) {
-    return line.lastIndexOf('import', 0) !== 0 && line.lastIndexOf('export', 0) !== 0;
-  }).join('\n');
-
-  return {
-    code: code, imports: imports, export: exportLine
-  };
+function findInitializeUiIndex(result) {
+	return lodash.findIndex(result.body, {
+		'type': 'VariableDeclaration',
+		'declarations': [
+			{
+				'type': 'VariableDeclarator',
+				'id': {
+					'type': 'Identifier',
+					'name': 'initializeUI'
+				}
+			}
+		]
+	});
 }
 
 function registerAMD(generator, tree, component) {
-  // registering router path in AMD
-  var result = tree.callExpression('define');
-  var componentNameWithPath = 'apps/' + component.dir + '/' + component.name + '-' + component.type;
+	//registering router path in AMD
+	var componentNameWithPath = 'apps/' + component.dir + '/' + component.name + '-' + component.type;
+  var contentIndex = findMainContentIndex(tree);
+	var result = tree.body[contentIndex].expression;
+	var existingImports = result.arguments[0].elements;
+	var className = utils.className(component.name, component.type);
+	var existingObjects = result.arguments[1].params;
 
-  var existingImports = result.arguments.at(0).nodes[0].elements;
-  var className = utils.className(component.name, component.type);
-  var existingObjects = result.arguments.at(1).node.params;
-
-  //check import path exists
+	//check import path exists
   if (lodash.some(existingImports, function(elem) { return elem.value === componentNameWithPath; }, generator)) {
     generator.log.error(component.name + component.type + ' path conflict while updating app.js, aborting file update!');
     return tree;
   }
 
-  //check import object exists
+	//check import object exists
   if (lodash.some(existingObjects, function(elem) { return elem.name === className; }, generator)) {
     generator.log.error(component.name + component.type + 'Router Object name conflict while updating app.js, aborting file update!');
     return tree;
   }
 
-  //register import (filepath)
-  result.arguments.at(0).push('\'' + componentNameWithPath + '\'');
+	//register import (filepath)
+	result.arguments[0].elements.push({
+		'type': 'Literal',
+		'value': '' + componentNameWithPath + '',
+		'raw': '\'' + componentNameWithPath + '\''
+	});
 
-  // register router in function(X, Y, Z, SomeRouter)
-  result.arguments.at(1).node.params.push({
+	//register router in function(X, Y, Z, SomeRouter)
+  result.arguments[1].params.push({
     type: 'Identifier',
     name: className
   });
@@ -62,52 +139,61 @@ function registerAMD(generator, tree, component) {
   return tree;
 }
 
-function registerImport(generator, component, imports) {
+function registerImport(generator, component, tree) {
   var className = utils.className(component.name, component.type);
-  var componentNameWithPath = 'apps/' + component.dir + '/' + component.name + '-' + component.type;
+	var componentNameWithPath = 'apps/' + component.dir + '/' + component.name + '-' + component.type;
 
-  imports.push('import ' + className + ' from \'' + componentNameWithPath + '\';');
+	//list of imports
+	var filteredImports = tree.body.filter(function(value) {
+		return value.type === 'ImportDeclaration';
+	});
 
-  return imports;
+	//register import
+	tree.body.splice(filteredImports.length, 0, createEs6Import(className, componentNameWithPath));
+
+  return tree;
 }
 
-function registerInstance(tree, component) {
+function registerInstanceEs6(tree, component) {
+	var region = component.region || 'contentRegion';
+	var className = utils.className(component.name, component.type);
+	var initializeUiIndex = findInitializeUiIndex(tree);
+
+	//register instance
+	tree.body[initializeUiIndex].declarations[0].init.body.body.push(createInstance(className, region));
+
+  return tree;
+}
+
+function registerInstanceEs5(tree, component) {
   var region = component.region || 'contentRegion';
-
   var className = utils.className(component.name, component.type);
-  var result = tree.var('initializeUI');
+	var contentIndex = findMainContentIndex(tree);
+	var result = tree.body[contentIndex].expression.arguments[1].body;
+	var initializeUiIndex = findInitializeUiIndex(result);
 
-  // new SomeRouter({region: someRegionVariable});
-  var code = 'new ' + className + '({region: rootView.' + region + '})';
-  result.value().body.append(code);
+	//register instance
+  result.body[initializeUiIndex].declarations[0].init.body.body.push(createInstance(className, region));
 
   return tree;
 }
 
 function registerES5Component(generator, fileContents, component) {
-  var tree = ast(fileContents);
+	var tree = esprima.parse(fileContents);
 
-  //register stuff
-  tree = registerAMD(generator, tree, component);
-  tree = registerInstance(tree, component);
+	tree = registerAMD(generator, tree, component);
+  tree = registerInstanceEs5(tree, component);
 
-  return tree.toString();
+	return escodegen.generate(tree);
 }
 
 function registerES6Component(generator, fileContents, component) {
-  //get import, code, export separately
-  var parsedSource = parseSourceContents(fileContents);
-  var tree = ast(parsedSource.code);
+	var tree = esprima.parse(fileContents, {sourceType: 'module'});
 
-  //register stuff
-  var imports = registerImport(generator, component, parsedSource.imports);
-  tree = registerInstance(tree, component);
+	tree = registerImport(generator, component, tree);
+  tree = registerInstanceEs6(tree, component);
 
-  //concatenate parts back together
-  var updatedFile = imports.join('\n') + '\n\n' +
-    tree.toString() + '\n\n' + parsedSource.export;
-
-  return updatedFile;
+  return escodegen.generate(tree);
 }
 
 module.exports = DirBase.extend({
