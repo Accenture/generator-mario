@@ -11,7 +11,7 @@ var buildToolPrompts = function() {
   this.prompt({
     type: 'list',
     name: 'buildTool',
-    message: 'What build tool would you lile to use?',
+    message: 'What build tool would you like to use?',
     choices: [buildTools.grunt, buildTools.gulp, buildTools.webpack],
     default: buildTools.grunt
   }, function(answer) {

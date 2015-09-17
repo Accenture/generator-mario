@@ -329,7 +329,7 @@ module.exports = DirBase.extend({
 
     sidebarFeature: function() {
       if (!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
-        console.log('Copying sidebar files ...');
+        this.log('Copying sidebar files ...');
         this.fs.copy(
           this.templatePath(this.sourceDir + 'sidebar/app'),
           this.destinationPath('app/scripts/apps/sidebar')
@@ -340,7 +340,7 @@ module.exports = DirBase.extend({
           this.destinationPath(this.testBaseDir + '/sidebar')
         );
       } else {
-        console.log('Skipping sidebar files ...');
+        this.log('Skipping sidebar files ...');
       }
     }
   }
