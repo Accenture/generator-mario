@@ -7,10 +7,11 @@ var utils = require('../utils');
 var lodash = require('lodash');
 var fs = require('fs');
 
+/*
+	object for importing dependencies with className, path
+	resulting expresion is in form: "import className from 'path'"
+ */
 function createEs6Import(className, path) {
-	//object for importing dependencies with className, path
-	//resulting expresion is in form: "import className from 'path'"
-	
 	return {
 		'type': 'ImportDeclaration',
 		'specifiers': [
@@ -30,10 +31,11 @@ function createEs6Import(className, path) {
 	};
 }
 
+/*
+	object for registering router into initializeUI function with className, region
+	resulting expression in in form: "new className({ region: rootView.region })"
+ */
 function createInstance(className, region) {
-	//object for registering router into initializeUI function with className, region
-	//resulting expression in in form: "new className({ region: rootView.region })"
-	
 	return {
 		'type': 'ExpressionStatement',
 		'expression': {
