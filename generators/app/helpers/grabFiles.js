@@ -1,4 +1,5 @@
 'use strict';
+
 var fs = require('fs');
 
 // dynamically include generator configuration files,

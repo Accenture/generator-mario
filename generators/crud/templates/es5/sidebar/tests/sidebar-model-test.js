@@ -1,4 +1,5 @@
 'use strict';
+
 define([
   'apps/sidebar/sidebar-model'
 ], function (SidebarModel) {

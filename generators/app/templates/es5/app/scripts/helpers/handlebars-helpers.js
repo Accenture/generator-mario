@@ -1,4 +1,5 @@
 'use strict';
+
 define(['handlebars'], function (Handlebars) {
 
   return {

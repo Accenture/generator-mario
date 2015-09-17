@@ -1,10 +1,11 @@
+'use strict';
+
 define([
   'jquery',
   'underscore',
   'backbone',
   '<%= viewPath %>'
 ], function ($, _, Backbone, <%= viewName %>) {
-  'use strict';
 
   describe('<%= viewName %> view', function () {
     beforeEach(function () {

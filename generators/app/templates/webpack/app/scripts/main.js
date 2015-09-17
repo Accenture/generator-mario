@@ -1,4 +1,3 @@
-/*global require, Handlebars*/
 'use strict';
 
 require([

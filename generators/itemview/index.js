@@ -1,4 +1,5 @@
 'use strict';
+
 var utils = require('../utils');
 var DirBase = require('../dir-base');
 var path = require('path');

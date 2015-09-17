@@ -1,4 +1,5 @@
 'use strict';
+
 var yeoman = require('yeoman-generator');
 var lodash = require('lodash');
 var grabFiles = require('./helpers/grabFiles');

@@ -1,4 +1,4 @@
-/*global define, describe, it, beforeEach */
+'use strict';
 
 define([
   'jquery',
@@ -6,7 +6,6 @@ define([
   'backbone',
   'apps/navigation/navigation-item-view'
 ], function ($, _, Backbone, NavigationItemView) {
-  'use strict';
 
   describe('NavigationItemView', function () {
     beforeEach(function () {

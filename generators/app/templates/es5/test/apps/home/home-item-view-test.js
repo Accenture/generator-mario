@@ -1,4 +1,4 @@
-/*global define, describe, it, beforeEach */
+'use strict';
 
 define([
   'jquery',
@@ -6,7 +6,6 @@ define([
   'backbone',
   'apps/home/home-item-view'
 ], function ($, _, Backbone, HomeItemView) {
-  'use strict';
 
   describe('HomeItemView', function () {
     beforeEach(function () {

@@ -1,4 +1,5 @@
 'use strict';
+
 define([
   'marionette',
   'templates',

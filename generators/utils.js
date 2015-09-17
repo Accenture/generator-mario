@@ -1,4 +1,5 @@
 'use strict';
+
 var path = require('path');
 var url = require('url');
 var baseDir = 'app/scripts/apps/';
