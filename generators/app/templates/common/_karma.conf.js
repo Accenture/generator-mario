@@ -28,11 +28,11 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'app/scripts/**/*.js': [<% if (options.ecma === 'es6') { %>'babel', <% } %>'coverage']<% if (options.ecma === 'es6' && options.tests === 'separate') { %> ,
+            'app/scripts/**/*.js': [<% if (options.ecma === 6) { %>'babel', <% } %>'coverage']<% if (options.ecma === 6 && options.tests === 'separate') { %> ,
             'test/apps/**/*.js': ['babel']
             <% } %>
         },
-        <% if (options.ecma === 'es6') { %>
+        <% if (options.ecma === 6) { %>
         babelPreprocessor: {
            options: {
              sourceMap: 'inline',
@@ -64,7 +64,7 @@ module.exports = function (config) {
             'karma-chai-sinon',
             'karma-coverage',
             'karma-chrome-launcher',
-            'karma-firefox-launcher',<% if (options.ecma === 'es6') { %>
+            'karma-firefox-launcher',<% if (options.ecma === 6) { %>
             'karma-babel-preprocessor',<% } %>
             'karma-phantomjs-launcher'
         ],

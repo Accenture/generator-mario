@@ -15,7 +15,6 @@ module.exports = function() {
       return filterMap[val];
     }
   }, function(answer) {
-    this.config.set('tests', answer.tests);
     this.tests = {tests: answer.tests};
     done();
   }.bind(this));

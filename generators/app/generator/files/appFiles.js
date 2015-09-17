@@ -15,7 +15,7 @@ function copyBuildSystem(generator) {
   }
 
   //rewrite some es6 specific files if es6 is the way
-  if (generator.ecma === 'es6') {
+  if (generator.ecma === 6) {
     generator.fs.copy(
       generator.templatePath('es6/grunt-tasks'),
       generator.destinationPath('grunt-tasks')
@@ -50,7 +50,7 @@ function copyBuildSystem(generator) {
 }
 
 function copyTests(generator) {
-  var prefix = (generator.ecma === 'es6') ? 'es6/' : 'es5/';
+  var prefix = (generator.ecma === 6) ? 'es6/' : 'es5/';
 
   var tests = [
     'apps/home/home-item-view-test.js',
@@ -112,7 +112,7 @@ var appFiles = function() {
     //copy files for selected build system
     copyBuildSystem(this);
 
-    var prefix = (this.ecma === 'es6') ? 'es6/' : 'es5/';
+    var prefix = (this.ecma === 6) ? 'es6/' : 'es5/';
     var esmaSpecificTemplates = ['app/scripts'];
 
     esmaSpecificTemplates.forEach(function(name) {

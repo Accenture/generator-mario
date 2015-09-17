@@ -15,11 +15,13 @@ var DirectoryBase = generators.NamedBase.extend({
 
     this.options.directory = utils.truncateBasePath(this.options.directory);
 
-    if (this.config.get('ecma')) {
-      this.options.ecma = this.config.get('ecma');
+		var config = this.config.get('config') || {};
+
+    if (config.ecma) {
+      this.options.ecma = config.ecma;
     }
-    if (this.config.get('tests')) {
-      this.options.tests = this.config.get('tests');
+    if (config.tests) {
+      this.options.tests = config.tests;
     }
 
     this.testBaseDir = (this.options.tests === 'separate') ? 'test/apps' : 'app/scripts/apps';

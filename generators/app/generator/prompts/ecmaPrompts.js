@@ -2,7 +2,7 @@
 
 var ecmaPrompts = function() {
     if (this.skipEcmaPromp) {
-      this.ecmaPrompts = {ecma: 'es5'};
+      this.ecmaPrompts = {ecma: 5};
 
       return;
     }
@@ -16,11 +16,9 @@ var ecmaPrompts = function() {
       choices: ['ECMAScript 5 (ES5)', 'ECMAScript 2015 (ES6)']
     }, function(answer) {
       if (answer.ecma === 'ECMAScript 5 (ES5)') {
-        this.config.set('ecma', 5);
-        this.ecmaPrompts = {ecma: 'es5'};
+        this.ecmaPrompts = {ecma: 5};
       } else if (answer.ecma === 'ECMAScript 2015 (ES6)') {
-        this.config.set('ecma', 6);
-        this.ecmaPrompts = {ecma: 'es6'};
+        this.ecmaPrompts = {ecma: 6};
       }
       done();
     }.bind(this));
