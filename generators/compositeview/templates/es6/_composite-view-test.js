@@ -15,9 +15,9 @@ describe('<%= viewName %>', () => {
 
   it('Render() should return the view object', () => {
     expect(view.render()).to.equal(view);
-  });
+  });<% if(!templateExists) { %>
 
   it('should render 2 items', () => {
     expect(view.render().$el.find('#itemView').children().length).to.equal(2);
-  });
+  });<% } %>
 });

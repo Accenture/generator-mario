@@ -13,8 +13,10 @@ module.exports = DirBase.extend({
     this.template = this.options.template || this.options.t;
     this.customTplDir = this.options.directory || this.name;
     this.customTplName = this.name;
+    this.templateExists = false;
 
     if (this.template) {
+      this.templateExists = true;
       this.template = utils.truncateBasePath(this.template);
 
       var pathFractions = path.parse(this.template);
@@ -31,7 +33,8 @@ module.exports = DirBase.extend({
       this.templatePath(this.sourceDir + '_layout-view.js'),
       this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name, utils.type.layoutview)),
       {
-        templatePath: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.layoutview)
+        templatePath: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.layoutview),
+        templateExists: this.templateExists
       }
     );
 
@@ -50,7 +53,8 @@ module.exports = DirBase.extend({
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.layoutview, this.testBaseDir)),
       {
         viewPath: utils.amd(this.name, utils.type.layoutview, this.options.directory),
-        viewName: utils.className(this.name, utils.type.layoutview)
+        viewName: utils.className(this.name, utils.type.layoutview),
+        templateExists: this.templateExists
       }
     );
   }

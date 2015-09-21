@@ -8,9 +8,9 @@ describe('<%= viewName %> view', () => {
   });
   it('render() should return the view object', () => {
     expect(view.render()).to.equal(view);
-  });
+  });<% if(!templateExists) { %>
 
   it('should contain 2 regions', () => {
     expect(view.render().$el.find('div').length).to.equal(2);
-  });
+  });<% } %>
 });

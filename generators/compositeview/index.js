@@ -16,6 +16,7 @@ module.exports = DirBase.extend({
   initializing: function() {
     this.itemview = this.options.itemview || this.options.itv;
     this.template = this.options.template || this.options.t;
+    this.templateExists = false;
 
     //item view
     this.customView = {
@@ -45,6 +46,7 @@ module.exports = DirBase.extend({
     this.customTplName = this.name;
 
     if (this.template) {
+      this.templateExists = true;
       this.template = utils.truncateBasePath(this.template);
 
       pathFractions = path.parse(this.template);
@@ -64,7 +66,8 @@ module.exports = DirBase.extend({
       {
         childPath: this.customView.path,
         childItemView: this.customView.class,
-        template: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.compositeview)
+        template: utils.templateNameWithPath(this.customTplDir, this.customTplName, utils.type.compositeview),
+        templateExists: this.templateExists
       }
     );
 
@@ -84,7 +87,8 @@ module.exports = DirBase.extend({
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.compositeview, this.testBaseDir)),
       {
         compview: utils.amd(this.name, utils.type.compositeview, this.options.directory),
-        viewName: utils.className(this.name, utils.type.compositeview)
+        viewName: utils.className(this.name, utils.type.compositeview),
+        templateExists: this.templateExists
       }
     );
   }

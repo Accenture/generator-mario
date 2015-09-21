@@ -9,7 +9,7 @@ define([
   return Marionette.CompositeView.extend({
     tagName: 'div',
     template: JST['<%= template %>'],
-    childView: <%= childItemView %>,
-    childViewContainer: '#itemView'
+    childView: <%= childItemView %><% if (!templateExists) { %>,
+    childViewContainer: '#itemView'<% } %>
   });
 });
