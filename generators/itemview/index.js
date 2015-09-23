@@ -39,7 +39,8 @@ module.exports = DirBase.extend({
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.itemview, this.testBaseDir)),
       {
         dest: utils.amd(this.name, utils.type.itemview, this.options.directory),
-        view: utils.className(this.name, utils.type.itemview)
+        view: utils.className(this.name, utils.type.itemview),
+        template: this.template
       }
     );
 

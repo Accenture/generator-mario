@@ -13,8 +13,8 @@ describe('<%= view %>', () =>  {
 
   it('render() should return the view object', () =>  {
     expect(view.render()).to.equal(view);
-  });
+  });<% if(!template) { %>
   it('id should equal 1', () =>  {
     expect(view.render().$('h2').text()).to.equal('Home');
-  });
+  });<% } %>
 });
