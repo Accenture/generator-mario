@@ -40,7 +40,7 @@ describe('aowp-marionette:layoutview', function() {
     });
   });
 
-  describe('ES6', function() {
+  describe('without template option ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
@@ -104,6 +104,43 @@ describe('aowp-marionette:layoutview', function() {
     });
   });
 
+  describe('with options (directory, template) ES6', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/layoutview'))
+        .inTmpDir(function(dir) {
+          var done = this.async();
+          var filePath = path.join(dir, 'app/scripts/apps/template', 'feature-template.hbs');
+          fs.ensureFile(filePath, done);
+        })
+        .withArguments(['apples'])
+        .withOptions({
+          directory: 'app/scripts/apps/fruit',
+          template: 'template/feature-template.hbs',
+          ecma: 6
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'app/scripts/apps/fruit/apples-layout-view.js',
+        'app/scripts/apps/fruit/apples-layout-view-test.js'
+      ]);
+
+      assert.noFile('app/scripts/apps/fruit/apples-layout-template.js');
+    });
+    it('contains template', function() {
+      assert.fileContent('app/scripts/apps/fruit/apples-layout-view.js', /JST\['app\/scripts\/apps\/template\/feature-template.hbs']/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
   describe('with tests in separate dir', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
@@ -111,6 +148,26 @@ describe('aowp-marionette:layoutview', function() {
         .withArguments(['apples'])
         .withOptions({
           tests: 'separate'
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'app/scripts/apps/apples/apples-layout-view.js',
+        'test/apps/apples/apples-layout-view-test.js'
+      ]);
+    });
+  });
+
+  describe('with tests in separate dir ES6', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/layoutview'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['apples'])
+        .withOptions({
+          tests: 'separate',
+          ecma: 6
         })
         .on('end', done);
     });

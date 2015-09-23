@@ -26,8 +26,7 @@ describe('aowp-marionette:crud', function() {
     'app/scripts/apps/sidebar'
   ];
 
-  describe('es5 version should', function() {
-
+  describe('ES5 version with should', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/crud'))
         .inTmpDir(function(dir) {
@@ -38,8 +37,10 @@ describe('aowp-marionette:crud', function() {
           fs.copy(srcPath, destPath, copyDone);
         })
         .withArguments(['my-crud'])
-        .withOptions({ force: true })
-        .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:model']])
+        .withOptions({
+          force: true
+        })
+        .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });
 
@@ -61,9 +62,40 @@ describe('aowp-marionette:crud', function() {
       assert.fileContent('app/scripts/app.js', /new SidebarController\(\{/);
     });
 
+    describe('with existing sidebar should', function() {
+      before(function(done) {
+        helpers.run(path.join(__dirname, '../generators/crud'))
+          .inTmpDir(function(dir) {
+            var copyDone = this.async();
+            var srcPath = path.join(__dirname, '../generators/app/templates/es5/app/scripts/app.js');
+            var destPath = path.join(dir, '/app/scripts/app.js');
+            var sidebarSrc = path.join(__dirname, '../generators/crud/templates/es5/sidebar');
+            var sidebarDest = path.join(dir, '/app/scripts/apps/sidebar');
+
+            fs.copy(srcPath, destPath, function() {
+              fs.copy(sidebarSrc, sidebarDest, copyDone);
+            });
+
+          })
+          .withArguments(['my-crud'])
+          .withOptions({ force: true })
+          .withGenerators([path.join(__dirname, '../generators/model')])
+          .on('end', done);
+      });
+
+      it('create files', function() {
+        assert.file(crudFiles);
+      });
+
+      it('registers router', function() {
+        assert.fileContent('app/scripts/app.js', /'apps\/my-crud\/my-crud-router'/);
+        assert.fileContent('app/scripts/app.js', /, MyCrudRouter/);
+        assert.fileContent('app/scripts/app.js', /new MyCrudRouter\(\{/);
+      });
+    });
   });
 
-  describe('es6 version should', function() {
+  describe('ES6 version should', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/crud'))
         .inTmpDir(function(dir) {
@@ -74,8 +106,11 @@ describe('aowp-marionette:crud', function() {
           fs.copy(srcPath, destPath, copyDone);
         })
         .withArguments(['my-crud'])
-        .withOptions({ ecma: 6, force: true })
-        .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:model']])
+        .withOptions({
+          ecma: 6,
+          force: true
+        })
+        .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });
 
@@ -90,6 +125,11 @@ describe('aowp-marionette:crud', function() {
       assert.fileContent('app/scripts/app.js', /new MyCrudRouter\(\{/);
     });
 
+    it('register sidebar', function() {
+      assert.fileContent('app/scripts/app.js', /import SidebarController from 'apps\/sidebar\/sidebar-controller'/);
+      assert.fileContent('app/scripts/app.js', /new SidebarController\(\{/);
+    });
+
     describe('with existing sidebar should', function() {
       before(function(done) {
         helpers.run(path.join(__dirname, '../generators/crud'))
@@ -97,7 +137,7 @@ describe('aowp-marionette:crud', function() {
             var copyDone = this.async();
             var srcPath = path.join(__dirname, '../generators/app/templates/es5/app/scripts/app.js');
             var destPath = path.join(dir, '/app/scripts/app.js');
-            var sidebarSrc = path.join(__dirname, '../generators/app/templates/es5/sidebar');
+            var sidebarSrc = path.join(__dirname, '../generators/crud/templates/es6/sidebar');
             var sidebarDest = path.join(dir, '/app/scripts/apps/sidebar');
 
             fs.copy(srcPath, destPath, function() {
@@ -107,7 +147,7 @@ describe('aowp-marionette:crud', function() {
           })
           .withArguments(['my-crud'])
           .withOptions({ force: true })
-          .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:model']])
+          .withGenerators([path.join(__dirname, '../generators/model')])
           .on('end', done);
       });
 

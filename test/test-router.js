@@ -24,13 +24,48 @@ describe('aowp-marionette:router', function() {
     it('create file', function() {
       assert.file([
         'app/scripts/apps/some-feature/some-feature-router.js',
-        'app/scripts/apps/some-feature/some-feature-controller.js',
+        'app/scripts/apps/some-feature/some-feature-controller.js'
       ]);
     });
 
     it('contains AMD dependency', function() {
       assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'.\/some-feature-controller'/);
       assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /, SomeFeatureController/);
+    });
+    it('contains controller class', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeFeatureController/);
+    });
+
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
+  describe('without options ES6', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/router'))
+        .withArguments(['some-feature'])
+        .withGenerators([path.join(__dirname, '../generators/controller')])
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({
+          ecma: 6
+        })
+        .on('end', done);
+    });
+
+    it('create file', function() {
+      assert.file([
+        'app/scripts/apps/some-feature/some-feature-router.js',
+        'app/scripts/apps/some-feature/some-feature-controller.js'
+      ]);
+    });
+
+    it('contains controller module dependency', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /import SomeFeatureController from '.\/some-feature-controller'/);
     });
     it('contains controller class', function() {
       assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeFeatureController/);
@@ -74,6 +109,38 @@ describe('aowp-marionette:router', function() {
     });
   });
 
+  describe('with existing controller ES6', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/router'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['some-feature'])
+        .withOptions({
+          directory: 'some-feature',
+          controller: 'some-controller',
+          ecma: 6
+        })
+        .on('end', done);
+    });
+    it('creates files', function() {
+      assert.file([
+        'app/scripts/apps/some-feature/some-feature-router.js'
+      ]);
+    });
+    it('contains controller module dependency', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /import SomeController from '.\/some-controller'/);
+    });
+    it('contains controller class', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeController/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
   describe('with existing controller expanded dirs', function() {
     before(function(done) {
       stub = sinon.stub(existTest, 'verifyPath', function() {
@@ -82,7 +149,7 @@ describe('aowp-marionette:router', function() {
       helpers.run(path.join(__dirname, '../generators/router'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:controller']])
+        .withGenerators([path.join(__dirname, '../generators/controller')])
         .withOptions({
           directory: 'app/scripts/apps/some-feature',
           controller: 'app/scripts/apps/vegetables/broccoli-controller.js'
@@ -107,7 +174,7 @@ describe('aowp-marionette:router', function() {
     });
   });
 
-  describe('es6', function() {
+  describe('with existing controller expanded dirs ES6', function() {
     before(function(done) {
       stub = sinon.stub(existTest, 'verifyPath', function() {
         return true;
@@ -115,7 +182,7 @@ describe('aowp-marionette:router', function() {
       helpers.run(path.join(__dirname, '../generators/router'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:controller']])
+        .withGenerators([path.join(__dirname, '../generators/controller')])
         .withOptions({
           directory: 'app/scripts/apps/some-feature',
           controller: 'app/scripts/apps/vegetables/broccoli-controller.js',

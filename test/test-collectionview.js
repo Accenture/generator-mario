@@ -49,7 +49,46 @@ describe('aowp-marionette:collectionview', function() {
     });
   });
 
-  describe('ES6', function() {
+  describe('with existing itemview ES6', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/collectionview'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['some-feature'])
+        .withOptions({
+          directory: 'some-feature',
+          itemview: 'some-item-view',
+          ecma: 6
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'app/scripts/apps/some-feature/some-feature-collection-view.js',
+        'app/scripts/apps/some-feature/some-feature-collection-view-test.js'
+      ]);
+    });
+    it('contains itemview module dependency', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view.js', /import SomeItemView from '.\/some-item-view'/);
+    });
+    it('contains childView', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view.js', /childView: SomeItemView/);
+    });
+    it('test with right content', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /.\/some-feature-collection-view/);
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /SomeFeatureCollectionView/);
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /new SomeFeatureCollectionView/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
+  describe('without existing itemview ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
@@ -57,7 +96,7 @@ describe('aowp-marionette:collectionview', function() {
         .withOptions({
           ecma: 6
         })
-        .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:itemview']])
+        .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
     it('creates files', function() {
@@ -87,7 +126,7 @@ describe('aowp-marionette:collectionview', function() {
         .withOptions({
           directory: 'other-feature'
         })
-        .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:itemview']])
+        .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
     it('creates files', function() {
@@ -117,7 +156,7 @@ describe('aowp-marionette:collectionview', function() {
           directory: 'app/scripts/apps/other-feature',
           itemview: 'app/scripts/apps/vegetables/broccoli-item-view.js'
         })
-        .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:itemview']])
+        .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
     afterEach(function(done) {
@@ -139,6 +178,40 @@ describe('aowp-marionette:collectionview', function() {
     });
   });
 
+  describe('with existing itemview, expanded dirs ES6', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/collectionview'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['other-feature'])
+        .withOptions({
+          directory: 'app/scripts/apps/other-feature',
+          itemview: 'app/scripts/apps/heroes/storm-item-view.js',
+          ecma: 6
+        })
+        .withGenerators([path.join(__dirname, '../generators/itemview')])
+        .on('end', done);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+    it('creates files', function() {
+      assert.file([
+        'app/scripts/apps/other-feature/other-feature-collection-view.js',
+        'app/scripts/apps/other-feature/other-feature-collection-view-test.js'
+      ]);
+    });
+    it('contains itemview module dependency', function() {
+      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /import StormItemView from 'apps\/heroes\/storm-item-view'/);
+    });
+    it('contains childView', function() {
+      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /childView: StormItemView/);
+    });
+  });
+
   describe('with tests in separate dir', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
@@ -147,7 +220,7 @@ describe('aowp-marionette:collectionview', function() {
         .withOptions({
           tests: 'separate'
         })
-        .withGenerators([[helpers.createDummyGenerator(), 'aowp-marionette:itemview']])
+        .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
 
@@ -156,6 +229,41 @@ describe('aowp-marionette:collectionview', function() {
         'app/scripts/apps/some-feature/some-feature-collection-view.js',
         'test/apps/some-feature/some-feature-collection-view-test.js'
       ]);
+    });
+    it('test contains AMD path', function() {
+      assert.fileContent('test/apps/some-feature/some-feature-collection-view-test.js', /some-feature-collection-view/);
+
+    });
+    it('test contains collectionview class', function() {
+      assert.fileContent('test/apps/some-feature/some-feature-collection-view-test.js', /new SomeFeatureCollectionView()/);
+    });
+  });
+
+  describe('with tests in separate dir ES6', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/collectionview'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['some-feature'])
+        .withOptions({
+          tests: 'separate',
+          ecma: 6
+        })
+        .withGenerators([path.join(__dirname, '../generators/itemview')])
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'app/scripts/apps/some-feature/some-feature-collection-view.js',
+        'test/apps/some-feature/some-feature-collection-view-test.js'
+      ]);
+    });
+    it('test contains collectionview module', function() {
+      assert.fileContent('test/apps/some-feature/some-feature-collection-view-test.js', /import SomeFeatureCollectionView from 'apps\/some-feature\/some-feature-collection-view'/);
+
+    });
+    it('test contains collectionview class', function() {
+      assert.fileContent('test/apps/some-feature/some-feature-collection-view-test.js', /new SomeFeatureCollectionView()/);
     });
   });
 });

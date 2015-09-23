@@ -32,12 +32,13 @@ describe('aowp-marionette:model', function() {
     });
   });
 
-  describe('ES6', function() {
+  describe('with tests ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/model'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
         .withOptions({
+          tests: 'appcode',
           ecma: 6
         })
         .on('end', done);
@@ -64,6 +65,25 @@ describe('aowp-marionette:model', function() {
         .withArguments(['some-feature'])
         .withOptions({
           tests: 'separate'
+        })
+        .on('end', done);
+    });
+    it('creates files', function() {
+      assert.file([
+        'app/scripts/apps/some-feature/some-feature-model.js',
+        'test/apps/some-feature/some-feature-model-test.js'
+      ]);
+    });
+  });
+
+  describe('with separate tests ES6', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/model'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['some-feature'])
+        .withOptions({
+          tests: 'separate',
+          ecma: 6
         })
         .on('end', done);
     });

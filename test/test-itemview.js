@@ -7,7 +7,6 @@ var os = require('os');
 var fs = require('fs-extra');
 
 describe('aowp-marionette:itemview ', function() {
-
   describe('without options', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/itemview'))
@@ -33,7 +32,7 @@ describe('aowp-marionette:itemview ', function() {
     });
   });
 
-  describe('ES6', function() {
+  describe('without options ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/itemview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
@@ -82,19 +81,84 @@ describe('aowp-marionette:itemview ', function() {
     it('creates files', function() {
       assert.file([
         PATH_WITH_PREFIX + '-item-view-test.js',
-        PATH_WITH_PREFIX + '-item-view.js',
+        PATH_WITH_PREFIX + '-item-view.js'
       ]);
       assert.noFile('PATH_WITH_PREFIX' + '-item-view-template.hbs');
     });
+    it('contains template', function() {
+      assert.fileContent(PATH_WITH_PREFIX + '-item-view.js', /JST\['app\/scripts\/apps\/template\/feature-template.hbs'\]/);
+    });
+    it('test with content', function() {
+      assert.fileContent(PATH_WITH_PREFIX + '-item-view-test.js', /.\/other-feature-item-view/);
+      assert.fileContent(PATH_WITH_PREFIX + '-item-view-test.js', /, OtherFeatureItemView/);
+      assert.fileContent(PATH_WITH_PREFIX + '-item-view-test.js', /new OtherFeatureItemView/);
+    });
   });
 
-  describe('with tests in separate dir ', function() {
+  describe('with options (template, dir) ES6', function() {
+    var FEATURE = 'other-feature';
+    var PATH_WITH_PREFIX = 'app/scripts/apps/' + FEATURE + '/' + FEATURE;
+
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/itemview'))
+        .inTmpDir(function(dir) {
+          var done = this.async();
+          var filePath = path.join(dir, 'app/scripts/apps/template', 'feature-template.hbs');
+          fs.ensureFile(filePath, done);
+        })
+        .withArguments([FEATURE])
+        .withOptions({
+          template: 'template/feature-template.hbs',
+          directory: 'app/scripts/apps/' + FEATURE,
+          ecma: 6
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        PATH_WITH_PREFIX + '-item-view-test.js',
+        PATH_WITH_PREFIX + '-item-view.js'
+      ]);
+      assert.noFile('PATH_WITH_PREFIX' + '-item-view-template.hbs');
+    });
+    it('contains template', function() {
+      assert.fileContent(PATH_WITH_PREFIX + '-item-view.js', /JST\['app\/scripts\/apps\/template\/feature-template.hbs'\]/);
+    });
+    it('test with content', function() {
+      assert.fileContent(PATH_WITH_PREFIX + '-item-view-test.js', /import  OtherFeatureItemView from 'apps\/other-feature\/other-feature-item-view'/);
+      assert.fileContent(PATH_WITH_PREFIX + '-item-view-test.js', /new OtherFeatureItemView/);
+    });
+  });
+
+  describe('with tests in separate dir', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/itemview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
         .withOptions({
           tests: 'separate'
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'app/scripts/apps/some-feature/some-feature-item-view.js',
+        'test/apps/some-feature/some-feature-item-view-test.js',
+        'app/scripts/apps/some-feature/some-feature-item-view-template.hbs'
+      ]);
+    });
+  });
+
+  describe('with tests in separate dir ES6', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/itemview'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['some-feature'])
+        .withOptions({
+          tests: 'separate',
+          ecma: 6
         })
         .on('end', done);
     });

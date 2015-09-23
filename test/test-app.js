@@ -38,7 +38,7 @@ describe('aowp-marionette:app', function() {
         .withOptions({ 'skip-install': true })
         .withPrompt({
           someOption: true,
-          phabricatorDeps: true,
+          phabricatorDeps: true
         })
         .on('end', done);
     });
@@ -151,6 +151,44 @@ describe('aowp-marionette:app', function() {
     });
   });
 
+  describe('grunt setup ES6', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withPrompt({
+          buildTool: 'grunt',
+          ecma: 'ECMAScript 2015 (ES6)'
+        })
+        .on('end', done);
+    });
+
+    it('should copy grunt files', function() {
+      assert.file(['Gruntfile.js', 'grunt-tasks']);
+      assert.noFile(['Gulpfile.js', 'webpack.config.js']);
+    });
+
+    it('should copy package.json with grunt packages', function() {
+      assert.file(['package.json']);
+      assert.fileContent('package.json', /.grunt-/);
+    });
+
+    it('should have babel package in package.json', function() {
+      assert.file(['package.json']);
+      assert.fileContent('package.json', /grunt-babel/);
+    });
+
+    it('should have babelPreprocessor in karma.conf.js', function() {
+      assert.file(['karma.conf.js']);
+      assert.fileContent('karma.conf.js', /babelPreprocessor: {/);
+    });
+
+    it('should have esnext option in .jshintrc', function() {
+      assert.file(['.jshintrc']);
+      assert.fileContent('.jshintrc', /"esnext": true/);
+    });
+  });
+
   describe('gulp setup', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/app'))
@@ -170,6 +208,28 @@ describe('aowp-marionette:app', function() {
     it('should copy package.json with gulp packages', function() {
       assert.file(['package.json']);
       assert.fileContent('package.json', /.gulp-/);
+    });
+  });
+
+  describe('webpack setup', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withPrompt({
+          buildTool: 'webpack (experimental)'
+        })
+        .on('end', done);
+    });
+
+    it('should copy webpack files', function() {
+      assert.file(['Gruntfile.js', 'webpack.config.js']);
+      assert.noFile(['Gulpfile.js']);
+    });
+
+    it('should copy package.json with grunt packages', function() {
+      assert.file(['package.json']);
+      assert.fileContent('package.json', /.grunt-/);
     });
   });
 });
