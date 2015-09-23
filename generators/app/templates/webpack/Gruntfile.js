@@ -1,18 +1,13 @@
 'use strict';
 
-var LIVERELOAD_PORT = 35729;
 var SERVER_PORT = 9001;
-var lrSnippet = require('connect-livereload')({
-    port: LIVERELOAD_PORT
-});
+
 var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
 
-var webpack = require("webpack");
+var webpack = require('webpack');
 var webpackConfig = require('./webpack.config.js');
-
-var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 module.exports = function (grunt) {
     // show elapsed time at the end

@@ -20,7 +20,8 @@ module.exports = {
       'backbone': 'backbone/backbone.js',
       'marionette':  'backbone.marionette/lib/backbone.marionette.js',
       'bootstrap':  'bootstrap/dist/js/bootstrap.js',
-      'handlebars': 'handlebars/handlebars.js'
+      'handlebars': 'handlebars/handlebars.js',
+      'radio': 'backbone.radio/build/backbone.radio.js'
     }
   },
   module: {
