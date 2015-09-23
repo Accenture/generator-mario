@@ -24,7 +24,7 @@ module.exports = DirBase.extend({
          this.customTplDir = pathFractions.dir;
       }
 
-      utils.verifyPath(utils.templateNameWithPath(this.customTplDir, pathFractions.name, utils.type.template));
+      utils.verifyPath(utils.templateNameWithPath(this.customTplDir, pathFractions.name, utils.type.itemview));
     }
   },
   writing: function() {

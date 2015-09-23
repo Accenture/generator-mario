@@ -18,7 +18,6 @@ define([
 
     it('should contain 2 regions', function () {
       expect(this.view.render().$el.find('div').length).to.equal(2);
-    });
-    <% } %>
+    });<% } %>
   });
 });
