@@ -23,6 +23,16 @@ module.exports = DirBase.extend({
     this.model = this.options.model || this.options.m;
     this.collection = this.options.collection || this.options.c;
 
+    if (this.model && (!this.itemview && !this.compositeview)) {
+      console.log('You need to specify a proper view to display your model');
+      process.exit(1);
+    }
+
+    if (this.collection && (!this.collectionview && !this.compositeview)) {
+      console.log('You need to specify a proper view to display your collection');
+      process.exit(1);
+    }
+
     if (!this.model) {
       if (this.itemview) {
         console.log('You need a model for your itemview');
