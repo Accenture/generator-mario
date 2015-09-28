@@ -176,7 +176,7 @@ gulp.task('imagemin', function() {
 
 gulp.task('minify-css', ['copy'], function() {
   gulp.src('.tmp/styles/*.css')
-  .pipe(plugins.minifyCss())
+  .pipe(plugins.minifyCss({advanced: false}))
   .pipe(gulp.dest('dist/styles'));
 });
 
