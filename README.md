@@ -24,6 +24,7 @@
   - Controller
   - CRUD
 - Task Runner
+- ECMAScript 2015(6)
 - Simple Example
   - Scaffold Initial Project Structure
   - Additional Scaffolding
@@ -71,6 +72,40 @@ Once the AOWP marionette generator is installed you can invoke it using the *yo*
 yo aowp-marionette
 ```
 
+After naming your application you will be asked for build tool option. You can choose from Grunt, Gulp and Webpack. **Webpack is in experimental state for now so it's not working properly in every way.** Grunt will also offer you if you want to build your application with ECMAScript 5 or ECMAScript 2015(6) version. Gulp supports only ECMAScript 5 version for now.
+
+However all three build tools can be used with both combinations of test files. If you want to save test files in separate directory `/test/apps` or within your files with code `app/scripts/apps`.
+
+```bash
+# appcode directory option
+project-root/
+  |- test/
+  |- app/
+    |- scripts/
+      |- apps/
+        |- home/                         # feature folder
+          |- home-controller.js          # actual file
+          |- home-controller-test.js     # actual test file
+          ...
+```
+
+```bash
+# separate directory option
+project-root/
+  |- test/
+    |- apps/
+      |- home/
+        |- home-controller-test.js       # actual test file
+  |- app/
+    |- scripts/
+      |- apps/
+        |- home/                         # feature folder
+          |- home-controller.js          # actual file
+          ...
+```
+
+Last option you will face is whether you want to use Arcanist config files or not.
+
 Appart from invoking the main generator. AOWP Marionette generator comes with couple of sub-generators that helps you scaffold not only the initial project structure but additional parts of the code in a *feature* structured way. List of available sub-generators can be found in the sub-generators section.
 
 ### Naming Conventions
@@ -80,6 +115,8 @@ AOWP marionette generator comes with baked in code style guides and naming conve
 The most important is the difference between the **file naming conventions** and the **variable naminng coventions**. **Files** follow the **hypen case** (my-file-model.js) where **variables/contructors** follow the **camel case** (MyModel, MyCollection) conventions.
 
 Note: In order for the generator to work properly each **sub-generator expects the file names  to be hyphen case** so it can automatically convert the name into the camel case when needed.
+
+Templates (-t, --template) are also important. Generator is expecting from you that your custom template file will be in form `name-template.hbs` or `name-view-type-template.hbs`. Which means `name.hbs` will not work.
 
 ### Output Directory
 
@@ -109,8 +146,18 @@ It is possible to change the default behavior of a sub-generator by specifying o
 
 - **--directory**, **-d** Outputs the generated content in an custom directory (can be non existent)
 - **--model**, **-m** Takes an existing model (skips the model generation phase)
-- **--itemview**, **-i** Takes an existing item view (skips the item view generation phase)
+- **--itemview**, **--itv** Takes an existing item view (skips the item view generation phase)
 - **--template**, **-t** Takes an existing template (skips the template generation phase)
+
+**Controller sub-generator only:**
+
+- **--collectionview**, **--clv** Takes an existing collection view (skips the collection view generation phase)
+- **--compositeview**, **--cmv** Takes an existing composite view (skips the composite view generation phase)
+- **--collection**, **-c** Takes an existing collection (skips the collection generation phase)
+
+**Router sub-generator only:**
+
+- **--controller**, **-c** Takes an existing controller (skips controller generation phase)
 
 All these options have a *path* parameter. There are 2 ways you can specify a path to a file that aowp-marionette generator accepts:
 
@@ -176,9 +223,9 @@ Generated file structure:
 ### Item View
 Item view is generated via command:
 
-`yo aowp-marionette:itemview <item-view-name> [--directory <folder-name> --template <template-name>]`
+`yo aowp-marionette:itemview <item-view-name> [--directory <folder-name> --template <itemview-template-name>]`
 
-The <template-name> should be full name of already existing template. This will generate item view and reuse the specified template.
+The <itemview-template-name> should be full name of already existing template. This will generate item view and reuse the specified template.
 
 Generated file structure:
 
@@ -267,7 +314,21 @@ Generated file structure:
 ### Layout View
 Layout view is generated via command:
 
-`yo aowp-marionette:layoutview <layout-view-name> [--directory <folder-name> --template <template-name>]`
+`yo aowp-marionette:layoutview <layout-view-name> [--directory <folder-name> --template <layoutview-template-name>]`
+
+Generated file structure:
+
+```
+ <folder-name>/
+      |- <layout-view-name>-layout-view.js
+      |- <layout-view-name>-layout-view-test.js
+```
+
+Layout view can be also generated without flag for reusing layout view template:
+
+`yo aowp-marionette:layoutview <layout-view-name> [--directory <folder-name>]`
+
+This command will generate new item view, new item view template and new composite view template.
 
 Generated file structure:
 
@@ -345,7 +406,7 @@ This sub-generator will generate:
 - router (to define routes for various operations eg. create, list, detail)
 - controller (to wire up all the previous components)
 
-This sub-generator will also take care of registering the controller(that handles all its dependencies) inside the *app.js* file (amd, instantiation).
+This sub-generator will also take care of registering the controller(that handles all its dependencies) inside the *app.js* file (amd/import, instantiation).
 
 The newly generated feature will have its name a route prefix.
 
@@ -359,14 +420,18 @@ routes.
 
 ## Task Runner
 
-The Marionette generator uses Grunt as its task runner by default. Project skeleton generated by invoking `yo aowp-marionette` contains a pre-configured *Gruntfile* with several stages. Those are listed below:
+The Marionette generator offers you Grunt and Gulp. Project skeleton generated by invoking `yo aowp-marionette` contains a pre-configured *Gruntfile* or *Gulpfile* (depending on your choice) with several stages. The Webpack option utilizes Grunt as its task runner and delegates most of the tasks to Webpack. Those are listed below:
 
 - *serve* (launches http-server, opens browser and setups live reload for development)
 - *test* (run a pre-configured karma runner)
 - *beautify* (beautifies the code and checks for jscs and jshint errors)
-- *verify* (checks for formating, jscs and jshint errors )
+- *verify* (checks for formatting, jscs and jshint errors)
 - *analyze* (checks only for jscs and jshint errors)
 - *build* (builds the project into a dist/ folder)
+
+## ECMAScript 2015(6)
+
+The Marionette generator has option to build your project skeleton with ECMAScript 2015(6) by choosing Grunt as your Task Runner. Gulp and Webpack don't have this option for now. Every configuration file in skeleton is adjusted so you are free to use it with no worries. Besides skeleton every sub-generator can generate component in ES6 version. For this purpose it's using Babel transpiler.
 
 ## A Simple Example
 
@@ -400,7 +465,10 @@ The generator now asks several questions like the app name etc.
 ```
 ? How would you like to name your application? (aowp-marionette-app) fruit-app
 fruit-app
-? Would you like to include Arcanist config files? (y/N) No
+? What build tool would you like to use? grunt
+? Which version of ECMAScript Standard would you like to use? ECMAScript 5 (ES5)
+? Where would you like to store your test files? Separately
+? Would you like to include Arcanist config files? No
 create bower.json
 create package.json
 create Gruntfile.js
@@ -468,20 +536,20 @@ This time we got 3 files out of the generator. This is because item view creates
 Just for the sake of demonstration, we'll put the collection view in a separate directory. Keep in mind that it is encouraged to have all feature related files in the same flat directory, as long as possible (you may end up refactoring the feature code into several directories when the complexity / number of files grows).
 
 ```bash
-$ yo aowp-marionette:collectionview fruit -d fruit/list -i fruit/fruit-item-view
+$ yo aowp-marionette:collectionview fruit -d fruit/list --itv fruit/fruit-item-view
 create app\scripts\apps\fruit\list\fruit-collection-view.js
 create app\scripts\apps\fruit\list\fruit-collection-view-test.js
 ```
 
-Again we got component file and a test for it. And once more we could have specified the the directory & view option paths multiple ways. Here are some equivalent notations:
+Again we got component file and a test for it. And once more we could have specified the directory & view option paths multiple ways. Here are some equivalent notations:
 
 ```bash
-# generate collection view name fruit (collection postfix gets added automatically), in fruit/list directory with item view name fruit(-item-view) from the fruit directory
-$ yo aowp-marionette:collectionview fruit -d app/scripts/apps/fruit/list -i fruit/fruit
+# generate collection view with name fruit (collection postfix gets added automatically), in fruit/list directory with item view name fruit(-item-view) from the fruit directory
+$ yo aowp-marionette:collectionview fruit -d app/scripts/apps/fruit/list --itv fruit/fruit
 
-$ yo aowp-marionette:collectionview fruit -d fruit/list -i fruit/fruit
-$ yo aowp-marionette:collectionview fruit -d fruit/list -i fruit/fruit-item-view
-$ yo aowp-marionette:collectionview fruit -d fruit/list -i fruit/fruit-item-view.js
+$ yo aowp-marionette:collectionview fruit -d fruit/list --itv fruit/fruit
+$ yo aowp-marionette:collectionview fruit -d fruit/list --itv fruit/fruit-item-view
+$ yo aowp-marionette:collectionview fruit -d fruit/list --itv fruit/fruit-item-view.js
 ```
 
 Now that we have all the boiler code generated we want to put all these components together and display a list of fruits. We need to modify app.js file to be able to do that.
