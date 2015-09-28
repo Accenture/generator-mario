@@ -14,6 +14,20 @@ function copyBuildSystem(generator) {
     );
   }
 
+  generator.fs.copyTpl(
+      generator.templatePath('common/_karma.conf.js'),
+      generator.destinationPath('karma.conf.js'),
+      {options: generator.answers}
+  );
+
+  if(!generator.useWebpack) {
+    generator.fs.copyTpl(
+        generator.templatePath('common/test/karma-test-main.js'),
+        generator.destinationPath('test/karma-test-main.js'),
+        {options: generator.answers}
+    );
+  }
+
   //rewrite some es6 specific files if es6 is the way
   if (generator.ecma === 6) {
     generator.fs.copy(
@@ -69,17 +83,6 @@ function copyTests(generator) {
       generator.destinationPath(destPrefix + name)
     );
   }, generator);
-
-  generator.fs.copyTpl(
-      generator.templatePath('common/_karma.conf.js'),
-      generator.destinationPath('karma.conf.js'),
-      {options: generator.answers}
-  );
-  generator.fs.copyTpl(
-      generator.templatePath('common/test/karma-test-main.js'),
-      generator.destinationPath('test/karma-test-main.js'),
-      {options: generator.answers}
-  );
 }
 
 var appFiles = function() {

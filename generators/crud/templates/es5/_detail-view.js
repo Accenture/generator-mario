@@ -2,8 +2,9 @@
 
 define([
   'marionette',
-  'templates'
-], function (Marionette, JST) {
+  'templates',
+  'underscore'
+], function (Marionette, JST, _) {
   return Marionette.ItemView.extend({
     template: JST['<%= templatePath %>'],
     ui: {

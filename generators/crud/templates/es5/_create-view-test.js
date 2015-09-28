@@ -4,8 +4,11 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'helpers/handlebars-helpers',
   '<%= createItemViewPath %>'
-], function ($, _, Backbone, <%= createItemViewName %>) {
+], function ($, _, Backbone, helpers, <%= createItemViewName %>) {
+
+  helpers.initialize();
 
   describe('<%= createItemViewName %>', function () {
     beforeEach(function () {

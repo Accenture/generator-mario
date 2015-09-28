@@ -3,14 +3,17 @@
 define([
   'backbone',
   'marionette',
+  'helpers/handlebars-helpers',
   '<%= controllerPath %>',
-], function (Backbone, Marionette, <%= controllerName %>) {
+], function (Backbone, Marionette, helpers, <%= controllerName %>) {
   var dummyData = [{
     'text': 'This is just a sample text',
     'author': 'Sample',
     'created': 1439545097459,
     'isPublished': true
   }];
+
+  helpers.initialize();
 
   describe('<%= controllerName %>', function () {
     beforeEach(function () {
