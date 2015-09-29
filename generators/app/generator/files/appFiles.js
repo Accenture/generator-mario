@@ -20,7 +20,7 @@ function copyBuildSystem(generator) {
       {options: generator.answers}
   );
 
-  if(!generator.useWebpack) {
+  if (!generator.useWebpack) {
     generator.fs.copyTpl(
         generator.templatePath('common/test/karma-test-main.js'),
         generator.destinationPath('test/karma-test-main.js'),

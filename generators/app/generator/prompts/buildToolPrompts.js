@@ -4,7 +4,7 @@ var buildToolPrompts = function() {
   var buildTools = {
     grunt: 'grunt',
     gulp: 'gulp',
-    webpack: 'webpack (experimental)'
+    webpack: 'grunt + webpack (experimental!)'
   };
 
   var done = this.async();
