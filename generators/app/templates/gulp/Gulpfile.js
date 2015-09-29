@@ -12,7 +12,7 @@ var mountFolder = function(connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
 
-var gulp = require('gulp',{
+var gulp = require('gulp', {
   base: 'Gulpfile.js'
 });
 
@@ -92,10 +92,10 @@ gulp.task('jshint', function() {
 gulp.task('jscs', function() {
   gulp.src([
     'Gulpfile.js',
-    'app/scripts/*',
-    'test/spec/{,*/}*.js'
+    'app/scripts/**/*.js',
+    'test/apps/{,*/}*.js'
   ])
-  .pipe(plugins.jscs({configPath: '.jscsrc'}))
+  .pipe(plugins.jscs())
   .pipe(plugins.jscsStylish());
 });
 
