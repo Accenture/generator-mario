@@ -13,10 +13,9 @@ module.exports = function (grunt) {
     // show elapsed time at the end
     require('time-grunt')(grunt);
     // load all grunt tasks
-    require('load-grunt-tasks')(grunt);
-    //load grunt-connect-proxy
-    grunt.loadNpmTasks('grunt-connect-proxy');
-
+		require('jit-grunt')(grunt, {
+        useminPrepare: 'grunt-usemin'
+    });
     // configurable paths
     var yeomanConfig = {
         app: 'app',
