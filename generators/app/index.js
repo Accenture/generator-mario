@@ -2,7 +2,7 @@
 
 var yeoman = require('yeoman-generator');
 var lodash = require('lodash');
-var grabFiles = require('./helpers/grabFiles');
+var grabFiles = require('./helpers/grab-files');
 var path = require('path');
 
 var config = [];
@@ -20,22 +20,22 @@ var tasks = {};
 var order = [
     //prompts
     'existing',
-    'initPrompts',
-    'buildToolPrompts',
-    'ecmaPrompts',
+    'init-prompts',
+    'build-tool-prompts',
+    'ecma-prompts',
     'tests',
-    'arcanistPrompts',
+    'arcanist-prompts',
 
     //config & env setup
-    'answersConfig',
-    'saveConfig',
+    'answers-config',
+    'save-config',
 
     //copy
-    'appFiles',
-    'projectFiles',
+    'app-files',
+    'project-files',
 
     //install
-    'installConfig'
+    'install-config'
 ];
 
 config = grabFiles([

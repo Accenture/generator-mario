@@ -3,6 +3,8 @@
 var arcanistPrompts  = function() {
     var done = this.async();
     var that = this;
+    that.arcanistPrompts = that.arcanistPrompts || {};
+
     this.prompt({
         type: 'confirm',
         name: 'phabricatorDeps',
