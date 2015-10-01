@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	grunt.config('requirejs', {
+	  grunt.config('requirejs', {
         dist: {
             options: {
                 dir: 'dist/scripts',
@@ -9,10 +9,12 @@ module.exports = function(grunt) {
                 mainConfigFile: '.tmp/scripts/main.js',
                 optimize: 'uglify',
                 modules: [{
-                    name: 'main'
+                    name: 'main',
+                    include: ['../../app/bower_components/requirejs/require']
                 }],
                 removeCombined: true,
-                findNestedDependencies: true
+                findNestedDependencies: true,
+                preserveLicenseComments: false
             }
         }
     });

@@ -7,12 +7,12 @@ module.exports = function(grunt) {
         'handlebars',
         'templates',
         'less',
-        'useminPrepare',
+        'processhtml:dist',
         'requirejs',
         'imagemin',
         'cssmin',
         'copy',
         'usemin'
     ]);
-	
+
 }

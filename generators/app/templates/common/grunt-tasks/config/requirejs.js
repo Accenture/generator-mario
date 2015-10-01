@@ -9,10 +9,12 @@ module.exports = function(grunt) {
                 mainConfigFile: 'app/scripts/main.js',
                 optimize: 'uglify',
                 modules: [{
-                    name: 'main'
+                    name: 'main',
+                    include: ['../../app/bower_components/requirejs/require']
                 }],
                 removeCombined: true,
-                findNestedDependencies: true
+                findNestedDependencies: true,
+                preserveLicenseComments: false
             }
         }
     });

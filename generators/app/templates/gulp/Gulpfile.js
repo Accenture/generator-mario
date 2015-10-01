@@ -16,6 +16,8 @@ var gulp = require('gulp', {
   base: 'Gulpfile.js'
 });
 
+var processhtml = require('gulp-processhtml');
+
 var del = require('del');
 
 var gulpLoadPlugins = require('gulp-load-plugins');
@@ -186,6 +188,12 @@ gulp.task('minify-html', function() {
   .pipe(gulp.dest('dist'));
 });
 
+gulp.task('processhtml', function() {
+  gulp.src('./app/index.html')
+    .pipe(processhtml())
+    .pipe(gulp.dest('dist'));
+});
+
 gulp.task('copy', ['requirejs'], function() {
   gulp.src([
     'app/*.{ico,txt}',
@@ -193,9 +201,7 @@ gulp.task('copy', ['requirejs'], function() {
     'app/jsondata/*.*',
     'app/images/*.*',
     'app/bower_components/font-awesome/fonts/{,*/}*.*',
-    'app/bower_components/modernizr/modernizr.js',
-    'app/bower_components/requirejs/*.js',
-    'app/index.html'
+    'app/bower_components/modernizr/modernizr.js'
   ], {base: 'app'})
   .pipe(gulp.dest('dist'));
 });
@@ -237,10 +243,12 @@ gulp.task('requirejs', ['templates'], function() {
       out: 'main.js',
       name: 'main',
       mainConfigFile: 'app/scripts/main.js',
+      include: ['../../app/bower_components/requirejs/require'],
       optimize: 'uglify',
       paths: {
         'templates': '../../.tmp/scripts/templates'
-      }
+      },
+      preserveLicenseComments: false
     }))
     .pipe(gulp.dest('dist/scripts'));
 });
@@ -269,6 +277,7 @@ gulp.task('build', [
   'clean',
   'analyze',
   'less',
+  'processhtml',
   'requirejs',
   'imagemin',
   'copy',

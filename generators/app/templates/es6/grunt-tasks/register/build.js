@@ -6,12 +6,12 @@ module.exports = function(grunt) {
         'less',
         'babel:dist',
         'copy:deps',
-        'useminPrepare',
+        'processhtml:dist',
         'requirejs',
         'imagemin',
         'cssmin',
         'copy',
         'usemin'
     ]);
-    
+
 }

@@ -23,10 +23,11 @@
         "grunt-jsdoc": "^0.6.7",
         "grunt-karma": "^0.11.0",
         "grunt-open": "^0.2.3",
+        "grunt-processhtml": "^0.3.8",
         "grunt-requirejs": "^0.4.2",
         "grunt-usemin": "^3.0.0", <% if (options.ecma === 6) { %>
         "grunt-babel": "^5.0.1", <% } %>
-	    	"jit-grunt": "^0.9.1",
+        "jit-grunt": "^0.9.1",
         "jscs": "^1.13.1",
         "jscs-stylish": "^0.3.1",
         "jsdoc": "^3.3.2",
