@@ -13,8 +13,9 @@ module.exports = function (grunt) {
     // show elapsed time at the end
     require('time-grunt')(grunt);
     // load all grunt tasks
-		require('jit-grunt')(grunt, {
-        useminPrepare: 'grunt-usemin'
+    require('jit-grunt')(grunt, {
+        useminPrepare: 'grunt-usemin',
+        'webpack-dev-server': 'grunt-webpack'
     });
     // configurable paths
     var yeomanConfig = {
