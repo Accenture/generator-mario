@@ -1,6 +1,6 @@
 {
-  "name": "generator-aowp-marionette",
-  "version": "0.0.5",
+  "name": "generator-mario",
+  "version": "0.0.6",
   "description": "Yeoman generator",
   "license": "",
   "main": "generators/app/index.js",

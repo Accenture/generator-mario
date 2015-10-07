@@ -6,7 +6,7 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fs = require('fs-extra');
 
-describe('aowp-marionette:itemview ', function() {
+describe('mario:itemview ', function() {
   describe('without options', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/itemview'))

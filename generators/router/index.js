@@ -14,7 +14,7 @@ module.exports = DirBase.extend({
   initializing: function() {
     this.options.controller = this.options.controller || this.options.c;
     if (!this.options.controller) {
-      this.composeWith('aowp-marionette:controller', {options: {directory: this.options.directory}, args: [this.name]});
+      this.composeWith('mario:controller', {options: {directory: this.options.directory}, args: [this.name]});
       controller.name = this.name;
     } else {
       this.options.controller = utils.truncateBasePath(this.options.controller);

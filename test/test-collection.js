@@ -8,7 +8,7 @@ var os = require('os');
 var existTest = require('../generators/utils');
 var stub;
 
-describe('aowp-marionette:collection', function() {
+describe('mario:collection', function() {
   describe('with existing model', function() {
     before(function(done) {
       stub = sinon.stub(existTest, 'verifyPath', function() {

@@ -79,7 +79,7 @@ module.exports = DirBase.extend({
     }
 
     if (!this.itemview) {
-      this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
+      this.composeWith('mario:itemview', {options: {directory: this.options.directory}, args: [this.name]});
     }
 
     this.fs.copyTpl(

@@ -1,4 +1,4 @@
-# generator-aowp-marionette
+# generator-mario
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -8,7 +8,7 @@
   - Requirements
   - Installation Process
     - Tools
-    - AOWP Marionette Generator
+    - Marionette Generator
 - Usage
   - Naming conventions
   - Output Directory
@@ -53,23 +53,23 @@ $ npm install -g bower
 $ npm install -g grunt-cli
 ```
 
-#### AOWP Marionette Generator
+#### Marionette Generator
 
-To install generator-aowp-marionette via npm, run:
+To install generator-mario via npm, run:
 
 ```bash
-$ npm install -g git+ssh://git@innersource.accenture.com:aowp/generator-aowp-marionette.git
+$ npm install -g git+ssh://git@innersource.accenture.com:aowp/generator-mario.git
 ```
 
 For more information on how to use these tools check out [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started) on Yeoman website.
 
 ## Usage
 
-Once the AOWP marionette generator is installed you can invoke it using the *yo* command.
+Once the marionette generator is installed you can invoke it using the *yo* command.
 
 ```bash
-# Invoke aowp-marionette generator
-yo aowp-marionette
+# Invoke mario generator
+yo mario
 ```
 
 After naming your application you will be asked for build tool option. You can choose from Grunt, Gulp and Webpack. **Webpack is in experimental state for now so it's not working properly in every way.** Grunt will also offer you if you want to build your application with ECMAScript 5 or ECMAScript 2015(6) version. Gulp supports only ECMAScript 5 version for now.
@@ -106,11 +106,11 @@ project-root/
 
 Last option you will face is whether you want to use Arcanist config files or not.
 
-Appart from invoking the main generator. AOWP Marionette generator comes with couple of sub-generators that helps you scaffold not only the initial project structure but additional parts of the code in a *feature* structured way. List of available sub-generators can be found in the sub-generators section.
+Appart from invoking the main generator. Marionette generator comes with couple of sub-generators that helps you scaffold not only the initial project structure but additional parts of the code in a *feature* structured way. List of available sub-generators can be found in the sub-generators section.
 
 ### Naming Conventions
 
-AOWP marionette generator comes with baked in code style guides and naming conventions. It is important that you know what some these conventions are before you start using the generator to keep the code consistent.
+Marionette generator comes with baked in code style guides and naming conventions. It is important that you know what some these conventions are before you start using the generator to keep the code consistent.
 
 The most important is the difference between the **file naming conventions** and the **variable naminng coventions**. **Files** follow the **hypen case** (my-file-model.js) where **variables/contructors** follow the **camel case** (MyModel, MyCollection) conventions.
 
@@ -124,7 +124,7 @@ All sub-generators place the generated output in the `app/scripts/apps` folder b
 If the `--directory` option is not specified an empty directory will be created (named after the generated component).
 
 ```
-$ yo aowp-marionette:model my-model
+$ yo mario:model my-model
 ```
 
 will create a my-model folder as follows:
@@ -159,7 +159,7 @@ It is possible to change the default behavior of a sub-generator by specifying o
 
 - **--controller**, **-c** Takes an existing controller (skips controller generation phase)
 
-All these options have a *path* parameter. There are 2 ways you can specify a path to a file that aowp-marionette generator accepts:
+All these options have a *path* parameter. There are 2 ways you can specify a path to a file that mario generator accepts:
 
 - relative to *project root* (in form of `app/scripts/apps/my-model/my-model.js`)
 - relative to *feature folder* (`my-model.js` or `my-nested-folder/my-model.js`)
@@ -169,20 +169,20 @@ Note: Invoking sub-generators with path parameters only work from the project ro
 ## Sub-generators
 All supported sub-generators with their descriptions can be found below:
 
-- aowp-marionette:model
-- aowp-marionette:collection
-- aowp-marionette:itemview
-- aowp-marionette:collectionview
-- aowp-marionette:compositeview
-- aowp-marionette:layoutview
-- aowp-marionette:router
-- aowp-marionette:controller
-- aowp-marionette:crud
+- mario:model
+- mario:collection
+- mario:itemview
+- mario:collectionview
+- mario:compositeview
+- mario:layoutview
+- mario:router
+- mario:controller
+- mario:crud
 
 ### Model
 Model is generated via command:
 
-`yo aowp-marionette:model <model-name> [--directory <folder-name>]`
+`yo mario:model <model-name> [--directory <folder-name>]`
 
 Generated file structure:
 
@@ -194,7 +194,7 @@ Generated file structure:
 ### Collection
 Collection is generated via command:
 
-`yo aowp-marionette:collection <collection-name> [--directory <folder-name> --model <model-name>]`
+`yo mario:collection <collection-name> [--directory <folder-name> --model <model-name>]`
 
 This command will generate only collection and collection test and it uses specified existed model.
 
@@ -208,7 +208,7 @@ Generated file structure:
 
 If you want to create also model to this collection, use the command:
 
-`yo aowp-marionette:collection <collection-name> [--directory <folder-name>]`
+`yo mario:collection <collection-name> [--directory <folder-name>]`
 
 Generating collection with this command will cause also generating new model and its test.
 
@@ -223,7 +223,7 @@ Generated file structure:
 ### Item View
 Item view is generated via command:
 
-`yo aowp-marionette:itemview <item-view-name> [--directory <folder-name> --template <itemview-template-name>]`
+`yo mario:itemview <item-view-name> [--directory <folder-name> --template <itemview-template-name>]`
 
 The <itemview-template-name> should be full name of already existing template. This will generate item view and reuse the specified template.
 
@@ -237,7 +237,7 @@ Generated file structure:
 
 Typing command without template flag will cause generating item view with new template.
 
-`yo aowp-marionette:itemview <item-view-name> [--directory <folder-name>]`
+`yo mario:itemview <item-view-name> [--directory <folder-name>]`
 
 Generated file structure:
 
@@ -250,7 +250,7 @@ Generated file structure:
 ### Collection View
 Collection view is generated via command:
 
-`yo aowp-marionette:collectionview <collection-view-name> [--directory <folder-name> --itemview <item-view-name>]`
+`yo mario:collectionview <collection-view-name> [--directory <folder-name> --itemview <item-view-name>]`
 
 This command will generate only collection-view and its test. As a child view there will be used specified item view.
 
@@ -264,7 +264,7 @@ Generated file structure:
 
 Collection view can be also generated without flags for child view and template:
 
-`yo aowp-marionette:collectionview <collection-view-name> [--directory <folder-name>]`
+`yo mario:collectionview <collection-view-name> [--directory <folder-name>]`
 
 This command will generate also new item view as a child view and new template.
 
@@ -281,7 +281,7 @@ Generated file structure:
 ### Composite View
 Collection view is generated via command:
 
-`yo aowp-marionette:compositeview <composite-view-name> [--directory <folder-name> --itemview <item-view-name> --template <compositeview-template-name>]`
+`yo mario:compositeview <composite-view-name> [--directory <folder-name> --itemview <item-view-name> --template <compositeview-template-name>]`
 
 The <compositeview-template-name> and <itemview-template-name> should be full names of already existing templates for composite view and for item view. This command will generate only collection-view and its test. As a child view there will be used specified item view, the for the template it will be used specified composite view template.
 
@@ -295,7 +295,7 @@ Generated file structure:
 
 Collection view can be also generated without flags for reusing item view and without reusing composite view template:
 
-`yo aowp-marionette:collectionview <collection-view-name> [--directory <folder-name>]`
+`yo mario:collectionview <collection-view-name> [--directory <folder-name>]`
 
 This command will generate new item view, new item view template and new composite view template.
 
@@ -314,7 +314,7 @@ Generated file structure:
 ### Layout View
 Layout view is generated via command:
 
-`yo aowp-marionette:layoutview <layout-view-name> [--directory <folder-name> --template <layoutview-template-name>]`
+`yo mario:layoutview <layout-view-name> [--directory <folder-name> --template <layoutview-template-name>]`
 
 Generated file structure:
 
@@ -326,7 +326,7 @@ Generated file structure:
 
 Layout view can be also generated without flag for reusing layout view template:
 
-`yo aowp-marionette:layoutview <layout-view-name> [--directory <folder-name>]`
+`yo mario:layoutview <layout-view-name> [--directory <folder-name>]`
 
 This command will generate new item view, new item view template and new composite view template.
 
@@ -342,7 +342,7 @@ Generated file structure:
 ### Router
 Router is generated via command:
 
-`yo aowp-marionette:router <router-name> [--directory <folder-name> --controller <controller-name>]`
+`yo mario:router <router-name> [--directory <folder-name> --controller <controller-name>]`
 
 This will generate only router and as a controller there will be used specified controller.
 
@@ -355,7 +355,7 @@ Generated file structure:
 
 Second command for generation of router:
 
-`yo aowp-marionette:router <router-name> [--directory <folder-name>]`
+`yo mario:router <router-name> [--directory <folder-name>]`
 
 This will generate router and also new controller.
 
@@ -373,7 +373,7 @@ A controller sub-generator is capable of generating template controller file. Us
 
 Controller is generated via command:
 
-`yo aowp-marionette:controller <controller-name> [--directory <folder-name>] [[-m <path-to-model> --itv <path-to-item-view] | [-c <path-to-collection> --clv <path-to-collectionview>] | [-m <path-to-model> -c <path-to-collection> --cmv <path-to-composite-view>]]`
+`yo mario:controller <controller-name> [--directory <folder-name>] [[-m <path-to-model> --itv <path-to-item-view] | [-c <path-to-collection> --clv <path-to-collectionview>] | [-m <path-to-model> -c <path-to-collection> --cmv <path-to-composite-view>]]`
 
 Generated file structure:
 
@@ -384,7 +384,7 @@ Generated file structure:
 ### Crud
 
 Generate crud feature with:
-`yo aowp-marionette:crud <crud-name> [--directory <folder-name>]`
+`yo mario:crud <crud-name> [--directory <folder-name>]`
 
 CRUD stands for
 - create
@@ -410,7 +410,7 @@ This sub-generator will also take care of registering the controller(that handle
 
 The newly generated feature will have its name a route prefix.
 
-`yo aowp-marionette:crud projects`
+`yo mario:crud projects`
 
 will result in
 
@@ -420,7 +420,7 @@ routes.
 
 ## Task Runner
 
-The Marionette generator offers you Grunt and Gulp. Project skeleton generated by invoking `yo aowp-marionette` contains a pre-configured *Gruntfile* or *Gulpfile* (depending on your choice) with several stages. The Webpack option utilizes Grunt as its task runner and delegates most of the tasks to Webpack. Those are listed below:
+The Marionette generator offers you Grunt and Gulp. Project skeleton generated by invoking `yo mario` contains a pre-configured *Gruntfile* or *Gulpfile* (depending on your choice) with several stages. The Webpack option utilizes Grunt as its task runner and delegates most of the tasks to Webpack. Those are listed below:
 
 - *serve* (launches http-server, opens browser and setups live reload for development)
 - *test* (run a pre-configured karma runner)
@@ -437,9 +437,9 @@ The Marionette generator has option to build your project skeleton with ECMAScri
 
 Whenever you are starting a project from scratch it is a good idea to scaffold the project skeleton to speed up the initial phase of the project as well as to enforce some best practices, standards and conventions.
 
-Using JavaScript and its tool ecosystem can produce a code with lots of boiler plate code. AOWP Marionette generator allows you to generate the boilerplate code therefore speeding up the development.
+Using JavaScript and its tool ecosystem can produce a code with lots of boiler plate code. Marionette generator allows you to generate the boilerplate code therefore speeding up the development.
 
-AOWP Marionette generator does this in an opinionated way that we think is a way for creating large scalable enterprise applications.
+Marionette generator does this in an opinionated way that we think is a way for creating large scalable enterprise applications.
 
 ### Scaffolding Initial Project Structure
 
@@ -457,13 +457,13 @@ Now we are ready to make the initial scaffold of the project.
 
 ```bash
 # start the base generator
-$ yo aowp-marionette
+$ yo mario
 ```
 
 The generator now asks several questions like the app name etc.
 
 ```
-? How would you like to name your application? (aowp-marionette-app) fruit-app
+? How would you like to name your application? (mario-app) fruit-app
 fruit-app
 ? What build tool would you like to use? grunt
 ? Which version of ECMAScript Standard would you like to use? ECMAScript 5 (ES5)
@@ -490,7 +490,7 @@ This is where the sub-generators come in play. We can use various sub-generators
 
 Let us start with a simple model
 ```bash
-$ yo aowp-marionette:model fruit
+$ yo mario:model fruit
 
 create app\scripts\apps\fruit\fruit-model.js
 create app\scripts\apps\fruit\fruit-model-test.js
@@ -501,7 +501,7 @@ The model sub-generator generated 2 files, model and a dummy test for the model.
 Next lets create a collection that will use our *fruit-model*.
 
 ```bash
-$ yo aowp-marionette:collection fruit -m fruit-model
+$ yo mario:collection fruit -m fruit-model
 
 create app\scripts\apps\fruit\fruit-collection.js
 create app\scripts\apps\fruit\fruit-collection-test.js
@@ -512,11 +512,11 @@ Again we got 2 new files a collection and a test for the collection. Notice that
 We could have specified the model in collection sub-generator in multi ways.
 ```bash
 # generate a collection named fruit in the default directory (fruit in this case)
-$ yo aowp-marionette:collection fruit -m fruit
-$ yo aowp-marionette:collection fruit -m fruit-model
-$ yo aowp-marionette:collection fruit -m fruit-model.js
-$ yo aowp-marionette:collection fruit -m app/scripts/apps/fruit/fruit-model
-$ yo aowp-marionette:collection fruit -m app/scripts/apps/fruit/fruit-model.js
+$ yo mario:collection fruit -m fruit
+$ yo mario:collection fruit -m fruit-model
+$ yo mario:collection fruit -m fruit-model.js
+$ yo mario:collection fruit -m app/scripts/apps/fruit/fruit-model
+$ yo mario:collection fruit -m app/scripts/apps/fruit/fruit-model.js
 ```
 
 All of the above are equivalent for the particular case with name *fruit*.
@@ -525,7 +525,7 @@ OK, so we have the model and collection that uses the model. This is all great b
 
 
 ```bash
-$ yo aowp-marionette:itemview fruit
+$ yo mario:itemview fruit
 create app\scripts\apps\fruit\fruit-item-view.js
 create app\scripts\apps\fruit\fruit-item-view-template.hbs
 create app\scripts\apps\fruit\fruit-item-view-test.js
@@ -536,7 +536,7 @@ This time we got 3 files out of the generator. This is because item view creates
 Just for the sake of demonstration, we'll put the collection view in a separate directory. Keep in mind that it is encouraged to have all feature related files in the same flat directory, as long as possible (you may end up refactoring the feature code into several directories when the complexity / number of files grows).
 
 ```bash
-$ yo aowp-marionette:collectionview fruit -d fruit/list --itv fruit/fruit-item-view
+$ yo mario:collectionview fruit -d fruit/list --itv fruit/fruit-item-view
 create app\scripts\apps\fruit\list\fruit-collection-view.js
 create app\scripts\apps\fruit\list\fruit-collection-view-test.js
 ```
@@ -545,11 +545,11 @@ Again we got component file and a test for it. And once more we could have speci
 
 ```bash
 # generate collection view with name fruit (collection postfix gets added automatically), in fruit/list directory with item view name fruit(-item-view) from the fruit directory
-$ yo aowp-marionette:collectionview fruit -d app/scripts/apps/fruit/list --itv fruit/fruit
+$ yo mario:collectionview fruit -d app/scripts/apps/fruit/list --itv fruit/fruit
 
-$ yo aowp-marionette:collectionview fruit -d fruit/list --itv fruit/fruit
-$ yo aowp-marionette:collectionview fruit -d fruit/list --itv fruit/fruit-item-view
-$ yo aowp-marionette:collectionview fruit -d fruit/list --itv fruit/fruit-item-view.js
+$ yo mario:collectionview fruit -d fruit/list --itv fruit/fruit
+$ yo mario:collectionview fruit -d fruit/list --itv fruit/fruit-item-view
+$ yo mario:collectionview fruit -d fruit/list --itv fruit/fruit-item-view.js
 ```
 
 Now that we have all the boiler code generated we want to put all these components together and display a list of fruits. We need to modify app.js file to be able to do that.

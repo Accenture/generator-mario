@@ -11,7 +11,7 @@ var existTest = require('../generators/utils');
 var fs = require('fs-extra');
 var stub;
 
-describe('aowp-marionette:layoutview', function() {
+describe('mario:layoutview', function() {
 
   describe('without template option', function() {
     before(function(done) {

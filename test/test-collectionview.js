@@ -8,7 +8,7 @@ var sinon = require('sinon');
 var existTest = require('../generators/utils');
 var stub;
 
-describe('aowp-marionette:collectionview', function() {
+describe('mario:collectionview', function() {
   describe('with existing itemview', function() {
     before(function(done) {
       stub = sinon.stub(existTest, 'verifyPath', function() {

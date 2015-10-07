@@ -6,7 +6,7 @@ var helpers = require('yeoman-generator').test;
 var fs = require('fs-extra');
 var os = require('os');
 
-describe('aowp-marionette:controller', function() {
+describe('mario:controller', function() {
 
   describe('without options', function() {
     before(function(done) {

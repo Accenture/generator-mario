@@ -206,7 +206,7 @@ module.exports = DirBase.extend({
   },
   initializing: function() {
     // generate model
-    this.composeWith('aowp-marionette:model', {
+    this.composeWith('mario:model', {
       options: {directory: this.options.directory},
       args: [this.name]
     });

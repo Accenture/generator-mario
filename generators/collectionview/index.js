@@ -32,7 +32,7 @@ module.exports = DirBase.extend({
   },
   writing: function() {
     if (!this.options.itemview) {
-      this.composeWith('aowp-marionette:itemview', {options: {directory: this.options.directory}, args: [this.name]});
+      this.composeWith('mario:itemview', {options: {directory: this.options.directory}, args: [this.name]});
     }
     this.fs.copyTpl(
       this.templatePath(this.sourceDir + '_collection-view.js'),

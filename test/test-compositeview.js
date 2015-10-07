@@ -12,7 +12,7 @@ var stub;
 
 var assert = require('yeoman-generator').assert;
 
-describe('aowp-marionette:compositeview', function() {
+describe('mario:compositeview', function() {
   describe('without options', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/compositeview'))

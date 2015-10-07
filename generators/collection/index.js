@@ -26,7 +26,7 @@ module.exports = DirBase.extend({
     } else {
       model.path = utils.amd(this.name, utils.type.model);
       model.className = utils.className(this.name, utils.type.model);
-      this.composeWith('aowp-marionette:model', {options: {directory: this.options.directory}, args: [this.name]});
+      this.composeWith('mario:model', {options: {directory: this.options.directory}, args: [this.name]});
     }
   },
   writing: function() {

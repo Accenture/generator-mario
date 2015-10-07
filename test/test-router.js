@@ -8,7 +8,7 @@ var sinon = require('sinon');
 var existTest = require('../generators/utils');
 var stub;
 
-describe('aowp-marionette:router', function() {
+describe('mario:router', function() {
   describe('without options', function() {
     before(function(done) {
       stub = sinon.stub(existTest, 'verifyPath', function() {

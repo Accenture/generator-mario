@@ -5,7 +5,7 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var fs = require('fs-extra');
 
-describe('aowp-marionette:crud', function() {
+describe('mario:crud', function() {
   var crudFiles = [
     'app/scripts/apps/my-crud/my-crud-router.js',
     'app/scripts/apps/my-crud/my-crud-controller.js',

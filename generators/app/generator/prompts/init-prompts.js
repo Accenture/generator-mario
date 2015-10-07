@@ -6,13 +6,13 @@ var yosay = require('yosay');
 var initPrompts = function() {
     var done = this.async();
     this.log(yosay(
-        'Welcome to the ' + chalk.red('AOWP Marionette') + ' generator!'
+        'Welcome to the ' + chalk.red('Marionette') + ' generator!'
     ));
     this.prompt({
         type: 'input',
         name: 'projectName',
         message: 'How would you like to name your application?',
-        default: 'aowp-marionette-app'
+        default: 'mario-app'
     }, function(answers) {
         this.initPrompts = answers;
         done();
