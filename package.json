@@ -1,0 +1,24 @@
+{
+  "name": "generator-mario",
+  "version": "0.1.0",
+  "description": "Yeoman marionette generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Accenture/generator-mario.git"
+  },
+  "keywords": [
+    "yeoman",
+    "generator",
+    "marionette"
+  ],
+  "author": "Slavomir Kubacka <slavomir.kubacka@accenture.com> (http://accenture.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Accenture/generator-mario/issues"
+  },
+  "homepage": "https://github.com/Accenture/generator-mario#readme"
+}
