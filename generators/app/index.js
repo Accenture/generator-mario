@@ -1,60 +1,36 @@
 'use strict';
 
 var yeoman = require('yeoman-generator');
-var lodash = require('lodash');
-var grabFiles = require('./helpers/grab-files');
-var path = require('path');
+var pkgJSON = require('../../package.json');
 
-var config = [];
-var tasks = {};
-
-/*
- * Order here is to determine when to call which part of the code.
- * (init prompt comes first, copying files after that and installing dependencies comes last)
- *
- * Names in the order array must match the variable name assigned to code in partial files otherwise
- * they will be put at the end of the array.
- *
- * Take a look at the function in the helpers/grabFiles.js file.
+/**
+ * Modules containing prototype definitions.
+ * Order of imported modules is important for the generator run loop
  */
-var order = [
-    //prompts
-    'existing',
-    'init-prompts',
-    'build-tool-prompts',
-    'ecma-prompts',
-    'tests',
-    'arcanist-prompts',
-
-    //config & env setup
-    'answers-config',
-    'save-config',
-
-    //copy
-    'app-files',
-    'project-files',
-
-    //install
-    'install-config'
+var _modules = [
+  './generator/prompting/name-prompt',
+  './generator/prompting/build-tool-prompt',
+  './generator/prompting/ecma-prompt',
+  './generator/prompting/test-prompt',
+  './generator/prompting/phabricator-prompt',
+  './generator/configuring/save-config',
+  './generator/configuring/install-config',
+  './generator/writing/app-files',
+  './generator/writing/project-files'
 ];
 
-config = grabFiles([
-    path.join(__dirname, '/generator/prompts'),
-    path.join(__dirname, '/generator/config'),
-    path.join(__dirname, '/generator/files')
-], order);
-
-config.sort(function(a, b) {
-    return a.index - b.index;
-});
-
-config.forEach(function(item) {
-    tasks[item.name] = item.code;
-});
-
-module.exports =  yeoman.generators.Base.extend(lodash.merge({
+var Generator = yeoman.generators.Base.extend({
   init: function() {
-    this.pkg = require('../../package.json');
+    this.pkg = pkgJSON;
 
-  }
-},tasks));
+    //config object for all prompt related info
+    this.preferences = {};
+  },
+
+});
+
+_modules.forEach(function(_module) {
+  require(_module)(Generator);
+});
+
+module.exports = Generator;

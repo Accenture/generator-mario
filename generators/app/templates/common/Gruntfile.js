@@ -5,7 +5,8 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
     // load all grunt tasks
     require('jit-grunt')(grunt, {
-        useminPrepare: 'grunt-usemin'
+        useminPrepare: 'grunt-usemin',
+        configureProxies: 'grunt-connect-proxy'
     });
 
     var yeomanConfig = {

@@ -1,8 +1,8 @@
 {
- "project_id" : "<%= appName %>",
- "conduit_uri" : "<%= ip %>",
- "lint.engine" : "ArcanistConfigurationDrivenLintEngine",
- "lint.engine.single.linter" : "ArcanistJSHintLinter",
+ "project_id": "<%= projectName %>",
+ "conduit_uri": "<%= phabricatorIP %>",
+ "lint.engine": "ArcanistConfigurationDrivenLintEngine",
+ "lint.engine.single.linter": "ArcanistJSHintLinter",
  "lint.jshint.config": ".jshintrc",
- "unit.engine" : "GruntTestEngine"
+ "unit.engine": "GruntTestEngine"
 }

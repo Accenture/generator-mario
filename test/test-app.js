@@ -12,7 +12,6 @@ describe('mario:app', function() {
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          someOption: true,
           projectName: 'demo-application'
         })
         .on('end', done);
@@ -37,7 +36,6 @@ describe('mario:app', function() {
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          someOption: true,
           phabricatorDeps: true
         })
         .on('end', done);
@@ -54,7 +52,7 @@ describe('mario:app', function() {
       ]);
     });
     it('sets phabricator uri', function() {
-      assert.fileContent('.arcconfig', /conduit_uri" : "http:\/\/127.0.0.1/);
+      assert.fileContent('.arcconfig', /"conduit_uri": "http:\/\/127\.0\.0\.1"/);
     });
   });
 
@@ -64,9 +62,8 @@ describe('mario:app', function() {
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          someOption: true,
           phabricatorDeps: true,
-          phabricatorIP: 'phabricator.mydomain.com'
+          phabricatorIP: 'http://phabricator.mydomain.com'
         })
         .on('end', done);
     });
@@ -82,7 +79,7 @@ describe('mario:app', function() {
       ]);
     });
     it('sets default phabricator uri', function() {
-      assert.fileContent('.arcconfig', /conduit_uri" : "http:\/\/phabricator.mydomain.com/);
+      assert.fileContent('.arcconfig', /"conduit_uri": "http:\/\/phabricator.mydomain.com"/);
     });
   });
 
@@ -92,9 +89,6 @@ describe('mario:app', function() {
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          someOption: true,
-          phabricatorDeps: true,
-          phabricatorIP: 'phabricator.mydomain.com',
           tests: 'separate'
         })
         .on('end', done);
@@ -106,8 +100,6 @@ describe('mario:app', function() {
         'package.json',
         '.editorconfig',
         '.jshintrc',
-        '.arcconfig',
-        '.arclint',
         'karma.conf.js',
         'test/karma-test-main.js'
       ]);
@@ -126,9 +118,6 @@ describe('mario:app', function() {
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          someOption: true,
-          phabricatorDeps: true,
-          phabricatorIP: 'phabricator.mydomain.com',
           tests: 'appcode'
         })
         .on('end', done);
@@ -140,8 +129,6 @@ describe('mario:app', function() {
         'package.json',
         '.editorconfig',
         '.jshintrc',
-        '.arcconfig',
-        '.arclint',
         'karma.conf.js',
         'test/karma-test-main.js'
       ]);
@@ -158,7 +145,7 @@ describe('mario:app', function() {
         .withOptions({ 'skip-install': true })
         .withPrompt({
           buildTool: 'grunt',
-          ecma: 'ECMAScript 2015 (ES6)'
+          ecma: 6
         })
         .on('end', done);
     });
@@ -217,14 +204,14 @@ describe('mario:app', function() {
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          buildTool: 'grunt + webpack (experimental!)'
+          buildTool: 'webpack'
         })
         .on('end', done);
     });
 
     it('should copy webpack files', function() {
       assert.file(['Gruntfile.js', 'webpack.config.js']);
-      assert.noFile(['Gulpfile.js']);
+      assert.noFile(['Gulpfile.js', 'grunt-tasks']);
     });
 
     it('should copy package.json with grunt packages', function() {

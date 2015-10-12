@@ -1,15 +1,22 @@
 // Karma configuration
-// Generated on Wed Feb 04 2015 17:49:34 GMT+0100 (Central Europe Standard Time)
 'use strict';
+<% if(buildTool === 'webpack') { %>
+var webpackConfig = require('./webpack.config.js');<% } %>
+
 module.exports = function (config) {
     config.set({
+
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
+
+
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha', 'requirejs',  'chai' , 'chai-sinon'],
+        frameworks: [<% if(buildTool !== 'webpack') { %>'requirejs',<% } %>'mocha', 'chai', 'chai-sinon'],
+
+
         // list of files / patterns to load in the browser
-        files: [
+        files: [<% if(buildTool !== 'webpack') { %>
             {pattern: 'app/bower_components/jquery/dist/jquery.js', included: false},
             {pattern: 'app/bower_components/underscore/underscore.js', included: false},
             {pattern: 'app/bower_components/backbone/backbone.js', included: false},
@@ -19,20 +26,27 @@ module.exports = function (config) {
             {pattern: 'app/bower_components/bootstrap/dist/js/bootstrap.min.js', included: false},
             'app/bower_components/modernizr/modernizr.js',
             {pattern: '.tmp/scripts/templates.js', included: false},
-            {pattern: 'app/scripts/**/*.js', included: false}, <% if (options.tests === 'separate') { %>
+            {pattern: 'app/scripts/**/*.js', included: false}, <% if (tests === 'separate') { %>
             {pattern: 'test/apps/**/*.js', included: false}, <% } %>
-            'test/karma-test-main.js'
+            'test/karma-test-main.js'<% } else { %>
+            'app/scripts/**/*-test.js',
+            'test/**/*-test.js'<% } %>
         ],
+
+
         // list of files to exclude
         exclude: [],
+
+
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {
-            'app/scripts/**/*.js': [<% if (options.ecma === 6) { %>'babel', <% } %>'coverage']<% if (options.ecma === 6 && options.tests === 'separate') { %> ,
-            'test/apps/**/*.js': ['babel']
-            <% } %>
+        preprocessors: {<% if(buildTool !== 'webpack') { %>
+            'app/scripts/**/*.js': [<% if (ecma === 6) { %>'babel', <% } %>'coverage']<% if (ecma === 6 && tests === 'separate') { %> ,
+            'test/apps/**/*.js': ['babel']<% }  } else { %>
+            'app/scripts/**/*-test.js': ['webpack', 'coverage'],
+            'test/**/*-test.js': ['webpack', 'coverage'] <% } %>
         },
-        <% if (options.ecma === 6) { %>
+        <% if (ecma === 6) { %>
         babelPreprocessor: {
            options: {
              sourceMap: 'inline',
@@ -40,34 +54,65 @@ module.exports = function (config) {
            }
         },
         <% } %>
+
+
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         reporters: ['progress', 'coverage'],
+
+
         // web server port
         port: 9876,
+
+
         // enable / disable colors in the output (reporters and logs)
         colors: true,
+
+
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
+
+
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
+
+        <% if(buildTool === 'webpack') { %>
+        webpack: {
+          cache: true,
+          // devtool: 'eval',
+          module: {
+              loaders: webpackConfig.module.loaders
+          },
+          resolve: webpackConfig.resolve
+        },
+        webpackServer: {
+            stats: {
+                colors: true
+            }
+        },<% } %>
+
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ['PhantomJS',  'Chrome' , 'Firefox'],
+
+
         plugins: [
-            //'karma-jasmine',
-            'karma-requirejs',
+            //'karma-jasmine',<% if(buildTool !== 'webpack') { %>
+            'karma-requirejs',<% } else { %>
+            'karma-webpack', <% } %>
             'karma-mocha',
             'karma-chai',
             'karma-chai-sinon',
             'karma-coverage',
             'karma-chrome-launcher',
-            'karma-firefox-launcher',<% if (options.ecma === 6) { %>
+            'karma-firefox-launcher',<% if (ecma === 6) { %>
             'karma-babel-preprocessor',<% } %>
             'karma-phantomjs-launcher'
         ],
+
+
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: false

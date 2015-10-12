@@ -1,6 +1,6 @@
 {
  "project_id" : "generator-mario",
- "conduit_uri" : "http://23.23.125.207/",
+ "conduit_uri" : "http://52.30.22.203/",
  "lint.engine" : "ArcanistConfigurationDrivenLintEngine",
  "lint.engine.single.linter" : "ArcanistJSHintLinter",
  "lint.jshint.config": ".jshintrc"

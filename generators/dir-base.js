@@ -16,7 +16,7 @@ var DirectoryBase = generators.NamedBase.extend({
 
     this.options.directory = utils.truncateBasePath(this.options.directory);
 
-		var config = this.config.get('config') || {};
+		var config = this.config.get('preferences') || {};
 
     if (config.ecma) {
       this.options.ecma = config.ecma;
