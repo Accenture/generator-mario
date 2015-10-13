@@ -9,9 +9,9 @@ var pkgJSON = require('../../package.json');
  */
 var _modules = [
   './generator/prompting/name-prompt',
+	'./generator/prompting/ecma-prompt',
+	'./generator/prompting/test-prompt',
   './generator/prompting/build-tool-prompt',
-  './generator/prompting/ecma-prompt',
-  './generator/prompting/test-prompt',
   './generator/prompting/phabricator-prompt',
   './generator/configuring/save-config',
   './generator/configuring/install-config',
@@ -25,7 +25,7 @@ var Generator = yeoman.generators.Base.extend({
 
     //config object for all prompt related info
     this.preferences = {};
-  },
+  }
 
 });
 

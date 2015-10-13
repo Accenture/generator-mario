@@ -3,11 +3,6 @@
 module.exports = function(Generator) {
 
   Generator.prototype.ecmaPrompt = function() {
-    if (this.preferences.buildTool !== 'grunt') {
-      this._.merge(this.preferences, {ecma: 5});
-      return;
-    }
-
     var done = this.async();
     this.prompt({
       type: 'list',
