@@ -205,6 +205,9 @@ module.exports = DirBase.extend({
     this.sourceDir = (this.options.ecma === 6) ? 'es6/' : 'es5/';
   },
   initializing: function() {
+		// load config
+    DirBase.prototype.initializing.call(this);
+
     // generate model
     this.composeWith('mario:model', {
       options: {directory: this.options.directory},

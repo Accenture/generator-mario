@@ -11,10 +11,7 @@ describe('mario:model', function() {
       helpers.run(path.join(__dirname, '../generators/model'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          directory: 'some-feature',
-          tests: 'appcode'
-        })
+        .withOptions({ directory: 'some-feature' })
         .on('end', done);
     });
     it('creates files', function() {
@@ -35,12 +32,8 @@ describe('mario:model', function() {
   describe('with tests ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/model'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          tests: 'appcode',
-          ecma: 6
-        })
+        .withLocalConfig({preferences: {tests: 'appcode', ecma: 6}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -61,11 +54,8 @@ describe('mario:model', function() {
   describe('with separate tests', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/model'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          tests: 'separate'
-        })
+        .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/'}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -79,12 +69,8 @@ describe('mario:model', function() {
   describe('with separate tests ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/model'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          tests: 'separate',
-          ecma: 6
-        })
+        .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/', ecma: 6}})
         .on('end', done);
     });
     it('creates files', function() {

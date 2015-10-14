@@ -17,10 +17,7 @@ describe('mario:collection', function() {
       helpers.run(path.join(__dirname, '../generators/collection'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          directory: 'some-feature',
-          model: 'some-model'
-        })
+        .withOptions({ directory: 'some-feature', model: 'some-model' })
         .on('end', done);
     });
     it('creates files', function() {
@@ -57,10 +54,8 @@ describe('mario:collection', function() {
       helpers.run(path.join(__dirname, '../generators/collection'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['batman-and-robin'])
-        .withOptions({
-          ecma: 6,
-          model: 'harlequin-model'
-        })
+        .withOptions({ model: 'harlequin-model' })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -93,9 +88,7 @@ describe('mario:collection', function() {
       helpers.run(path.join(__dirname, '../generators/collection'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['other-feature'])
-        .withOptions({
-          directory: 'other-feature'
-        })
+        .withOptions({ directory: 'other-feature' })
         .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });
@@ -119,10 +112,7 @@ describe('mario:collection', function() {
       helpers.run(path.join(__dirname, '../generators/collection'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['other-feature'])
-        .withOptions({
-          ecma: 6,
-          tests: 'appcode'
-        })
+        .withLocalConfig({ preferences: { ecma: 6, tests: 'appcode' }})
         .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });
@@ -187,9 +177,9 @@ describe('mario:collection', function() {
         .withArguments(['other-feature'])
         .withOptions({
           directory: 'app/scripts/apps/other-feature',
-          ecma: 6,
           model: 'app/scripts/apps/heroes/joker-model.js'
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
     afterEach(function(done) {
@@ -215,9 +205,7 @@ describe('mario:collection', function() {
       helpers.run(path.join(__dirname, '../generators/collection'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['other-feature'])
-        .withOptions({
-          tests: 'separate'
-        })
+        .withLocalConfig({ preferences: { tests: 'custom', testFolder: 'test/' }})
         .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });
@@ -241,10 +229,7 @@ describe('mario:collection', function() {
       helpers.run(path.join(__dirname, '../generators/collection'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['other-feature'])
-        .withOptions({
-          tests: 'separate',
-          ecma: 6
-        })
+        .withLocalConfig({preferences: { tests: 'custom', testFolder: 'test/', ecma: 6 }})
         .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });

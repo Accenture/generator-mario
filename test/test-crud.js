@@ -106,10 +106,8 @@ describe('mario:crud', function() {
           fs.copy(srcPath, destPath, copyDone);
         })
         .withArguments(['my-crud'])
-        .withOptions({
-          ecma: 6,
-          force: true
-        })
+        .withOptions({ force: true })
+        .withLocalConfig({preferences: {ecma: 6}})
         .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });

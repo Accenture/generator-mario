@@ -16,6 +16,9 @@ module.exports = DirBase.extend({
     this.option('collection', {alias: 'c', desc: 'create '});
   },
   initializing: function() {
+    // load config
+    DirBase.prototype.initializing.call(this);
+
     this.directory = this.options.directory || this.options.d;
     this.itemview = this.options.itemview || this.options.itv;
     this.collectionview = this.options.collectionview || this.options.clv;

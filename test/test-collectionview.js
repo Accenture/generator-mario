@@ -17,10 +17,7 @@ describe('mario:collectionview', function() {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          directory: 'some-feature',
-          itemview: 'some-item-view'
-        })
+        .withOptions({ directory: 'some-feature', itemview: 'some-item-view' })
         .on('end', done);
     });
 
@@ -57,11 +54,8 @@ describe('mario:collectionview', function() {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          directory: 'some-feature',
-          itemview: 'some-item-view',
-          ecma: 6
-        })
+        .withOptions({ directory: 'some-feature', itemview: 'some-item-view' })
+        .withLocalConfig({ preferences: {ecma: 6} })
         .on('end', done);
     });
 
@@ -93,9 +87,7 @@ describe('mario:collectionview', function() {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['other-feature'])
-        .withOptions({
-          ecma: 6
-        })
+        .withLocalConfig({ preferences: {ecma: 6} })
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
@@ -188,9 +180,9 @@ describe('mario:collectionview', function() {
         .withArguments(['other-feature'])
         .withOptions({
           directory: 'app/scripts/apps/other-feature',
-          itemview: 'app/scripts/apps/heroes/storm-item-view.js',
-          ecma: 6
+          itemview: 'app/scripts/apps/heroes/storm-item-view.js'
         })
+        .withLocalConfig({ preferences: {ecma: 6} })
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
@@ -217,9 +209,7 @@ describe('mario:collectionview', function() {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          tests: 'separate'
-        })
+        .withLocalConfig({ preferences: {tests: 'custom', testFolder: 'test/' }})
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
@@ -244,10 +234,7 @@ describe('mario:collectionview', function() {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          tests: 'separate',
-          ecma: 6
-        })
+        .withLocalConfig({ preferences: {tests: 'custom', testFolder: 'test/', ecma: 6 }})
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });

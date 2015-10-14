@@ -26,11 +26,10 @@ module.exports = function (config) {
             {pattern: 'app/bower_components/bootstrap/dist/js/bootstrap.min.js', included: false},
             'app/bower_components/modernizr/modernizr.js',
             {pattern: '.tmp/scripts/templates.js', included: false},
-            {pattern: 'app/scripts/**/*.js', included: false}, <% if (tests === 'separate') { %>
-            {pattern: 'test/apps/**/*.js', included: false}, <% } %>
+            {pattern: 'app/scripts/**/*.js', included: false}, <% if (tests === 'custom') { %>
+            {pattern: '<%= testFolder %>apps/**/*.js', included: false}, <% } %>
             'test/karma-test-main.js'<% } else { %>
-            'app/scripts/**/*-test.js',
-            'test/**/*-test.js'<% } %>
+            '<%= testFolder %>**/*-test.js'<% } %>
         ],
 
 
@@ -41,10 +40,9 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {<% if(buildTool !== 'webpack') { %>
-            'app/scripts/**/*.js': [<% if (ecma === 6) { %>'babel', <% } %>'coverage']<% if (ecma === 6 && tests === 'separate') { %> ,
-            'test/apps/**/*.js': ['babel']<% }  } else { %>
-            'app/scripts/**/*-test.js': ['webpack', 'coverage'],
-            'test/**/*-test.js': ['webpack', 'coverage'] <% } %>
+            'app/scripts/**/*.js': [<% if (ecma === 6) { %>'babel', <% } %>'coverage']<% if (ecma === 6 && tests === 'custom') { %> ,
+            '<%= testFolder %>/apps/**/*.js': ['babel']<% }  } else { %>
+            '<%= testFolder %>**/*-test.js': ['webpack', 'coverage'] <% } %>
         },
         <% if (ecma === 6) { %>
         babelPreprocessor: {

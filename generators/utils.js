@@ -235,6 +235,17 @@ function verifyPath(fileName) {
 }
 
 /**
+ * Escapes a path string into a valid regexp string
+ * Replaces '/' with '\/'
+ *
+ * @param {String} path representing a path to escape
+ * @return {String} escaped path
+ */
+function escapePathForRegex(path) {
+   return path.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+}
+
+/**
  * This module exports several utility functions for manipulating component
  * names, types and paths in order to fill out tempaltes during the copy phase
  * of the generator.
@@ -252,5 +263,6 @@ module.exports = {
   varName: variableName,
   type: _fileNames,
   truncateBasePath: truncateBasePath,
-  verifyPath: verifyPath
+  verifyPath: verifyPath,
+  escapePathForRegex: escapePathForRegex
 };

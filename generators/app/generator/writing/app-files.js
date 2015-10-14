@@ -1,7 +1,12 @@
 'use strict';
 
+var utils = require('../../../utils');
+
 //build system/task automation tool
 function copyBuildSystem(generator) {
+  generator.preferences.escapedTestFolder =
+    utils.escapePathForRegex(generator.preferences.testFolder);
+
   if (generator.preferences.buildTool === 'grunt') {
     generator.fs.copy(
       generator.templatePath('common/Gruntfile.js'),
@@ -47,7 +52,7 @@ function copyBuildSystem(generator) {
 
 function copyTests(generator) {
   var prefix = (generator.preferences.ecma === 6) ? 'es6/' : 'es5/';
-  var destPrefix = (generator.preferences.tests === 'separate' ?  'test/' : 'app/scripts/');
+  var destPrefix = generator.preferences.testFolder;
 
   var tests = [
     'apps/home/home-item-view-test.js',

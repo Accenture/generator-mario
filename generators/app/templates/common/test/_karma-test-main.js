@@ -1,8 +1,8 @@
 'use strict';
 
 var allRequiredFiles = []; <% if (tests === 'appcode') { %>
-var SRC_REGEXP = /app\/scripts\/apps\/.+\.js$/; <% } else if(tests === 'separate') { %>
-var SRC_REGEXP = /(test)\.js$/; <% } %>
+var SRC_REGEXP = /app\/scripts\/apps\/.+\.js$/; <% } else if(tests === 'custom') { %>
+var SRC_REGEXP = /(<%= escapedTestFolder %>)apps\/.+\.js$/; <% } %>
 var REQUIRE_BASE_URL = '/base/app/scripts';
 
 var pathToSourceFile = function(path) {

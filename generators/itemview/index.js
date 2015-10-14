@@ -10,6 +10,9 @@ module.exports = DirBase.extend({
     this.option('template', {alias: 't', desc: 'reuse existing template for item view'});
   },
   initializing: function() {
+    // load config
+    DirBase.prototype.initializing.call(this);
+
     this.template = this.options.template || this.options.t;
     this.customTplDir = this.options.directory || this.name;
     this.customTplName = this.name;

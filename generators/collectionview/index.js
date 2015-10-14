@@ -13,6 +13,9 @@ module.exports = DirBase.extend({
     this.option('itemview', {alias: 'itv', desc: 'specify a item view to use with the collection view (they have to be in the same directory)'});
   },
   initializing: function() {
+    // load config
+    DirBase.prototype.initializing.call(this);
+
     this.options.itemview = this.options.itemview || this.options.itv;
 
     if (this.options.itemview) {

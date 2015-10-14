@@ -13,6 +13,9 @@ module.exports = DirBase.extend({
     this.option('model', {alias: 'm', desc: 'specify a model name to use with the collection (they have to be in the same directory)'});
   },
   initializing: function() {
+    // load config
+    DirBase.prototype.initializing.call(this);
+
     this.options.model = this.options.model || this.options.m;
     //check for model option
     if (this.options.model) {

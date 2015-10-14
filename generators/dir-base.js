@@ -15,8 +15,9 @@ var DirectoryBase = generators.NamedBase.extend({
     }
 
     this.options.directory = utils.truncateBasePath(this.options.directory);
-
-		var config = this.config.get('preferences') || {};
+  },
+  initializing: function() {
+    var config = this.config.get('preferences') || {};
 
     if (config.ecma) {
       this.options.ecma = config.ecma;
@@ -25,7 +26,7 @@ var DirectoryBase = generators.NamedBase.extend({
       this.options.tests = config.tests;
     }
 
-    this.testBaseDir = (this.options.tests === 'separate') ? 'test/apps' : 'app/scripts/apps';
+    this.testBaseDir = (this.options.tests === 'custom') ? config.testFolder + 'apps' : 'app/scripts/apps';
     this.sourceDir = (this.options.ecma === 6) ? 'es6/' : 'es5/';
   }
 });

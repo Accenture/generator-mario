@@ -83,13 +83,45 @@ describe('mario:app', function() {
     });
   });
 
-  describe('with tests in separate directory', function() {
+  describe('with tests in separate directory - default option', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          tests: 'separate'
+          tests: 'custom',
+          testFolder: 'test/'
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'bower.json',
+        'package.json',
+        '.editorconfig',
+        '.jshintrc',
+        'test/apps',
+        'karma.conf.js',
+        'test/karma-test-main.js'
+      ]);
+    });
+    it('karma.conf.js with configuration for separate dirs', function() {
+      assert.fileContent('karma.conf.js', /pattern: 'test\/apps/);
+    });
+    it('karma-test-main.js for source in separate directory', function() {
+      assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/\(test\\\/\)apps\\\/\.\+\\\.js/);
+    });
+  });
+
+  describe('with tests in separate directory - custom option', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withPrompt({
+          tests: 'custom',
+          testFolder: 'cool/spec/'
         })
         .on('end', done);
     });
@@ -101,14 +133,15 @@ describe('mario:app', function() {
         '.editorconfig',
         '.jshintrc',
         'karma.conf.js',
+        'cool/spec/apps',
         'test/karma-test-main.js'
       ]);
     });
     it('karma.conf.js with configuration for separate dirs', function() {
-      assert.fileContent('karma.conf.js', /pattern: 'test\/apps/);
+      assert.fileContent('karma.conf.js', /pattern: 'cool\/spec\/apps/);
     });
     it('karma-test-main.js for source in separate directory', function() {
-      assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/\(test\)\\\.js/);
+      assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/\(cool\\\/spec\\\/\)apps\\\/\.\+\\\.js/);
     });
   });
 

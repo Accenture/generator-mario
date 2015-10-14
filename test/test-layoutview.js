@@ -18,9 +18,7 @@ describe('mario:layoutview', function() {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['apples'])
-        .withOptions({
-          directory: 'fruit'
-        })
+        .withOptions({ directory: 'fruit' })
         .on('end', done);
     });
 
@@ -45,10 +43,8 @@ describe('mario:layoutview', function() {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['apples'])
-        .withOptions({
-          directory: 'fruit',
-          ecma: 6
-        })
+        .withOptions({ directory: 'fruit' })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
@@ -118,9 +114,9 @@ describe('mario:layoutview', function() {
         .withArguments(['apples'])
         .withOptions({
           directory: 'app/scripts/apps/fruit',
-          template: 'template/feature-template.hbs',
-          ecma: 6
+          template: 'template/feature-template.hbs'
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
@@ -146,9 +142,7 @@ describe('mario:layoutview', function() {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['apples'])
-        .withOptions({
-          tests: 'separate'
-        })
+        .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/'}})
         .on('end', done);
     });
 
@@ -165,10 +159,7 @@ describe('mario:layoutview', function() {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['apples'])
-        .withOptions({
-          tests: 'separate',
-          ecma: 6
-        })
+        .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/'}})
         .on('end', done);
     });
 

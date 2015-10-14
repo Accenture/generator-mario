@@ -23,9 +23,7 @@ describe('mario:controller', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/controller'))
         .withArguments(['my-controller'])
-        .withOptions({
-          ecma: 6
-        })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -89,8 +87,8 @@ describe('mario:controller', function() {
           directory: 'some-feature',
           model: 'pregen/pregen-model',
           itemview: 'pregen/pregen-item-view',
-          ecma: 6
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
@@ -167,9 +165,9 @@ describe('mario:controller', function() {
         .withOptions({
           directory: 'some-feature',
           collection: 'pregen/pregen-collection',
-          collectionview: 'pregen/pregen-collection-view',
-          ecma: 6
+          collectionview: 'pregen/pregen-collection-view'
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
@@ -259,9 +257,9 @@ describe('mario:controller', function() {
           directory: 'some-feature',
           model: 'pregen/pregen-model',
           collection: 'pregen/pregen-collection',
-          compositeview: 'pregen/pregen-composite-view',
-          ecma: 6
+          compositeview: 'pregen/pregen-composite-view'
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
@@ -293,9 +291,7 @@ describe('mario:controller', function() {
       helpers.run(path.join(__dirname, '../generators/controller'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['my-controller'])
-        .withOptions({
-          directory: 'app/scripts/apps/some-feature'
-        })
+        .withOptions({ directory: 'app/scripts/apps/some-feature' })
         .on('end', done);
     });
     it('creates files', function() {
@@ -308,10 +304,8 @@ describe('mario:controller', function() {
       helpers.run(path.join(__dirname, '../generators/controller'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['my-controller'])
-        .withOptions({
-          directory: 'app/scripts/apps/some-feature',
-          ecma: 6
-        })
+        .withOptions({ directory: 'app/scripts/apps/some-feature' })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
     it('creates files', function() {

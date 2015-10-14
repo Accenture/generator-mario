@@ -51,9 +51,7 @@ describe('mario:router', function() {
         .withArguments(['some-feature'])
         .withGenerators([path.join(__dirname, '../generators/controller')])
         .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withOptions({
-          ecma: 6
-        })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
@@ -119,9 +117,9 @@ describe('mario:router', function() {
         .withArguments(['some-feature'])
         .withOptions({
           directory: 'some-feature',
-          controller: 'some-controller',
-          ecma: 6
+          controller: 'some-controller'
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -185,9 +183,9 @@ describe('mario:router', function() {
         .withGenerators([path.join(__dirname, '../generators/controller')])
         .withOptions({
           directory: 'app/scripts/apps/some-feature',
-          controller: 'app/scripts/apps/vegetables/broccoli-controller.js',
-          ecma: 6
+          controller: 'app/scripts/apps/vegetables/broccoli-controller.js'
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
     afterEach(function(done) {

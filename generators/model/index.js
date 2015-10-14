@@ -4,6 +4,9 @@ var utils = require('../utils');
 var DirBase = require('../dir-base');
 
 module.exports = DirBase.extend({
+  initializing: function() {
+    DirBase.prototype.initializing.call(this);
+  },
   writing: function() {
     this.fs.copyTpl(
       this.templatePath(this.sourceDir + '_model.js'),

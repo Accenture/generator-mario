@@ -37,9 +37,7 @@ describe('mario:itemview ', function() {
       helpers.run(path.join(__dirname, '../generators/itemview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          ecma: 6
-        })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
@@ -109,9 +107,9 @@ describe('mario:itemview ', function() {
         .withArguments([FEATURE])
         .withOptions({
           template: 'template/feature-template.hbs',
-          directory: 'app/scripts/apps/' + FEATURE,
-          ecma: 6
+          directory: 'app/scripts/apps/' + FEATURE
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
@@ -136,9 +134,7 @@ describe('mario:itemview ', function() {
       helpers.run(path.join(__dirname, '../generators/itemview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          tests: 'separate'
-        })
+        .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/'}})
         .on('end', done);
     });
 
@@ -156,10 +152,7 @@ describe('mario:itemview ', function() {
       helpers.run(path.join(__dirname, '../generators/itemview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['some-feature'])
-        .withOptions({
-          tests: 'separate',
-          ecma: 6
-        })
+        .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/', ecma: 6}})
         .on('end', done);
     });
 

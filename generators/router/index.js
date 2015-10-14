@@ -12,6 +12,9 @@ module.exports = DirBase.extend({
     this.option('controller', {alias: 'c',desc: 'specify a controller name to use with the router (they have to be in the same directory)'});
   },
   initializing: function() {
+    // load config
+    DirBase.prototype.initializing.call(this);
+
     this.options.controller = this.options.controller || this.options.c;
     if (!this.options.controller) {
       this.composeWith('mario:controller', {options: {directory: this.options.directory}, args: [this.name]});

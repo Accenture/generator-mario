@@ -88,10 +88,8 @@ describe('mario:compositeview', function() {
         helpers.run(path.join(__dirname, '../generators/compositeview'))
           .inDir(path.join(os.tmpdir(), './temp-test'))
           .withArguments(['apples'])
-          .withOptions({
-            directory: 'fruit',
-            ecma: 6
-          })
+          .withOptions({ directory: 'fruit' })
+          .withLocalConfig({ preferences: {ecma: 6 }})
           .withGenerators([path.join(__dirname, '../generators/itemview')])
           .on('end', done);
       });
@@ -132,9 +130,9 @@ describe('mario:compositeview', function() {
         .withOptions({
           directory: 'fruit',
           itemview: 'apple',
-          template: 'template/feature-template.hbs',
-          ecma: 6
+          template: 'template/feature-template.hbs'
         })
+        .withLocalConfig({ preferences: {ecma: 6 }})
         .on('end', done);
     });
 
@@ -200,8 +198,8 @@ describe('mario:compositeview', function() {
         .withOptions({
           directory: 'app/scripts/apps/fruit',
           itemview: 'app/scripts/apps/vegetables/broccoli-item-view.js',
-          ecma: 6
         })
+        .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
     afterEach(function(done) {
@@ -228,9 +226,7 @@ describe('mario:compositeview', function() {
       helpers.run(path.join(__dirname, '../generators/compositeview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['apples'])
-        .withOptions({
-          tests: 'separate'
-        })
+        .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/'}})
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
@@ -254,10 +250,7 @@ describe('mario:compositeview', function() {
       helpers.run(path.join(__dirname, '../generators/compositeview'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withArguments(['apples'])
-        .withOptions({
-          tests: 'separate',
-          ecma: 6
-        })
+        .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/', ecma: 6}})
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });

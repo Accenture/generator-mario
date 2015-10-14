@@ -14,6 +14,9 @@ module.exports = DirBase.extend({
     this.option('template', {alias: 't', desc: 'reuse existing template for composite view'});
   },
   initializing: function() {
+    // load config
+    DirBase.prototype.initializing.call(this);
+
     this.itemview = this.options.itemview || this.options.itv;
     this.template = this.options.template || this.options.t;
     this.templateExists = false;
