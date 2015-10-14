@@ -209,13 +209,14 @@ describe('mario:app', function() {
     });
   });
 
-  describe('gulp setup', function() {
+  describe('gulp setup ES5', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          buildTool: 'gulp'
+          buildTool: 'gulp',
+          ecma: 5
         })
         .on('end', done);
     });
@@ -223,11 +224,70 @@ describe('mario:app', function() {
     it('should copy gulp file', function() {
       assert.file(['Gulpfile.js']);
       assert.noFile(['Gruntfile.js', 'grunt-tasks', 'webpack.config.js']);
+      assert.noFileContent('Gulpfile.js', /.task\('babel'/);
+      assert.noFileContent('Gulpfile.js', /.task\('copy-bower'/);
+      assert.noFileContent('Gulpfile.js', /.task\('copy-main'/);
+      assert.noFileContent('Gulpfile.js', /'templates', 'babel', 'copy-main', 'copy-bower'/);
+      assert.noFileContent('Gulpfile.js', /gulp.watch\('app\/scripts\/\*\*\/\*.js', \['babel'\]\)/);
+      assert.noFileContent('Gulpfile.js', /baseUrl: '.tmp\/scripts'/);
+      assert.noFileContent('Gulpfile.js', /mainConfigFile: '.tmp\/scripts\/main.js'/);
     });
 
     it('should copy package.json with gulp packages', function() {
       assert.file(['package.json']);
       assert.fileContent('package.json', /.gulp-/);
+      assert.noFileContent('package.json', /.gulp-babel/);
+    });
+
+    it('should copy jscsrc', function() {
+      assert.file(['.jscsrc']);
+      assert.noFileContent('.jscsrc', /"esnext": true,/);
+    });
+
+    it('should copy jshintrc', function() {
+      assert.file(['.jshintrc']);
+      assert.noFileContent('.jshintrc', /"esnext": true,/);
+    });
+  });
+
+  describe('Gulp setup ES6', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withPrompt({
+          buildTool: 'gulp',
+          ecma: 6
+        })
+        .on('end', done);
+    });
+
+    it('should copy gulp file', function() {
+      assert.file(['Gulpfile.js']);
+      assert.noFile(['Gruntfile.js', 'grunt-tasks', 'webpack.config.js']);
+      assert.fileContent('Gulpfile.js', /.task\('babel'/);
+      assert.fileContent('Gulpfile.js', /.task\('copy-bower'/);
+      assert.fileContent('Gulpfile.js', /.task\('copy-main'/);
+      assert.fileContent('Gulpfile.js', /'templates', 'babel', 'copy-main', 'copy-bower'/);
+      assert.fileContent('Gulpfile.js', /gulp.watch\('app\/scripts\/\*\*\/\*.js', \['babel'\]\)/);
+      assert.fileContent('Gulpfile.js', /baseUrl: '.tmp\/scripts'/);
+      assert.fileContent('Gulpfile.js', /mainConfigFile: '.tmp\/scripts\/main.js'/);
+    });
+
+    it('should copy package.json with gulp packages', function() {
+      assert.file(['package.json']);
+      assert.fileContent('package.json', /.gulp-/);
+      assert.fileContent('package.json', /.gulp-babel/);
+    });
+
+    it('should copy jscsrc', function() {
+      assert.file(['.jscsrc']);
+      assert.fileContent('.jscsrc', /"esnext": true,/);
+    });
+
+    it('should copy jshintrc', function() {
+      assert.file(['.jshintrc']);
+      assert.fileContent('.jshintrc', /"esnext": true,/);
     });
   });
 

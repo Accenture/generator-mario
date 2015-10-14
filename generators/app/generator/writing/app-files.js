@@ -32,9 +32,10 @@ function copyBuildSystem(generator) {
       generator.preferences
     );
   } else if (generator.preferences.buildTool === 'gulp') {
-    generator.fs.copy(
+    generator.fs.copyTpl(
       generator.templatePath('gulp/Gulpfile.js'),
-      generator.destinationPath('Gulpfile.js')
+      generator.destinationPath('Gulpfile.js'),
+      generator.preferences
     );
 
     generator.fs.copyTpl(

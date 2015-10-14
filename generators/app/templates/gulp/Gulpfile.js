@@ -3,7 +3,7 @@
 
 var LIVERELOAD_PORT = 35729;
 var SERVER_PORT = 9001;
-var Proxy = require('gulp-connect-proxy');
+var GulpConnectProxy = require('gulp-connect-proxy');
 var pngquant = require('imagemin-pngquant');
 var lrSnippet = require('connect-livereload')({
   port: LIVERELOAD_PORT
@@ -103,7 +103,8 @@ gulp.task('jscs', function() {
 
 gulp.task('watch', ['templates', 'less'], function() {
   gulp.watch('app/scripts/**/*.hbs', ['templates']);
-  gulp.watch('app/styles/{,*/}*.less', ['less']);
+  gulp.watch('app/styles/{,*/}*.less', ['less']);<% if (ecma === 6) { %>
+  gulp.watch('app/scripts/**/*.js', ['babel']);<% } %>
   gulp.watch(files, ['clean-reload']);
 });
 
@@ -129,7 +130,7 @@ gulp.task('connect', function() {
       ws: true
     }],
     middleware: function(connect, opt) {
-      var proxy = new Proxy(opt);
+      var proxy = new GulpConnectProxy(opt);
       return [
       proxy,
       lrSnippet,
@@ -176,7 +177,7 @@ gulp.task('imagemin', function() {
   .pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('minify-css', ['copy'], function() {
+gulp.task('minify-css', ['less'], function() {
   gulp.src('.tmp/styles/*.css')
   .pipe(plugins.minifyCss({advanced: false}))
   .pipe(gulp.dest('dist/styles'));
@@ -194,7 +195,7 @@ gulp.task('processhtml', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('copy', ['requirejs'], function() {
+gulp.task('copy', ['requirejs', 'imagemin'], function() {
   gulp.src([
     'app/*.{ico,txt}',
     'app/.htaccess',
@@ -205,16 +206,39 @@ gulp.task('copy', ['requirejs'], function() {
   ], {base: 'app'})
   .pipe(gulp.dest('dist'));
 });
+<% if (ecma === 6) { %>
+gulp.task('copy-main', function() {
+  gulp.src([
+    'app/scripts/main.js',
+  ])
+    .pipe(gulp.dest('.tmp/scripts'));
+});
 
+gulp.task('copy-bower', ['bower'], function() {
+  return gulp.src([
+    'app/bower_components/**/*.js',
+  ])
+    .pipe(gulp.dest('.tmp/bower_components'));
+});
+
+var babel = require('gulp-babel');
+gulp.task('babel', function() {
+  return gulp.src(['app/scripts/**/*.js', '!app/scripts/main.js'])
+    .pipe(babel({
+      modules: 'amd'
+    }))
+    .pipe(gulp.dest('.tmp/scripts'));
+});
+<% } %>
 gulp.task('bower', function() {
-  plugins.bower()
+  return plugins.bower()
   .pipe(gulp.dest('app/bower_components'));
 });
 
 gulp.task('templates', function() {
   return gulp.src('app/scripts/**/*.hbs')
     .pipe(plugins.handlebars())
-    .pipe(plugins.wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(plugins.wrap('Handlebars.template(\<\%\= contents \%\>)'))
     .pipe(plugins.declare({
       namespace: 'JST',
       noRedeclare: true, // Avoid duplicate declarations
@@ -230,19 +254,19 @@ gulp.task('templates', function() {
     //make handlebars file names compliant with grunt version
     .pipe(plugins.replace(/_hbs/g, '.hbs'))
       //make templates amd compatible
-    .pipe(plugins.wrap('define([\'handlebars\'], function(Handlebars) { <%= contents %> return this["JST"]; });'))
+    .pipe(plugins.wrap('define([\'handlebars\'], function(Handlebars) { \<\%\= contents \%\> return this["JST"]; });'))
 
     .pipe(gulp.dest('.tmp/scripts/'))
     .pipe(plugins.connect.reload());
 });
 
-gulp.task('requirejs', ['templates'], function() {
+gulp.task('requirejs', ['templates'<% if (ecma === 6) { %>, 'babel', 'copy-main', 'copy-bower'<%}%>], function() {
   gulp.src(['app/scripts/main.js'])
     .pipe(plugins.requirejsOptimize({
-      baseUrl: 'app/scripts',
+      baseUrl: '<% if (ecma === 6) { %>.tmp<% } else { %>app<% } %>/scripts',
       out: 'main.js',
       name: 'main',
-      mainConfigFile: 'app/scripts/main.js',
+      mainConfigFile: '<% if (ecma === 6) { %>.tmp<% } else {%>app<% } %>/scripts/main.js',
       include: ['../../app/bower_components/requirejs/require'],
       optimize: 'uglify',
       paths: {
@@ -254,8 +278,8 @@ gulp.task('requirejs', ['templates'], function() {
 });
 
 gulp.task('serve', [
-  'clean',
-  'analyze',
+  'analyze',<% if (ecma === 6) { %>
+  'babel',<% } %>
   'connect',
   'open',
   'watch'
@@ -274,7 +298,6 @@ gulp.task('test:karma', [
 ]);
 
 gulp.task('build', [
-  'clean',
   'analyze',
   'less',
   'processhtml',

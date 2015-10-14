@@ -3,7 +3,7 @@
 module.exports = function(Generator) {
 
   Generator.prototype.projectFiles = function() {
-    var templates = ['.editorconfig', '.jscsrc'];
+    var templates = ['.editorconfig'];
 
     templates.forEach(function(name) {
       this.fs.copy(
@@ -11,6 +11,12 @@ module.exports = function(Generator) {
         this.destinationPath(name)
       );
     }, this);
+
+    this.fs.copyTpl(
+      this.templatePath('common/_.jscsrc'),
+      this.destinationPath('.jscsrc'),
+      this.preferences
+    );
 
     this.fs.copyTpl(
       this.templatePath('common/_.jshintrc'),

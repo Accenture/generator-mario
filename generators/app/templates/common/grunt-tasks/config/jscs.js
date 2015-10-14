@@ -6,7 +6,7 @@ module.exports = function(grunt) {
             'test/spec/{,*/}*.js'
         ],
         options: {
-            config: '<%= yeoman.app %>/.jscsrc',
+            config: '<%= yeoman.app %>/_.jscsrc',
             verbose: true,
             reporter: require('jscs-stylish').path
         }
