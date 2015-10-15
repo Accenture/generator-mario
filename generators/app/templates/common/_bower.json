@@ -12,7 +12,8 @@
     "requirejs-plugins": "~1.0.3",
     "backbone.marionette": "~2.4.1",
     "font-awesome": "~4.3.0",
-    "backbone.radio": "~1.0.0"
+    "backbone.radio": "~1.0.0",
+    "fastclick-amd": "*"
   },
   "devDependencies": {
     "picturefill": "~2.3.1",

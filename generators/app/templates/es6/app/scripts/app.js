@@ -1,5 +1,6 @@
 import {Application} from 'marionette';
 import Backbone from 'backbone';
+import Fastclick from 'fastclick';
 import MainLayoutView from './apps/main/main-layout-view';
 import NavigationController from './apps/navigation/navigation-controller';
 import HomeRouter from './apps/home/home-router';
@@ -19,6 +20,7 @@ var initializeUI = function () {
    };
 App.on('start', function () {
     initializeUI();
+    Fastclick.attach(document.body);
     if (Backbone.history) {
         Backbone.history.start();
     }

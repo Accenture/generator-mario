@@ -39,7 +39,8 @@ require.config({
         bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',
         handlebars: '../bower_components/handlebars/handlebars.runtime',
         marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
-        radio: '../bower_components/backbone.radio/build/backbone.radio'
+        radio: '../bower_components/backbone.radio/build/backbone.radio',
+        fastclick: '../bower_components/fastclick-amd/fastclick'
     }
 });
 

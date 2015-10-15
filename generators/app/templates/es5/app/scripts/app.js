@@ -3,6 +3,7 @@
 define([
     'backbone',
     'marionette',
+		'fastclick',
     'helpers/handlebars-helpers',
     'apps/main/main-layout-view',
     'apps/navigation/navigation-controller',
@@ -10,6 +11,7 @@ define([
 ], function(
     Backbone,
     Marionette,
+		Fastclick,
     helpers,
     MainLayoutView,
     NavigationController,
@@ -31,6 +33,7 @@ define([
 
     App.on('start', function() {
         initializeUI();
+				Fastclick.attach(document.body);
         if (Backbone.history) {
             Backbone.history.start();
         }
