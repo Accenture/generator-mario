@@ -42,9 +42,10 @@ module.exports = function (config) {
         preprocessors: {<% if(buildTool !== 'webpack') { %>
             'app/scripts/**/*.js': [<% if (ecma === 6) { %>'babel', <% } %>'coverage']<% if (ecma === 6 && tests === 'custom') { %> ,
             '<%= testFolder %>/apps/**/*.js': ['babel']<% }  } else { %>
-            '<%= testFolder %>**/*-test.js': ['webpack', 'coverage'] <% } %>
+            '<%= testFolder %>**/*-test.js': [<% if (ecma === 6) { %>'babel', <% } %>'webpack', 'coverage'] <% } %>
         },
-        <% if (ecma === 6) { %>
+
+        <% if (ecma === 6 && buildTool !== 'webpack') { %>
         babelPreprocessor: {
            options: {
              sourceMap: 'inline',
@@ -79,6 +80,7 @@ module.exports = function (config) {
         <% if(buildTool === 'webpack') { %>
         webpack: {
           cache: true,
+          watch: true,
           // devtool: 'eval',
           module: {
               loaders: webpackConfig.module.loaders

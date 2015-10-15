@@ -1,7 +1,7 @@
-import {Object} from 'marionette';
+import {Object as Obj} from 'marionette';
 <% items.forEach(function(item) { %>import <%= item.name %> from '<%= item.path %>';
 <%});%>
-export default Object.extend({
+export default Obj.extend({
   initialize(options) {
     this.region = options.region;
   },

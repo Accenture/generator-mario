@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: 'dist/scripts',
     publicPath: '/scripts/',
-    filename: 'main.js',
+    filename: 'main.js'
   },
   resolve: {
     modulesDirectories: ['app/bower_components', 'app/scripts', '.tmp/scripts'],
@@ -37,7 +37,8 @@ module.exports = {
       {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&minetype=application/octet-stream'},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
       {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&minetype=image/svg+xml'},
-      {test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff'}
+      {test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff'}<% if (ecma === 6) { %>,
+      {test: /\.js$/, exclude: [/bower_components/,/node_modules/], loader: 'babel-loader'}<% } %>
     ]
   },
   plugins: [

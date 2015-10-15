@@ -1,8 +1,8 @@
-import {Object} from 'marionette';
+import {Object as Obj} from 'marionette';
 import HomeItemView from './home-item-view';
 import HomeModel from './home-model';
 
-export default Object.extend({
+export default Obj.extend({
     initialize(options) {
          this.region = options.region;
      },

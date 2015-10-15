@@ -44,10 +44,24 @@ function copyBuildSystem(generator) {
       generator.preferences
     );
   } else if (generator.preferences.buildTool === 'webpack') {
-    generator.fs.copy(
-      generator.templatePath('webpack'),
-      generator.destinationPath()
-    );
+    var staticFiles = ['app/index.html', 'app/styles/main.less'];
+
+    var templates = ['app/scripts/_main.js', '_webpack.config.js', '_Gruntfile.js'];
+
+    staticFiles.forEach(function(name) {
+      generator.fs.copy(
+        generator.templatePath('webpack/' + name),
+        generator.destinationPath(name)
+      );
+    });
+
+    templates.forEach(function(name) {
+      generator.fs.copyTpl(
+        generator.templatePath('webpack/' + name),
+        generator.destinationPath(name.replace('_', '')),
+        generator.preferences
+      );
+    });
   }
 }
 

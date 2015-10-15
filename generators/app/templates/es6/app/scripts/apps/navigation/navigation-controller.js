@@ -1,7 +1,7 @@
-import {Object} from 'marionette';
+import {Object as Obj} from 'marionette';
 import NavigationItemView from './navigation-item-view';
 
-export default Object.extend({
+export default Obj.extend({
   initialize(options) {
        this.region = options.region;
        this.show();

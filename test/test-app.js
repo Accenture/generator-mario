@@ -291,13 +291,14 @@ describe('mario:app', function() {
     });
   });
 
-  describe('webpack setup', function() {
+  describe('webpack setup ES5', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
         .withPrompt({
-          buildTool: 'webpack'
+          buildTool: 'webpack',
+          ecma: 5
         })
         .on('end', done);
     });
@@ -310,6 +311,77 @@ describe('mario:app', function() {
     it('should copy package.json with grunt packages', function() {
       assert.file(['package.json']);
       assert.fileContent('package.json', /.grunt-/);
+    });
+
+    it('should copy package.json with webpack packages', function() {
+      assert.file(['package.json']);
+      assert.fileContent('package.json', /.webpack-/);
+    });
+
+    it('should have webpack configuration in karma.conf.js', function() {
+      assert.file(['karma.conf.js']);
+      assert.fileContent('karma.conf.js', /webpack: {/);
+    });
+  });
+
+  describe('webpack setup ES6', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withPrompt({
+          buildTool: 'webpack',
+          ecma: 6
+        })
+        .on('end', done);
+    });
+
+    it('should copy webpack files', function() {
+      assert.file(['Gruntfile.js', 'webpack.config.js']);
+      assert.noFile(['Gulpfile.js', 'grunt-tasks']);
+    });
+
+    it('should copy main.js contains ES6 imports and initialization', function() {
+      assert.file(['app/scripts/main.js']);
+      assert.fileContent('app/scripts/main.js', /import App from '.\/app'/);
+      assert.fileContent('app/scripts/main.js', /import 'bootstrap'/);
+      assert.fileContent('app/scripts/main.js', /import '..\/styles\/main.less'/);
+      assert.fileContent('app/scripts/main.js', /App.start()/);
+    });
+
+    it('should copy package.json with grunt packages', function() {
+      assert.file(['package.json']);
+      assert.fileContent('package.json', /.grunt-/);
+    });
+
+    it('should copy package.json with webpack packages', function() {
+      assert.file(['package.json']);
+      assert.fileContent('package.json', /.webpack-/);
+    });
+
+    it('should have babel package in package.json', function() {
+      assert.file(['package.json']);
+      assert.fileContent('package.json', /grunt-babel/);
+    });
+
+    it('should have esnext option in Gruntfile.js', function() {
+      assert.file(['Gruntfile.js']);
+      assert.fileContent('Gruntfile.js', /esnext: true/);
+    });
+
+    it('should have esnext option in .jshintrc', function() {
+      assert.file(['.jshintrc']);
+      assert.fileContent('.jshintrc', /"esnext": true/);
+    });
+
+    it('should have webpack configuration in karma.conf.js', function() {
+      assert.file(['karma.conf.js']);
+      assert.fileContent('karma.conf.js', /webpack: {/);
+    });
+
+    it('should have necessary preprocessors in karma.conf.js', function() {
+      assert.file(['karma.conf.js']);
+      assert.fileContent('karma.conf.js', /\['babel', 'webpack', 'coverage'/);
     });
   });
 });
