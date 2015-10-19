@@ -30,6 +30,85 @@ describe('mario:app', function() {
     });
   });
 
+  describe('using existing \'.yo-rc.json\' config file', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withLocalConfig({
+          'preferences': {
+            'projectName': 'mario-app',
+            'ecma': 5,
+            'tests': 'appcode',
+            'testFolder': 'app/scripts/',
+            'buildTool': 'grunt'
+          }
+        })
+        .withPrompt({
+          useExistingConfig: true,
+          projectName: 'demo-app',
+          ecma: 5,
+          buildTool: 'gulp'
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'bower.json',
+        'package.json',
+        '.editorconfig',
+        '.jshintrc',
+				'Gruntfile.js',
+        'grunt-tasks'
+      ]);
+      assert.noFile(['Gulpfile.js', 'webpack.config.js']);
+    });
+
+    it('\'.yo-rc.json\' has set projectName property to \'mario-app\'', function() {
+      assert.fileContent('.yo-rc.json', /"projectName": "mario-app"/);
+    });
+	});
+
+  describe('not using existing \'.yo-rc.json\' config file', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withLocalConfig({
+          'preferences': {
+            'projectName': 'mario-app',
+            'ecma': 5,
+            'tests': 'appcode',
+            'testFolder': 'app/scripts/',
+            'buildTool': 'grunt'
+          }
+        })
+        .withPrompts({
+          useExistingConfig: false,
+          projectName: 'demo-app',
+          ecma: 5,
+          buildTool: 'gulp'
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'bower.json',
+        'package.json',
+        '.editorconfig',
+        '.jshintrc',
+        'Gulpfile.js'
+      ]);
+      assert.noFile(['Gruntfile.js', 'grunt-tasks', 'webpack.config.js']);
+    });
+
+    it('\'.yo-rc.json\' has set projectName property to \'mario-app\'', function() {
+      assert.fileContent('.yo-rc.json', /"projectName": "demo-app"/);
+    });
+  });
+
   describe('with arcanist file default URL', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/app'))

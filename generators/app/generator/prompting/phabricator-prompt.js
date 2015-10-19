@@ -21,8 +21,11 @@ module.exports = function(Generator) {
   }
 
   Generator.prototype.phabricatorPrompt = function() {
+    if (this.useExistingConfig && this.preferences.phabricatorDeps) {
+      return;
+    }
+
     var done = this.async();
-    this.arcanistPrompts = {};
 
     this.prompt({
       type: 'confirm',

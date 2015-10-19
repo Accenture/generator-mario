@@ -3,6 +3,10 @@
 module.exports = function(Generator) {
 
   Generator.prototype.buildToolPrompt = function() {
+    if (this.useExistingConfig && this.preferences.buildTool) {
+      return;
+    }
+
     var done = this.async();
     this.prompt({
       type: 'list',

@@ -3,6 +3,10 @@
 module.exports = function(Generator) {
 
   Generator.prototype.ecmaPrompt = function() {
+    if (this.useExistingConfig && this.preferences.ecma) {
+      return;
+    }
+
     var done = this.async();
     this.prompt({
       type: 'list',

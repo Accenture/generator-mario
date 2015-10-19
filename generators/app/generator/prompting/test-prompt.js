@@ -24,6 +24,10 @@ module.exports = function(Generator) {
   }
 
   Generator.prototype.testPrompt = function() {
+    if (this.useExistingConfig && this.preferences.tests) {
+      return;
+    }
+
     var done = this.async();
     this.prompt({
       type: 'list',

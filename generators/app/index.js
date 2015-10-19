@@ -8,6 +8,7 @@ var pkgJSON = require('../../package.json');
  * Order of imported modules is important for the generator run loop
  */
 var _modules = [
+  './generator/prompting/config-prompt',
   './generator/prompting/name-prompt',
 	'./generator/prompting/ecma-prompt',
 	'./generator/prompting/test-prompt',

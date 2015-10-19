@@ -6,6 +6,9 @@ var yosay = require('yosay');
 module.exports = function(Generator) {
 
   Generator.prototype.namePrompt = function() {
+    if (this.useExistingConfig && this.preferences.projectName) {
+      return;
+    }
 
     var done = this.async();
 
