@@ -12,6 +12,7 @@ module.exports = DirBase.extend({
     DirBase.apply(this, arguments);
     this.option('itemview', {alias: 'itv', desc: 'creates itemView within specified directory'});
     this.option('template', {alias: 't', desc: 'reuse existing template for composite view'});
+    this.option('skipcheck', {alias: 'f', desc: 'Force to ignore (turn off) checking of paths to referenced files'});
   },
   initializing: function() {
     // load config
@@ -35,7 +36,9 @@ module.exports = DirBase.extend({
       var customViewName = pathFractions.name;
       var customViewDir = pathFractions.dir;
 
-      utils.verifyPath(utils.fileNameWithPath(pathFractions.dir, pathFractions.name, utils.type.itemview));
+      if (!this.options.skipcheck) {
+        utils.verifyPath(utils.fileNameWithPath(pathFractions.dir, pathFractions.name, utils.type.itemview));
+      }
 
       this.customView.path = utils.amd(customViewName, utils.type.itemview, customViewDir);
       this.customView.class = utils.className(customViewName, utils.type.itemview);
@@ -58,8 +61,10 @@ module.exports = DirBase.extend({
       if (pathFractions.dir) {
          this.customTplDir = pathFractions.dir;
       }
+      if (!this.options.skipcheck) {
+        utils.verifyPath(utils.templateNameWithPath(this.customTplDir, pathFractions.name, utils.type.compositeview));
+      }
 
-      utils.verifyPath(utils.templateNameWithPath(this.customTplDir, pathFractions.name, utils.type.compositeview));
     }
   },
   writing: function() {

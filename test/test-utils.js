@@ -30,8 +30,14 @@ describe('utils', function() {
   it('model AMD with file name', function() {
     assert.equal(utils.amd('people-model', utils.type.model), './people-model', 'Model AMD paths are equal');
   });
-  it('amd handles custom direcotry', function() {
-    assert.equal(utils.amd('people-model', utils.type.model, 'customDirecotry'), 'apps/customDirecotry/people-model', 'Model AMD paths are equal');
+  it('amd handles custom directory', function() {
+    assert.equal(utils.amd('people-model', utils.type.model, 'custom/directory'), 'apps/custom/directory/people-model', 'Model AMD paths are equal');
+  });
+  it('amd handles custom directory on windows', function() {
+    assert.equal(utils.amd('people-model', utils.type.model, 'custom\\directory'), 'apps/custom/directory/people-model', 'Model AMD paths are equal');
+  });
+  it('amd handles custom directory on windows', function() {
+    assert.equal(utils.amd('people-model', utils.type.model, 'app\\scripts\\apps\\cool'), 'apps/cool/people-model', 'Model AMD paths are equal');
   });
   it('model ClassName', function() {
     assert.equal(utils.className('people', utils.type.model), 'PeopleModel', 'Model ClassName are equal');

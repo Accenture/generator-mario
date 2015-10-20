@@ -178,6 +178,7 @@ All supported sub-generators with their descriptions can be found below:
 - mario:router
 - mario:controller
 - mario:crud
+- mario:widget
 
 ### Model
 Model is generated via command:
@@ -417,6 +418,26 @@ will result in
 `your-domain/projects/(list | create | detail)`
 
 routes.
+
+### Widget
+Generate widget feature with:
+`yo mario:widget <widget-name> [--directory <folder-name>]`
+
+Widget is mix of several backbone and marionette building blocks.
+ 
+ This sub-generator will generate:
+- model (to hold single item)
+- collection (to hold multiple items)
+- composite view (to display items in the list - collection)
+- composite template
+- item view (to display a single item in a list )
+- item view template
+- controller (to wire up all the previous components)
+- router (to define route to access widget)
+  
+In additional to that it links those blocks together but it doesn't register router in app.js (as crud subgenerator) so you have to do it manually together with model and collection fetching.
+
+
 
 ## Task Runner
 

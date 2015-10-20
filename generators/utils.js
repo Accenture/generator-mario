@@ -165,8 +165,8 @@ function templateNameWithPath(directory, name, type) {
  * @return {String} path to a file with 'app/scripts/apps' truncated.
  */
 function truncateBasePath(filePath) {
-  if (filePath.substring(0, 17) === baseDir) {
-    filePath = filePath.slice(17);
+  if (filePath.substring(0, baseDir.length) === baseDir) {
+    filePath = filePath.slice(baseDir.length);
   }
 
   return filePath;
@@ -174,7 +174,7 @@ function truncateBasePath(filePath) {
 
 /**
  * Creates relative AMD path from name and type if custom dir is not provided
- * otherwise it will create a path relative to projects scripts forlder.
+ * otherwise it will create a path relative to projects scripts folder.
  *
  * @param {String} name The name
  * @param {String} type The type saved in this.type
@@ -185,8 +185,12 @@ function amd(name, type, customDir) {
   if (!customDir) {
     return './' + fileName(name, type);
   }
-
-  return appsDir + customDir + '/' + fileName(name, type);
+  var mergedPath = path.join(appsDir, customDir, fileName(name, type));
+  var unixFormOrPath = mergedPath.replace(/\\/g, '/');
+  if (unixFormOrPath.search(baseDir) > -1) {
+    return unixFormOrPath.replace(/app\/scripts\/apps\//, '');
+  }
+  return unixFormOrPath.replace(/\\/g, '/');
 }
 
 /**

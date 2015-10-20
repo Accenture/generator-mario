@@ -11,6 +11,7 @@ module.exports = DirBase.extend({
   constructor: function() {
     DirBase.apply(this, arguments);
     this.option('model', {alias: 'm', desc: 'specify a model name to use with the collection (they have to be in the same directory)'});
+    this.option('url', {alias: 'u', desc: 'url'});
   },
   initializing: function() {
     // load config
@@ -38,7 +39,8 @@ module.exports = DirBase.extend({
       this.destinationPath(utils.fileNameWithPath(this.options.directory , this.name, utils.type.collection)),
       {
         modelPath: model.path,
-        modelNameCamelCase: model.className
+        modelNameCamelCase: model.className,
+        url: this.options.url
       }
     );
     this.fs.copyTpl(

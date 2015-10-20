@@ -83,6 +83,53 @@ describe('mario:collection', function() {
     });
   });
 
+  describe('with URL', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/collection'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['some-feature'])
+        .withOptions({
+          url: 'api/collection'
+        })
+        .withGenerators([path.join(__dirname, '../generators/model')])
+        .on('end', done);
+    });
+    it('contains url', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection.js', /url: 'api\/collection'/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
+  describe('with URL', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/collection'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withArguments(['some-feature'])
+        .withOptions({
+          url: 'api/collection',
+          ecma: 6
+        })
+        .withGenerators([path.join(__dirname, '../generators/model')])
+        .on('end', done);
+    });
+    it('contains url', function() {
+      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection.js', /url: 'api\/collection'/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
   describe('without existing model', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/collection'))

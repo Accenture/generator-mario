@@ -14,6 +14,7 @@ module.exports = DirBase.extend({
     this.option('compositeview', {alias: 'cmv', desc: 'create '});
     this.option('model', {alias: 'm', desc: 'create '});
     this.option('collection', {alias: 'c', desc: 'create '});
+    this.option('skipcheck', {alias: 'f', desc: 'Force to ignore (turn off) checking of paths to referenced files'});
   },
   initializing: function() {
     // load config
@@ -65,7 +66,10 @@ module.exports = DirBase.extend({
       this.customMdlName = mdlPathFractions.base;
       this.customMdlDir = mdlPathFractions.dir;
 
-      utils.verifyPath(utils.fileNameWithPath(this.customMdlDir, mdlPathFractions.name, utils.type.model));
+      if (!this.options.skipcheck) {
+        utils.verifyPath(utils.fileNameWithPath(this.customMdlDir, mdlPathFractions.name, utils.type.model));
+      }
+
       items.push({path: utils.amd(mdlPathFractions.name, utils.type.model, mdlPathFractions.dir), name: 'Model', type: 'model'});
     }
 
@@ -76,7 +80,9 @@ module.exports = DirBase.extend({
       this.customCllName = cllPathFractions.base;
       this.customCllDir = cllPathFractions.dir;
 
-      utils.verifyPath(utils.fileNameWithPath(this.customCllDir, cllPathFractions.name, utils.type.collection));
+      if (!this.options.skipcheck) {
+        utils.verifyPath(utils.fileNameWithPath(this.customCllDir, cllPathFractions.name, utils.type.collection));
+      }
       items.push({path: utils.amd(cllPathFractions.name, utils.type.collection, cllPathFractions.dir), name: 'Collection', type: 'collection'});
     }
 
@@ -87,7 +93,9 @@ module.exports = DirBase.extend({
       this.customCllName = itvPathFractions.base;
       this.customItvDir = itvPathFractions.dir;
 
-      utils.verifyPath(utils.fileNameWithPath(this.customItvDir, itvPathFractions.name, utils.type.itemview));
+      if (!this.options.skipcheck) {
+        utils.verifyPath(utils.fileNameWithPath(this.customItvDir, itvPathFractions.name, utils.type.itemview));
+      }
 
       var itvName = utils.className(itvPathFractions.name, utils.type.itemview);
       items.push({path: utils.amd(itvPathFractions.name, utils.type.itemview, itvPathFractions.dir), name: itvName, varName: utils.varName(itvName), type: 'itemview'});
@@ -103,7 +111,9 @@ module.exports = DirBase.extend({
       this.customClvName = clvPathFractions.base;
       this.customClvDir = clvPathFractions.dir;
 
-      utils.verifyPath(utils.fileNameWithPath(this.customClvDir, clvPathFractions.name, utils.type.collectionview));
+      if (!this.options.skipcheck) {
+        utils.verifyPath(utils.fileNameWithPath(this.customClvDir, clvPathFractions.name, utils.type.collectionview));
+      }
 
       var clvName = utils.className(clvPathFractions.name, utils.type.collectionview);
       items.push({path: utils.amd(clvPathFractions.name, utils.type.collectionview, clvPathFractions.dir), name: clvName, varName: utils.varName(clvName), type: 'collectionview'});
@@ -119,7 +129,9 @@ module.exports = DirBase.extend({
       this.customCmvName = cmvPathFractions.base;
       this.customCmvDir = cmvPathFractions.dir;
 
-      utils.verifyPath(utils.fileNameWithPath(this.customCmvDir, cmvPathFractions.name, utils.type.compositeview));
+      if (!this.options.skipcheck) {
+        utils.verifyPath(utils.fileNameWithPath(this.customCmvDir, cmvPathFractions.name, utils.type.compositeview));
+      }
 
       var cmvName = utils.className(cmvPathFractions.name, utils.type.compositeview);
       items.push({path: utils.amd(cmvPathFractions.name, utils.type.compositeview, cmvPathFractions.dir), name: cmvName, varName: utils.varName(cmvName), type: 'compositeview'});

@@ -8,6 +8,7 @@ module.exports = DirBase.extend({
   constructor: function() {
     DirBase.apply(this, arguments);
     this.option('template', {alias: 't', desc: 'reuse existing template for item view'});
+    this.option('skipcheck', {alias: 'f', desc: 'Force to ignore (turn off) checking of existance of referenced template'});
   },
   initializing: function() {
     // load config
@@ -26,8 +27,9 @@ module.exports = DirBase.extend({
       if (pathFractions.dir) {
          this.customTplDir = pathFractions.dir;
       }
-
-      utils.verifyPath(utils.templateNameWithPath(this.customTplDir, pathFractions.name, utils.type.itemview));
+      if (!this.options.skipcheck) {
+        utils.verifyPath(utils.templateNameWithPath(this.customTplDir, pathFractions.name, utils.type.itemview));
+      }
     }
   },
   writing: function() {
