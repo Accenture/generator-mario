@@ -2,10 +2,6 @@
 
 var SERVER_PORT = 9001;
 
-var mountFolder = function (connect, dir) {
-    return connect.static(require('path').resolve(dir));
-};
-
 var webpack = require('webpack');
 var webpackConfig = require('./webpack.config.js');
 
@@ -74,38 +70,15 @@ module.exports = function (grunt) {
                 }
             }
         },
-        connect: {
-            options: {
-                port: grunt.option('port') || SERVER_PORT
-            },
-            proxies: [{
-                context: ['/api'],
-                host: 'localhost',
-                port: 8081
-            }, {
-                context: ['/socket.io'],
-                host: 'localhost',
-                port: 8081,
-                ws: true
-            }],
-
-            server: {
-              options: {
-                // keepalive: true,
-                middleware: function (connect) {
-                  return [
-                    mountFolder(connect, '.tmp')
-                  ];
-                }
-              }
-            }
-        },
         open: {
             options: {
               delay: 1000
             },
             server: {
-                path: 'http://localhost:<%= "\<%= connect.options.port %\>"%>/webpack-dev-server/'
+                path: 'http://localhost:' + SERVER_PORT + '/webpack-dev-server/'
+            },
+            dist: {
+              path: 'http://localhost:8080'
             }
         },
         clean: {
@@ -207,24 +180,42 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= "\<%= yeoman.app %\>"%>',
-                    dest: '<%= "\<%= yeoman.dist %\>"%>',
-                    src: [
-                        '*.{ico,txt}',
-                        '.htaccess',
-                        'jsondata/*.*',
-                        'images/*.*',
-                        'bower_components/font-awesome/fonts/{,*/}*.*',
-                        'bower_components/modernizr/modernizr.js',
-                        'bower_components/requirejs/*.js',
-                        'index.html'
-                    ]
-                }]
+          env: {
+            files: [{ src: 'environment.json', dest: 'app/' }]
+          },
+          dist: {
+            files: [{
+                expand: true,
+                dot: true,
+                cwd: '<%= "\<%= yeoman.app %\>"%>',
+                dest: '<%= "\<%= yeoman.dist %\>"%>',
+                src: [
+                    '*.{ico,txt}',
+                    '.htaccess',
+                    'jsondata/*.*',
+                    'images/*.*',
+                    'bower_components/font-awesome/fonts/{,*/}*.*',
+                    'bower_components/modernizr/modernizr.js',
+                    'bower_components/requirejs/*.js',
+                    'index.html'
+                ]
+            },
+            {
+              src: 'environment.json',
+              dest: 'dist/'
+            }],
+            options: {
+              process: function(content, srcPath) {
+                if(srcPath !== 'environment.json') {
+                  return content;
+                }
+
+                return content.replace(
+                  /"configuration": "dev"/g, '"configuration": "production"'
+                );
+              }
             }
+          }
         },
         webpack: {
           options: webpackConfig,
@@ -253,6 +244,21 @@ module.exports = function (grunt) {
               debug: true,
               devtool: 'source-map'
             }
+          },
+          proxy: {
+            '/api': {
+                target: {
+                    host: 'localhost',
+                    port: 8081
+                }
+            },
+            '/socket.io': {
+                target: {
+                    host: 'localhost',
+                    port: 8081
+                },
+                ws: true
+            }
           }
         }
     });
@@ -267,22 +273,10 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('serve', function (target) {
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'open', 'configureProxies:dist', 'connect:dist:keepalive']);
-        }
-
-        if (target === 'test') {
-            return grunt.task.run([
-                'templates',
-                // 'connect:test',
-                'open:test',
-                'watch'
-            ]);
-        }
-
         grunt.task.run([
           'clean:server',
           'createDefaultTemplate',
+          'copy:env',
           'handlebars',
           'open:server',
           'webpack-dev-server'

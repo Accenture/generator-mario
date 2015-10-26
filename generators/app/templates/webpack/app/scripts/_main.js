@@ -2,12 +2,32 @@
 import 'bootstrap';
 import '../styles/main.less';
 
-App.start();<% } else { %>'use strict';
+setupEnvironment(function() { App.start(); });<% } else { %>'use strict';
 
 require([
   'app',
   'bootstrap',
   '../styles/main.less'
 ], function(App) {
-  App.start();
+  setupEnvironment(function() { App.start(); });
 });<% } %>
+
+function setupEnvironment(callback) {
+  Backbone.$.get('environment.json').done(function(envFile) {
+    if (!envFile) { return; }
+
+    var config = envFile[envFile.configuration];
+    var origSync = Backbone.sync;
+
+    Backbone.sync = function(method, model, options) {
+      options.beforeSend = function() {
+        this.url = config.endpoint + this.url;
+      };
+      return origSync.call(this, method, model, options);
+    };
+
+    callback();
+  }).fail(function() {
+    callback();
+  });
+}

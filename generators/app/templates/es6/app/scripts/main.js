@@ -43,9 +43,29 @@ require.config({
     }
 });
 
+function setupEnvironment(callback) {
+  Backbone.$.get('environment.json').done(function(envFile) {
+    if (!envFile) { return; }
+
+    var config = envFile[envFile.configuration];
+    var origSync = Backbone.sync;
+
+    Backbone.sync = function(method, model, options) {
+      options.beforeSend = function() {
+        this.url = config.endpoint + this.url;
+      };
+      return origSync.call(this, method, model, options);
+    };
+
+    callback();
+  }).fail(function() {
+    callback();
+  });
+}
+
 require([
     'app',
     'bootstrap'
 ], function(App) {
-    App.start();
+    setupEnvironment(function() { App.start(); });
 });

@@ -98,7 +98,7 @@ function copySources(generator) {
 function copySkeleton(generator) {
   var staticFiles = ['.jsbeautifyrc', '.bowerrc', 'app/images', 'app/jsondata',
   'app/styles', 'app/.htaccess', 'app/404.html', 'app/favicon.ico',
-  'app/index.html','app/.htaccess', 'app/robots.txt'];
+  'app/index.html','app/.htaccess', 'app/robots.txt', 'environment.json'];
 
   var templates = ['bower.json', 'package.json', 'karma.conf.js'];
 

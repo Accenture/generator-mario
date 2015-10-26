@@ -5,6 +5,7 @@ module.exports = function(grunt) {
         'analyze',
         'less',
         'babel:dist',
+        'copy:dist',
         'copy:deps',
         'processhtml:dist',
         'requirejs',

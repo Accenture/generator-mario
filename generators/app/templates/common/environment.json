@@ -1,0 +1,19 @@
+{
+  "configuration": "dev",
+  "dev": {
+    "endpoint": "http://localhost:9001",
+    "logLevel": "debug"
+  },
+  "stage": {
+    "endpoint": "api/v2/stage/",
+    "logLevel":"debug"
+  },
+  "test": {
+    "endpoint": "api/v2/test/",
+    "logLevel": "warning"
+  },
+  "production": {
+    "endpoint": "http://localhost:8080",
+    "logLevel": "silent"
+  }
+}

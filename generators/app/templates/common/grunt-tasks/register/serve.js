@@ -26,6 +26,7 @@ module.exports = function(grunt) {
             'handlebars',
             'templates',
             'less:dist',
+						'copy:env',
             'configureProxies',
             'connect:livereload',
             'open:server',
@@ -36,5 +37,5 @@ module.exports = function(grunt) {
     grunt.registerTask('serve:alias', [
         'serve'
     ]);
-	
+
 }

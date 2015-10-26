@@ -202,8 +202,18 @@ gulp.task('copy', ['requirejs', 'imagemin'], function() {
     'app/jsondata/*.*',
     'app/images/*.*',
     'app/bower_components/font-awesome/fonts/{,*/}*.*',
-    'app/bower_components/modernizr/modernizr.js'
+    'app/bower_components/modernizr/modernizr.js',
   ], {base: 'app'})
+  .pipe(gulp.dest('dist'));
+});
+
+gulp.task('copy:env', function() {
+  gulp.src(['environment.json'])
+  .pipe(gulp.dest('.tmp/'));
+});
+gulp.task('copy:env:dist', function() {
+  gulp.src(['environment.json'])
+  .pipe(plugins.replace(/"configuration": "dev"/g, '"configuration": "production"'))
   .pipe(gulp.dest('dist'));
 });
 <% if (ecma === 6) { %>
@@ -280,6 +290,7 @@ gulp.task('requirejs', ['templates'<% if (ecma === 6) { %>, 'babel', 'copy-main'
 gulp.task('serve', [
   'analyze',<% if (ecma === 6) { %>
   'babel',<% } %>
+  'copy:env',
   'connect',
   'open',
   'watch'
@@ -304,6 +315,7 @@ gulp.task('build', [
   'requirejs',
   'imagemin',
   'copy',
+  'copy:env:dist',
   'usemin',
   'minify-css'
 ]);
