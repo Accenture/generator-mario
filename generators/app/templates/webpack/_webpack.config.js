@@ -3,9 +3,10 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    'main.js'
-  ],
+  entry: {
+    app: 'main.js',
+    vendor: ['jquery', 'backbone', 'underscore', 'bootstrap', 'handlebars', 'marionette', 'radio', 'fastclick']
+  },
   output: {
     path: 'dist/scripts',
     publicPath: '/scripts/',
@@ -23,7 +24,7 @@ module.exports = {
       'bootstrap': 'bootstrap-sass/assets/javascripts/bootstrap.js',<% } %>
       'handlebars': 'handlebars/handlebars.js',
       'radio': 'backbone.radio/build/backbone.radio.js',
-      'fastclick': 'fastclick-amd/fastclick'
+      'fastclick': 'fastclick-amd/fastclick.js'
     }
   },
   module: {
@@ -52,6 +53,7 @@ module.exports = {
       _: 'underscore',
       Backbone: 'backbone',
       Marionette: 'backbone.marionette'
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
   ]
 };

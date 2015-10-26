@@ -223,7 +223,7 @@ module.exports = function (grunt) {
             keepAlive: false,
             plugins: webpackConfig.plugins.concat(
               new webpack.optimize.DedupePlugin(),
-              new webpack.optimize.UglifyJsPlugin()
+              new webpack.optimize.UglifyJsPlugin({ output: {comments: false} })
             )
           }
         },

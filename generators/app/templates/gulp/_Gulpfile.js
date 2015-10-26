@@ -280,10 +280,23 @@ gulp.task('requirejs', ['templates'<% if (ecma === 6) { %>, 'babel', 'copy-main'
       name: 'main',
       mainConfigFile: '<% if (ecma === 6) { %>.tmp<% } else {%>app<% } %>/scripts/main.js',
       include: ['../../app/bower_components/requirejs/require'],
+      exclude: ['jquery', 'backbone', 'underscore', 'bootstrap', 'handlebars', 'marionette', 'radio', 'fastclick'],
       optimize: 'uglify',
       paths: {
         'templates': '../../.tmp/scripts/templates'
       },
+      preserveLicenseComments: false
+    }))
+    .pipe(gulp.dest('dist/scripts'));
+  gulp.src(['app/scripts/main.js'])
+    .pipe(plugins.requirejsOptimize({
+      baseUrl: '<% if (ecma === 6) { %>.tmp<% } else { %>app<% } %>/scripts',
+      out: 'vendor.js',
+      name: 'vendor',
+      create: true,
+      mainConfigFile: '<% if (ecma === 6) { %>.tmp<% } else {%>app<% } %>/scripts/main.js',
+      include: ['../../app/bower_components/requirejs/require', 'jquery', 'backbone', 'underscore', 'bootstrap', 'handlebars', 'marionette', 'radio', 'fastclick'],
+      optimize: 'uglify',
       preserveLicenseComments: false
     }))
     .pipe(gulp.dest('dist/scripts'));
