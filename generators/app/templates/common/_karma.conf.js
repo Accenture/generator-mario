@@ -24,6 +24,7 @@ module.exports = function (config) {
             {pattern: 'app/bower_components/backbone.marionette/lib/backbone.marionette.js', included: false},
             {pattern: 'app/bower_components/handlebars/handlebars.runtime.js', included: false},
             {pattern: 'app/bower_components/bootstrap/dist/js/bootstrap.min.js', included: false},
+            {pattern: 'app/bower_components/i18next/i18next.amd.js', included: false},
             'app/bower_components/modernizr/modernizr.js',
             {pattern: '.tmp/scripts/templates.js', included: false},
             {pattern: 'app/scripts/**/*.js', included: false}, <% if (tests === 'custom') { %>

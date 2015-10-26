@@ -164,7 +164,7 @@ function copyStyles(generator) {
 }
 
 function copySkeleton(generator) {
-  var staticFiles = ['.jsbeautifyrc', '.bowerrc', 'app/images', 'app/jsondata',
+  var staticFiles = ['.jsbeautifyrc', '.bowerrc', 'app/images', 'app/jsondata', 'app/locales',
   'app/404.html', 'app/favicon.ico', 'app/index.html', 'app/.htaccess',
   'app/robots.txt', 'environment.json'];
 

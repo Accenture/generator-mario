@@ -31,6 +31,7 @@ require.config({
     radio: '../bower_components/backbone.radio/build/backbone.radio',
     marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
     handlebars: '../bower_components/handlebars/handlebars.runtime',
+    i18n: '../bower_components/i18next/i18next.amd',
     templates: '../../.tmp/scripts/templates'
   },
 

@@ -1,6 +1,6 @@
 'use strict';
 
-define(['marionette', './navigation-item-view'], function (Marionette, NavigationItemView) {
+define(['backbone', 'marionette', 'i18n', './navigation-composite-view', './navigation-collection'], function (Backbone, Marionette, i18n, NavigationItemView, NavigationCollection) {
     return Marionette.Object.extend({
         initialize: function(options) {
             this.region = options.region;
@@ -8,7 +8,15 @@ define(['marionette', './navigation-item-view'], function (Marionette, Navigatio
 
         },
         show: function () {
-            var view = new NavigationItemView();
+            var collection = new NavigationCollection();
+            collection.fetch();
+            var view = new NavigationItemView({collection: collection});
+            view.listenTo(view, 'childview:language:click', function(data) {
+              i18n.setLng(data.model.get('key'), function() {
+                Backbone.history.loadUrl(Backbone.history.fragment);
+                view.render();
+              });
+            });
             this.region.show(view);
         }
     });

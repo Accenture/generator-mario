@@ -41,7 +41,8 @@ require.config({
         handlebars: '../bower_components/handlebars/handlebars.runtime',
         marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
         radio: '../bower_components/backbone.radio/build/backbone.radio',
-        fastclick: '../bower_components/fastclick-amd/fastclick'
+        fastclick: '../bower_components/fastclick-amd/fastclick',
+        i18n: '../bower_components/i18next/i18next.amd'
     }
 });
 
@@ -67,7 +68,12 @@ function setupEnvironment(callback) {
 
 require([
     'app',
+    'i18n',
     'bootstrap'
-], function(App) {
-    setupEnvironment(function() { App.start(); });
+], function(App, i18n) {
+    setupEnvironment(function() {
+      i18n.init({fallbackLng: 'en', debug:true}, function() {
+        App.start();
+      });
+    });
 });

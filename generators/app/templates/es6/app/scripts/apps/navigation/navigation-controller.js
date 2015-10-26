@@ -1,5 +1,7 @@
 import {Object as Obj} from 'marionette';
-import NavigationItemView from './navigation-item-view';
+import NavigationItemView from './navigation-composite-view';
+import NavigationCollection from './navigation-collection';
+import i18n from 'i18n';
 
 export default Obj.extend({
   initialize(options) {
@@ -7,7 +9,15 @@ export default Obj.extend({
        this.show();
    },
    show() {
-       let view = new NavigationItemView();
+       let collection = new NavigationCollection();
+       collection.fetch();
+       let view = new NavigationItemView({collection: collection});
+       view.listenTo(view, 'childview:language:click', (data) => {
+         i18n.setLng(data.model.get('key'), () => {
+           Backbone.history.loadUrl(Backbone.history.fragment);
+           view.render();
+         });
+       });
        this.region.show(view);
    }
 });

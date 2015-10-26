@@ -1,6 +1,6 @@
 'use strict';
 
-define(['handlebars'], function (Handlebars) {
+define(['handlebars', 'i18n'], function (Handlebars, i18n) {
 
   return {
     initialize: function () {
@@ -23,6 +23,11 @@ define(['handlebars'], function (Handlebars) {
         }
 
         return dayName;
+      });
+
+      Handlebars.registerHelper('t', function(key) {
+        var result = i18n.t(key);
+        return new Handlebars.SafeString(result);
       });
     }
   };

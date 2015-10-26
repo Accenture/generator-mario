@@ -1,0 +1,28 @@
+{
+    "title": "Hello World!",
+    "language": "Language",
+    "primary": "First",
+    "secondary": "Second",
+    "crud": {
+        "titleNew": "New Item",
+        "titleEdit": "Item Detail of ID#",
+        "create": "Create",
+        "edit": "Edit",
+        "remove": "Remove",
+        "save": "Save",
+        "text": {
+            "label": "Text",
+            "placeholder": "Put your text here ..."
+        },
+        "author": {
+            "label": "Author",
+            "placeholder": "Put your name here ..."
+        },
+        "created": {
+            "label": "Created at"
+        },
+        "published": {
+            "label": "Is published"
+        }
+    }
+}

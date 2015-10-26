@@ -14,6 +14,7 @@
     "backbone.marionette": "~2.4.1",
     "font-awesome": "~4.3.0",
     "backbone.radio": "~1.0.0",
+    "i18next": "~1.10.2",
     "fastclick-amd": "*"
   },
   "devDependencies": {

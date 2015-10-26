@@ -1,32 +1,32 @@
 <section class="">
-  <h1>Create</h1>
+  <h1>{{t "crud.titleNew"}}</h1>
   <form name="model" class="form-horizontal">
     <div class="form-group">
-      <label for="text" class="control-label">Text</label>
+      <label for="text" class="control-label">{{t "crud.text.label"}}</label>
       <textarea id="text" name="text" type="text" class="text form-control"
-        placeholder="Put your text here ..."></textarea>
+        placeholder="{{t "crud.text.placeholder"}}"></textarea>
     </div>
 
     <div class="form-group">
-      <label for="author" class="control-label">Author</label>
+      <label for="author" class="control-label">{{t "crud.author.label"}}</label>
       <input id="author" name="author" type="text"
-        class="form-control" placeholder="Put your name here ..." />
+        class="form-control" placeholder="{{t "crud.author.placeholder"}}" />
     </div>
 
     <div class="form-group">
-      <label for="created" class="control-label">Created at</label>
+      <label for="created" class="control-label">{{t "crud.created.label"}}</label>
       <input id="created" name="created" type="text"
         value="{{formatDate created}}, on {{formatDay created}}" class="form-control" disabled />
     </div>
 
     <div class="form-group">
       <label>
-        <input id="is-published" name="isPublished" type="checkbox" /> Is published
+        <input id="is-published" name="isPublished" type="checkbox" /> {{t "crud.published.label"}}
       </label>
     </div>
 
     <div class="form-group">
-      <button class="create btn btn-primary">Create</button>
-    <div>
+      <button class="create btn btn-primary">{{t "crud.save"}}</button>
+    </div>
   </form>
 </section>

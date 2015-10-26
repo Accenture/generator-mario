@@ -2,16 +2,26 @@
 import 'bootstrap';<% if(styles === 'less') { %>
 import '../styles/main.less';<% } else { %>
 import '../styles/main.scss';<% } %>
+import i18n from 'i18n';
 
-setupEnvironment(function() { App.start(); });<% } else { %>'use strict';
+setupEnvironment(() => {
+  i18n.init({fallbackLng: 'en', debug:true}, () => {
+    App.start();
+  });
+});<% } else { %>'use strict';
 
 require([
     'app',
+    'i18n',
     'bootstrap',<% if(styles === 'less') { %>
     '../styles/main.less'<% } else { %>
     '../styles/main.scss'<% } %>
-], function(App) {
-  setupEnvironment(function() { App.start(); });
+], function(App, i18n) {
+  setupEnvironment(function() {
+    i18n.init({fallbackLng: 'en', debug:true}, function() {
+      App.start();
+    });
+  });
 });<% } %>
 
 function setupEnvironment(callback) {

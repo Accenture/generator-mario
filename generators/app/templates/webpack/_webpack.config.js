@@ -23,8 +23,9 @@ module.exports = {
       'bootstrap': 'bootstrap/dist/js/bootstrap.js',<% } else { %>
       'bootstrap': 'bootstrap-sass/assets/javascripts/bootstrap.js',<% } %>
       'handlebars': 'handlebars/handlebars.js',
-      'radio': 'backbone.radio/build/backbone.radio.js',
-      'fastclick': 'fastclick-amd/fastclick.js'
+      'i18n': 'i18next/i18next.amd.js',
+      'fastclick': 'fastclick-amd/fastclick.js',
+      'radio': 'backbone.radio/build/backbone.radio.js'
     }
   },
   module: {

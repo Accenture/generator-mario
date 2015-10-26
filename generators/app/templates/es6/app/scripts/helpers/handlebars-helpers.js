@@ -1,5 +1,6 @@
 
 import Handlebars from 'handlebars';
+import i18n from 'i18n';
 
 export default {
   initialize() {
@@ -22,6 +23,11 @@ export default {
       }
 
       return dayName;
+    });
+
+    Handlebars.registerHelper('t', key => {
+      var result = i18n.t(key);
+      return new Handlebars.SafeString(result);
     });
   }
 };

@@ -1,7 +1,7 @@
 {
   "configuration": "dev",
   "dev": {
-    "endpoint": "http://localhost:9001",
+    "endpoint": "http://localhost:9001/",
     "logLevel": "debug"
   },
   "stage": {
@@ -13,7 +13,7 @@
     "logLevel": "warning"
   },
   "production": {
-    "endpoint": "http://localhost:8080",
+    "endpoint": "http://localhost:8080/",
     "logLevel": "silent"
   }
 }

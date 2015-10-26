@@ -1,20 +1,19 @@
 import {Model} from 'backbone';
 import NavigationItemView from 'apps/navigation/navigation-item-view';
+import helpers from 'helpers/handlebars-helpers';
+
+helpers.initialize();
 
 describe('NavigationItemView', () => {
     let view;
-    beforeEach(() => {
+    before(() => {
         let model = new Model({
-            id: '1'
+            text: 'English'
         });
         view = new NavigationItemView({model: model});
         view.render();
     });
-
-    it('render() should return the view object', () => {
-        expect(view.render()).to.equal(view);
-    });
     it('id should equal 1', () => {
-        expect(view.render().$('h2').text()).to.equal('');
+        expect(view.$('a').text()).to.equal('English');
     });
 });

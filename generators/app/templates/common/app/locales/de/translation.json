@@ -1,0 +1,28 @@
+{
+    "title" : "Hallo Welt!",
+    "language": "Sprache",
+    "primary": "Erste",
+    "secondary": "Zweite",
+    "crud": {
+        "titleNew": "Neue Article",
+        "titleEdit": "Article Detail der Nummber ",
+        "create": "Artikel hinzufügen",
+        "edit": "Bearbeiten",
+        "remove": "löschen",
+        "save": "speichern",
+        "text": {
+            "label": "Text",
+            "placeholder": "Setzen Sie Ihren Text hier ein ..."
+        },
+        "author" : {
+            "label": "Autor",
+            "placeholder": "Setzen Sie Ihren Namen hier ..."
+        },
+        "created": {
+            "label": "erstellt am"
+        },
+        "published": {
+            "label": "veröffentlicht"
+        }
+    }
+}
