@@ -410,6 +410,7 @@ describe('mario:app', function() {
         .withOptions({ 'skip-install': true })
         .withPrompt({
           buildTool: 'webpack',
+          styles: 'less',
           ecma: 6
         })
         .on('end', done);

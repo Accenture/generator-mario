@@ -1,13 +1,15 @@
 <% if(ecma === 6) { %>import App from './app';
-import 'bootstrap';
-import '../styles/main.less';
+import 'bootstrap';<% if(styles === 'less') { %>
+import '../styles/main.less';<% } else { %>
+import '../styles/main.scss';<% } %>
 
 setupEnvironment(function() { App.start(); });<% } else { %>'use strict';
 
 require([
-  'app',
-  'bootstrap',
-  '../styles/main.less'
+    'app',
+    'bootstrap',<% if(styles === 'less') { %>
+    '../styles/main.less'<% } else { %>
+    '../styles/main.scss'<% } %>
 ], function(App) {
   setupEnvironment(function() { App.start(); });
 });<% } %>

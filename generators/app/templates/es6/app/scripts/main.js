@@ -35,8 +35,9 @@ require.config({
     paths: {
         jquery: '../bower_components/jquery/dist/jquery',
         backbone: '../bower_components/backbone/backbone',
-        underscore: '../bower_components/underscore/underscore',
-        bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',
+        underscore: '../bower_components/underscore/underscore',<% if(styles === 'less') { %>
+        bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',<% } else { %>
+        bootstrap: '../bower_components/bootstrap-sass/assets/javascripts/bootstrap.min',<% } %>
         handlebars: '../bower_components/handlebars/handlebars.runtime',
         marionette: '../bower_components/backbone.marionette/lib/backbone.marionette',
         radio: '../bower_components/backbone.radio/build/backbone.radio'

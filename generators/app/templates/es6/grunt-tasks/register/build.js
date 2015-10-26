@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'templates',
         'analyze',
-        'less',
+        'styles',
         'babel:dist',
         'copy:dist',
         'copy:deps',

@@ -25,7 +25,7 @@ module.exports = function(grunt) {
             'createDefaultTemplate',
             'handlebars',
             'templates',
-            'less:dist',
+            'styles',
 						'copy:env',
             'babel:dist',
             'configureProxies',

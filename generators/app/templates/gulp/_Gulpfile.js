@@ -1,4 +1,3 @@
-//optimze modules using https://github.com/gulpjs/plugins/blob/master/src/blackList.json
 'use strict';
 
 var LIVERELOAD_PORT = 35729;
@@ -32,9 +31,11 @@ var files = [
   'app/scripts/**/*.js'
 ];
 
-gulp.task('less', function() {
+gulp.task('styles', function() {<% if(styles === 'less') { %>
   return gulp.src('app/styles/main.less')
-  .pipe(plugins.less())
+  .pipe(plugins.less())<% } else { %>
+  return gulp.src('app/styles/main.scss')
+  .pipe(plugins.sass())<% } %>
   .pipe(gulp.dest('.tmp/styles'))
   .pipe(plugins.connect.reload());
 });
@@ -101,9 +102,10 @@ gulp.task('jscs', function() {
   .pipe(plugins.jscsStylish());
 });
 
-gulp.task('watch', ['templates', 'less'], function() {
-  gulp.watch('app/scripts/**/*.hbs', ['templates']);
-  gulp.watch('app/styles/{,*/}*.less', ['less']);<% if (ecma === 6) { %>
+gulp.task('watch', ['templates', 'styles'], function() {
+  gulp.watch('app/scripts/**/*.hbs', ['templates']);<% if(styles === 'less') { %>
+  gulp.watch('app/styles/{,*/}*.less', ['styles']);<% } else { %>
+  gulp.watch('app/styles/{,*/}*.scss', ['styles']);<% } %><% if (ecma === 6) { %>
   gulp.watch('app/scripts/**/*.js', ['babel']);<% } %>
   gulp.watch(files, ['clean-reload']);
 });
@@ -177,7 +179,7 @@ gulp.task('imagemin', function() {
   .pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('minify-css', ['less'], function() {
+gulp.task('minify-css', ['styles'], function() {
   gulp.src('.tmp/styles/*.css')
   .pipe(plugins.minifyCss({advanced: false}))
   .pipe(gulp.dest('dist/styles'));
@@ -310,7 +312,7 @@ gulp.task('test:karma', [
 
 gulp.task('build', [
   'analyze',
-  'less',
+  'styles',
   'processhtml',
   'requirejs',
   'imagemin',

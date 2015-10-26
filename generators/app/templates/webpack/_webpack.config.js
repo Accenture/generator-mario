@@ -18,17 +18,21 @@ module.exports = {
       'jquery': 'jquery/dist/jquery.js',
       'underscore': 'underscore/underscore.js',
       'backbone': 'backbone/backbone.js',
-      'marionette':  'backbone.marionette/lib/backbone.marionette.js',
-      'bootstrap':  'bootstrap/dist/js/bootstrap.js',
+      'marionette': 'backbone.marionette/lib/backbone.marionette.js',<% if(styles === 'less') { %>
+      'bootstrap': 'bootstrap/dist/js/bootstrap.js',<% } else { %>
+      'bootstrap': 'bootstrap-sass/assets/javascripts/bootstrap.js',<% } %>
       'handlebars': 'handlebars/handlebars.js',
-      'radio': 'backbone.radio/build/backbone.radio.js'
+      'radio': 'backbone.radio/build/backbone.radio.js',
+      'fastclick': 'fastclick-amd/fastclick'
     }
   },
   module: {
     loaders: [
-      {
+      {<% if(styles === 'less') { %>
         test: /\.less/,
-        loader: 'style-loader!css-loader!less-loader'
+        loader: 'style-loader!css-loader!less-loader'<% } else { %>
+        test: /\.scss/,
+        loader: 'style-loader!css-loader!sass-loader'<% }%>
       },
       {
         test: /\.hbs/,

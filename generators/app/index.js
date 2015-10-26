@@ -12,6 +12,7 @@ var _modules = [
   './generator/prompting/name-prompt',
 	'./generator/prompting/ecma-prompt',
 	'./generator/prompting/test-prompt',
+  './generator/prompting/styles-prompt',
   './generator/prompting/build-tool-prompt',
   './generator/prompting/phabricator-prompt',
   './generator/configuring/save-config',

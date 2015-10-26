@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         'createDefaultTemplate',
         'handlebars',
         'templates',
-        'less',
+        'styles',
         'processhtml:dist',
         'requirejs',
         'imagemin',

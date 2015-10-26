@@ -1,0 +1,8 @@
+<% if(buildTool === 'webpack' && styles === 'sass') { %>$icon-font-path: '../bower_components/bootstrap-sass/assets/fonts/bootstrap/';
+$fa-font-path: '../bower_components/font-awesome/fonts';
+<% } %>
+@import 'default';
+@import '../bower_components/font-awesome/scss/font-awesome';
+@import '../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap';<% if(buildTool !== 'webpack') { %>
+$icon-font-path: '../bower_components/bootstrap/fonts/';
+$fa-font-path: '../bower_components/font-awesome/fonts';<% } %>
