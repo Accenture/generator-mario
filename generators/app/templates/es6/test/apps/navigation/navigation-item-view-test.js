@@ -1,6 +1,6 @@
 import {Model} from 'backbone';
-import NavigationItemView from 'apps/navigation/navigation-item-view';
-import helpers from 'helpers/handlebars-helpers';
+import NavigationItemView from 'apps/navigation/navigation<%= delimiter %>item<%= delimiter %>view';
+import helpers from 'helpers/handlebars<%= delimiter %>helpers';
 
 helpers.initialize();
 

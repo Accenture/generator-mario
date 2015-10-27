@@ -3,11 +3,11 @@
 define([
     'backbone',
     'marionette',
-		'fastclick',
-    'helpers/handlebars-helpers',
-    'apps/main/main-layout-view',
-    'apps/navigation/navigation-controller',
-    'apps/home/home-router'
+    'fastclick',
+    'helpers/handlebars<%= delimiter %>helpers',
+    'apps/main/main<%= delimiter %>layout<%= delimiter %>view',
+    'apps/navigation/navigation<%= delimiter %>controller',
+    'apps/home/home<%= delimiter %>router'
 ], function(
     Backbone,
     Marionette,

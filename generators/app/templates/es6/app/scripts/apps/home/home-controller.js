@@ -1,6 +1,6 @@
 import {Object as Obj} from 'marionette';
-import HomeItemView from './home-item-view';
-import HomeModel from './home-model';
+import HomeItemView from './home<%= delimiter %>item<%= delimiter %>view';
+import HomeModel from './home<%= delimiter %>model';
 
 export default Obj.extend({
     initialize(options) {

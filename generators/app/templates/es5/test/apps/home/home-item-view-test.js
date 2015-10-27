@@ -4,7 +4,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'apps/home/home-item-view'
+  'apps/home/home<%= delimiter %>item<%= delimiter %>view'
 ], function ($, _, Backbone, HomeItemView) {
 
   describe('HomeItemView', function () {

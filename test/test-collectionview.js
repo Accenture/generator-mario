@@ -15,30 +15,30 @@ describe('mario:collectionview', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/collectionview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['some-feature'])
-        .withOptions({ directory: 'some-feature', itemview: 'some-item-view' })
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
+        .withOptions({ directory: 'some_feature', itemview: 'some_item_view' })
         .on('end', done);
     });
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-collection-view.js',
-        'app/scripts/apps/some-feature/some-feature-collection-view-test.js'
+        'app/scripts/apps/some_feature/some_feature_collection_view.js',
+        'app/scripts/apps/some_feature/some_feature_collection_view_test.js'
       ]);
 
     });
     it('contains AMD dependency', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view.js', /some-item-view/);
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view.js', /, SomeItemView/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view.js', /some_item_view/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view.js', /, SomeItemView/);
     });
     it('contains childView', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view.js', /childView: SomeItemView/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view.js', /childView: SomeItemView/);
     });
     it('test with right content', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /.\/some-feature-collection-view/);
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /SomeFeatureCollectionView/);
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /new SomeFeatureCollectionView/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /.\/some_feature_collection_view/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /SomeFeatureCollectionView/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /new SomeFeatureCollectionView/);
     });
     afterEach(function(done) {
       stub.restore();
@@ -52,29 +52,29 @@ describe('mario:collectionview', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/collectionview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['some-feature'])
-        .withOptions({ directory: 'some-feature', itemview: 'some-item-view' })
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
+        .withOptions({ directory: 'some_feature', itemview: 'some_item_view' })
         .withLocalConfig({ preferences: {ecma: 6} })
         .on('end', done);
     });
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-collection-view.js',
-        'app/scripts/apps/some-feature/some-feature-collection-view-test.js'
+        'app/scripts/apps/some_feature/some_feature_collection_view.js',
+        'app/scripts/apps/some_feature/some_feature_collection_view_test.js'
       ]);
     });
     it('contains itemview module dependency', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view.js', /import SomeItemView from '.\/some-item-view'/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view.js', /import SomeItemView from '.\/some_item_view'/);
     });
     it('contains childView', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view.js', /childView: SomeItemView/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view.js', /childView: SomeItemView/);
     });
     it('test with right content', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /.\/some-feature-collection-view/);
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /SomeFeatureCollectionView/);
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-collection-view-test.js', /new SomeFeatureCollectionView/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /.\/some_feature_collection_view/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /SomeFeatureCollectionView/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /new SomeFeatureCollectionView/);
     });
     afterEach(function(done) {
       stub.restore();
@@ -85,54 +85,54 @@ describe('mario:collectionview', function() {
   describe('without existing itemview ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['other-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['other_feature'])
         .withLocalConfig({ preferences: {ecma: 6} })
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/other-feature/other-feature-collection-view.js',
-        'app/scripts/apps/other-feature/other-feature-collection-view-test.js'
+        'app/scripts/apps/other_feature/other_feature_collection_view.js',
+        'app/scripts/apps/other_feature/other_feature_collection_view_test.js'
       ]);
     });
     it('contains module import', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /import OtherFeatureItemView from '.\/other-feature-item-view'/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /import OtherFeatureItemView from '.\/other_feature_item_view'/);
     });
     it('contains childView', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /childView: OtherFeatureItemView/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /childView: OtherFeatureItemView/);
     });
     it('test contains view', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view-test.js', /import OtherFeatureCollectionView from 'apps\/other-feature\/other-feature-collection-view'/);
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view-test.js', /describe\('OtherFeatureCollectionView view'/);
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view-test.js', /view = new OtherFeatureCollectionView/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view_test.js', /import OtherFeatureCollectionView from 'apps\/other_feature\/other_feature_collection_view'/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view_test.js', /describe\('OtherFeatureCollectionView view'/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view_test.js', /view = new OtherFeatureCollectionView/);
     });
   });
 
   describe('without existing itemview', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['other-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['other_feature'])
         .withOptions({
-          directory: 'other-feature'
+          directory: 'other_feature'
         })
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
     });
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/other-feature/other-feature-collection-view.js',
-        'app/scripts/apps/other-feature/other-feature-collection-view-test.js'
+        'app/scripts/apps/other_feature/other_feature_collection_view.js',
+        'app/scripts/apps/other_feature/other_feature_collection_view_test.js'
       ]);
     });
     it('contains AMD dependency', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /other-feature-item-view/);
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /, OtherFeatureItemView/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /other_feature_item_view/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /, OtherFeatureItemView/);
     });
     it('contains childView', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /childView: OtherFeatureItemView/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /childView: OtherFeatureItemView/);
     });
   });
 
@@ -142,11 +142,11 @@ describe('mario:collectionview', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/collectionview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['other-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['other_feature'])
         .withOptions({
-          directory: 'app/scripts/apps/other-feature',
-          itemview: 'app/scripts/apps/vegetables/broccoli-item-view.js'
+          directory: 'app/scripts/apps/other_feature',
+          itemview: 'app/scripts/apps/vegetables/broccoli_item_view.js'
         })
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
@@ -157,16 +157,16 @@ describe('mario:collectionview', function() {
     });
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/other-feature/other-feature-collection-view.js',
-        'app/scripts/apps/other-feature/other-feature-collection-view-test.js'
+        'app/scripts/apps/other_feature/other_feature_collection_view.js',
+        'app/scripts/apps/other_feature/other_feature_collection_view_test.js'
       ]);
     });
     it('contains AMD dependency', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /apps\/vegetables\/broccoli-item-view/);
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /, BroccoliItemView/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /apps\/vegetables\/broccoli_item_view/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /, BroccoliItemView/);
     });
     it('contains childView', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /childView: BroccoliItemView/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /childView: BroccoliItemView/);
     });
   });
 
@@ -176,11 +176,11 @@ describe('mario:collectionview', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/collectionview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['other-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['other_feature'])
         .withOptions({
-          directory: 'app/scripts/apps/other-feature',
-          itemview: 'app/scripts/apps/heroes/storm-item-view.js'
+          directory: 'app/scripts/apps/other_feature',
+          itemview: 'app/scripts/apps/heroes/storm_item_view.js'
         })
         .withLocalConfig({ preferences: {ecma: 6} })
         .withGenerators([path.join(__dirname, '../generators/itemview')])
@@ -192,23 +192,23 @@ describe('mario:collectionview', function() {
     });
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/other-feature/other-feature-collection-view.js',
-        'app/scripts/apps/other-feature/other-feature-collection-view-test.js'
+        'app/scripts/apps/other_feature/other_feature_collection_view.js',
+        'app/scripts/apps/other_feature/other_feature_collection_view_test.js'
       ]);
     });
     it('contains itemview module dependency', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /import StormItemView from 'apps\/heroes\/storm-item-view'/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /import StormItemView from 'apps\/heroes\/storm_item_view'/);
     });
     it('contains childView', function() {
-      assert.fileContent('app/scripts/apps/other-feature/other-feature-collection-view.js', /childView: StormItemView/);
+      assert.fileContent('app/scripts/apps/other_feature/other_feature_collection_view.js', /childView: StormItemView/);
     });
   });
 
   describe('with tests in separate dir', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['some-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
         .withLocalConfig({ preferences: {tests: 'custom', testFolder: 'test/' }})
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
@@ -216,24 +216,24 @@ describe('mario:collectionview', function() {
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-collection-view.js',
-        'test/apps/some-feature/some-feature-collection-view-test.js'
+        'app/scripts/apps/some_feature/some_feature_collection_view.js',
+        'test/apps/some_feature/some_feature_collection_view_test.js'
       ]);
     });
     it('test contains AMD path', function() {
-      assert.fileContent('test/apps/some-feature/some-feature-collection-view-test.js', /some-feature-collection-view/);
+      assert.fileContent('test/apps/some_feature/some_feature_collection_view_test.js', /some_feature_collection_view/);
 
     });
     it('test contains collectionview class', function() {
-      assert.fileContent('test/apps/some-feature/some-feature-collection-view-test.js', /new SomeFeatureCollectionView()/);
+      assert.fileContent('test/apps/some_feature/some_feature_collection_view_test.js', /new SomeFeatureCollectionView()/);
     });
   });
 
   describe('with tests in separate dir ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/collectionview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['some-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
         .withLocalConfig({ preferences: {tests: 'custom', testFolder: 'test/', ecma: 6 }})
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .on('end', done);
@@ -241,16 +241,16 @@ describe('mario:collectionview', function() {
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-collection-view.js',
-        'test/apps/some-feature/some-feature-collection-view-test.js'
+        'app/scripts/apps/some_feature/some_feature_collection_view.js',
+        'test/apps/some_feature/some_feature_collection_view_test.js'
       ]);
     });
     it('test contains collectionview module', function() {
-      assert.fileContent('test/apps/some-feature/some-feature-collection-view-test.js', /import SomeFeatureCollectionView from 'apps\/some-feature\/some-feature-collection-view'/);
+      assert.fileContent('test/apps/some_feature/some_feature_collection_view_test.js', /import SomeFeatureCollectionView from 'apps\/some_feature\/some_feature_collection_view'/);
 
     });
     it('test contains collectionview class', function() {
-      assert.fileContent('test/apps/some-feature/some-feature-collection-view-test.js', /new SomeFeatureCollectionView()/);
+      assert.fileContent('test/apps/some_feature/some_feature_collection_view_test.js', /new SomeFeatureCollectionView()/);
     });
   });
 });

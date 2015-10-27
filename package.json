@@ -27,6 +27,7 @@
     "ast-query": "^1.0.1",
     "chalk": "^1.0.0",
     "fs-extra": "^0.22.1",
+    "glob": "^5.0.15",
     "lodash": "^3.9.3",
     "yeoman-generator": "^0.18.9",
     "yosay": "^1.0.2"

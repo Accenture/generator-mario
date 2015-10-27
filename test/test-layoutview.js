@@ -16,7 +16,7 @@ describe('mario:layoutview', function() {
   describe('without template option', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['apples'])
         .withOptions({ directory: 'fruit' })
         .on('end', done);
@@ -24,24 +24,24 @@ describe('mario:layoutview', function() {
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/fruit/apples-layout-view.js',
-        'app/scripts/apps/fruit/apples-layout-view-test.js'
+        'app/scripts/apps/fruit/apples_layout_view.js',
+        'app/scripts/apps/fruit/apples_layout_view_test.js'
       ]);
     });
     it('contains template', function() {
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-layout-view-template.hbs']/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view.js', /JST\['app\/scripts\/apps\/fruit\/apples_layout_view_template.hbs']/);
     });
     it('test with right content', function() {
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /.\/apples-layout-view/);
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /, ApplesLayoutView/);
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /new ApplesLayoutView/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /.\/apples_layout_view/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /, ApplesLayoutView/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /new ApplesLayoutView/);
     });
   });
 
   describe('without template option ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['apples'])
         .withOptions({ directory: 'fruit' })
         .withLocalConfig({preferences: {ecma: 6}})
@@ -50,17 +50,17 @@ describe('mario:layoutview', function() {
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/fruit/apples-layout-view.js',
-        'app/scripts/apps/fruit/apples-layout-view-test.js'
+        'app/scripts/apps/fruit/apples_layout_view.js',
+        'app/scripts/apps/fruit/apples_layout_view_test.js'
       ]);
     });
     it('contains template', function() {
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view.js', /JST\['app\/scripts\/apps\/fruit\/apples-layout-view-template.hbs']/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view.js', /JST\['app\/scripts\/apps\/fruit\/apples_layout_view_template.hbs']/);
     });
     it('test with right content', function() {
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /import ApplesLayoutView from 'apps\/fruit\/apples-layout-view'/);
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /describe\('ApplesLayoutView view/);
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view-test.js', /new ApplesLayoutView/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /import ApplesLayoutView from 'apps\/fruit\/apples_layout_view'/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /describe\('ApplesLayoutView view/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /new ApplesLayoutView/);
     });
   });
 
@@ -72,27 +72,27 @@ describe('mario:layoutview', function() {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
         .inTmpDir(function(dir) {
           var done = this.async();
-          var filePath = path.join(dir, 'app/scripts/apps/template', 'feature-template.hbs');
+          var filePath = path.join(dir, 'app/scripts/apps/template', 'feature_template.hbs');
           fs.ensureFile(filePath, done);
         })
         .withArguments(['apples'])
         .withOptions({
           directory: 'app/scripts/apps/fruit',
-          template: 'template/feature-template.hbs'
+          template: 'template/feature_template.hbs'
         })
         .on('end', done);
     });
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/fruit/apples-layout-view.js',
-        'app/scripts/apps/fruit/apples-layout-view-test.js'
+        'app/scripts/apps/fruit/apples_layout_view.js',
+        'app/scripts/apps/fruit/apples_layout_view_test.js'
       ]);
 
-      assert.noFile('app/scripts/apps/fruit/apples-layout-template.js');
+      assert.noFile('app/scripts/apps/fruit/apples_layout_template.js');
     });
     it('contains template', function() {
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view.js', /JST\['app\/scripts\/apps\/template\/feature-template.hbs']/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view.js', /JST\['app\/scripts\/apps\/template\/feature_template.hbs']/);
     });
     afterEach(function(done) {
       stub.restore();
@@ -108,13 +108,13 @@ describe('mario:layoutview', function() {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
         .inTmpDir(function(dir) {
           var done = this.async();
-          var filePath = path.join(dir, 'app/scripts/apps/template', 'feature-template.hbs');
+          var filePath = path.join(dir, 'app/scripts/apps/template', 'feature_template.hbs');
           fs.ensureFile(filePath, done);
         })
         .withArguments(['apples'])
         .withOptions({
           directory: 'app/scripts/apps/fruit',
-          template: 'template/feature-template.hbs'
+          template: 'template/feature_template.hbs'
         })
         .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
@@ -122,14 +122,14 @@ describe('mario:layoutview', function() {
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/fruit/apples-layout-view.js',
-        'app/scripts/apps/fruit/apples-layout-view-test.js'
+        'app/scripts/apps/fruit/apples_layout_view.js',
+        'app/scripts/apps/fruit/apples_layout_view_test.js'
       ]);
 
-      assert.noFile('app/scripts/apps/fruit/apples-layout-template.js');
+      assert.noFile('app/scripts/apps/fruit/apples_layout_template.js');
     });
     it('contains template', function() {
-      assert.fileContent('app/scripts/apps/fruit/apples-layout-view.js', /JST\['app\/scripts\/apps\/template\/feature-template.hbs']/);
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view.js', /JST\['app\/scripts\/apps\/template\/feature_template.hbs']/);
     });
     afterEach(function(done) {
       stub.restore();
@@ -140,7 +140,7 @@ describe('mario:layoutview', function() {
   describe('with tests in separate dir', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['apples'])
         .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/'}})
         .on('end', done);
@@ -148,8 +148,8 @@ describe('mario:layoutview', function() {
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/apples/apples-layout-view.js',
-        'test/apps/apples/apples-layout-view-test.js'
+        'app/scripts/apps/apples/apples_layout_view.js',
+        'test/apps/apples/apples_layout_view_test.js'
       ]);
     });
   });
@@ -157,7 +157,7 @@ describe('mario:layoutview', function() {
   describe('with tests in separate dir ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['apples'])
         .withLocalConfig({preferences: {tests: 'custom', testFolder: 'test/'}})
         .on('end', done);
@@ -165,8 +165,8 @@ describe('mario:layoutview', function() {
 
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/apples/apples-layout-view.js',
-        'test/apps/apples/apples-layout-view-test.js'
+        'app/scripts/apps/apples/apples_layout_view.js',
+        'test/apps/apples/apples_layout_view_test.js'
       ]);
     });
   });

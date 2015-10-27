@@ -4,9 +4,9 @@ define([
   'backbone',
   'marionette',
   'radio',
-  './sidebar-collection-view',
-  './sidebar-collection',
-  './sidebar-model'
+  './sidebar<%= delimiter %>collection<%= delimiter %>view',
+  './sidebar<%= delimiter %>collection',
+  './sidebar<%= delimiter %>model'
 ], function (Backbone, Marionette, Radio, SidebarCollectionView, SidebarCollection, SidebarModel) {
 
   return Marionette.Object.extend({

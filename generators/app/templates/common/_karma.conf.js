@@ -29,8 +29,8 @@ module.exports = function (config) {
             {pattern: '.tmp/scripts/templates.js', included: false},
             {pattern: 'app/scripts/**/*.js', included: false}, <% if (tests === 'custom') { %>
             {pattern: '<%= testFolder %>apps/**/*.js', included: false}, <% } %>
-            'test/karma-test-main.js'<% } else { %>
-            '<%= testFolder %>**/*-test.js'<% } %>
+            'test/karma<%= delimiter %>test<%= delimiter %>main.js'<% } else { %>
+            '<%= testFolder %>**/*test.js'<% } %>
         ],
 
 
@@ -43,7 +43,7 @@ module.exports = function (config) {
         preprocessors: {<% if(buildTool !== 'webpack') { %>
             'app/scripts/**/*.js': [<% if (ecma === 6) { %>'babel', <% } %>'coverage']<% if (ecma === 6 && tests === 'custom') { %> ,
             '<%= testFolder %>/apps/**/*.js': ['babel']<% }  } else { %>
-            '<%= testFolder %>**/*-test.js': [<% if (ecma === 6) { %>'babel', <% } %>'webpack', 'coverage'] <% } %>
+            '<%= testFolder %>**/*test.js': [<% if (ecma === 6) { %>'babel', <% } %>'webpack', 'coverage'] <% } %>
         },
 
         <% if (ecma === 6 && buildTool !== 'webpack') { %>

@@ -7,21 +7,21 @@ var fs = require('fs-extra');
 
 describe('mario:crud', function() {
   var crudFiles = [
-    'app/scripts/apps/my-crud/my-crud-router.js',
-    'app/scripts/apps/my-crud/my-crud-controller.js',
-    'app/scripts/apps/my-crud/my-crud-collection.js',
+    'app/scripts/apps/my_crud/my_crud_router.js',
+    'app/scripts/apps/my_crud/my_crud_controller.js',
+    'app/scripts/apps/my_crud/my_crud_collection.js',
 
-    'app/scripts/apps/my-crud/my-crud-item-view.js',
-    'app/scripts/apps/my-crud/my-crud-item-view-template.hbs',
+    'app/scripts/apps/my_crud/my_crud_item_view.js',
+    'app/scripts/apps/my_crud/my_crud_item_view_template.hbs',
 
-    'app/scripts/apps/my-crud/my-crud-composite-view.js',
-    'app/scripts/apps/my-crud/my-crud-composite-view-template.hbs',
+    'app/scripts/apps/my_crud/my_crud_composite_view.js',
+    'app/scripts/apps/my_crud/my_crud_composite_view_template.hbs',
 
-    'app/scripts/apps/my-crud/my-crud-detail-item-view.js',
-    'app/scripts/apps/my-crud/my-crud-detail-item-view-template.hbs',
+    'app/scripts/apps/my_crud/my_crud_detail_item_view.js',
+    'app/scripts/apps/my_crud/my_crud_detail_item_view_template.hbs',
 
-    'app/scripts/apps/my-crud/my-crud-create-item-view.js',
-    'app/scripts/apps/my-crud/my-crud-create-item-view-template.hbs',
+    'app/scripts/apps/my_crud/my_crud_create_item_view.js',
+    'app/scripts/apps/my_crud/my_crud_create_item_view_template.hbs',
 
     'app/scripts/apps/sidebar'
   ];
@@ -36,7 +36,7 @@ describe('mario:crud', function() {
 
           fs.copy(srcPath, destPath, copyDone);
         })
-        .withArguments(['my-crud'])
+        .withArguments(['my_crud'])
         .withOptions({
           force: true
         })
@@ -49,7 +49,7 @@ describe('mario:crud', function() {
     });
 
     it('registers router', function() {
-      assert.fileContent('app/scripts/app.js', /'apps\/my-crud\/my-crud-router'/);
+      assert.fileContent('app/scripts/app.js', /'apps\/my_crud\/my_crud_router'/);
       assert.fileContent('app/scripts/app.js', /, MyCrudRouter/);
       assert.fileContent('app/scripts/app.js', /new MyCrudRouter\(\{/);
 
@@ -57,7 +57,7 @@ describe('mario:crud', function() {
     });
 
     it('register sidebar', function() {
-      assert.fileContent('app/scripts/app.js', /'apps\/sidebar\/sidebar-controller'/);
+      assert.fileContent('app/scripts/app.js', /'apps\/sidebar\/sidebar_controller'/);
       assert.fileContent('app/scripts/app.js', /, SidebarController/);
       assert.fileContent('app/scripts/app.js', /new SidebarController\(\{/);
     });
@@ -77,7 +77,7 @@ describe('mario:crud', function() {
             });
 
           })
-          .withArguments(['my-crud'])
+          .withArguments(['my_crud'])
           .withOptions({ force: true })
           .withGenerators([path.join(__dirname, '../generators/model')])
           .on('end', done);
@@ -88,7 +88,7 @@ describe('mario:crud', function() {
       });
 
       it('registers router', function() {
-        assert.fileContent('app/scripts/app.js', /'apps\/my-crud\/my-crud-router'/);
+        assert.fileContent('app/scripts/app.js', /'apps\/my_crud\/my_crud_router'/);
         assert.fileContent('app/scripts/app.js', /, MyCrudRouter/);
         assert.fileContent('app/scripts/app.js', /new MyCrudRouter\(\{/);
       });
@@ -105,7 +105,7 @@ describe('mario:crud', function() {
 
           fs.copy(srcPath, destPath, copyDone);
         })
-        .withArguments(['my-crud'])
+        .withArguments(['my_crud'])
         .withOptions({ force: true })
         .withLocalConfig({preferences: {ecma: 6}})
         .withGenerators([path.join(__dirname, '../generators/model')])
@@ -119,12 +119,12 @@ describe('mario:crud', function() {
     it('registers router', function() {
       assert.fileContent('app/scripts/app.js', /import/);
 
-      assert.fileContent('app/scripts/app.js', /import MyCrudRouter from 'apps\/my-crud\/my-crud-router'/);
+      assert.fileContent('app/scripts/app.js', /import MyCrudRouter from 'apps\/my_crud\/my_crud_router'/);
       assert.fileContent('app/scripts/app.js', /new MyCrudRouter\(\{/);
     });
 
     it('register sidebar', function() {
-      assert.fileContent('app/scripts/app.js', /import SidebarController from 'apps\/sidebar\/sidebar-controller'/);
+      assert.fileContent('app/scripts/app.js', /import SidebarController from 'apps\/sidebar\/sidebar_controller'/);
       assert.fileContent('app/scripts/app.js', /new SidebarController\(\{/);
     });
 
@@ -143,7 +143,7 @@ describe('mario:crud', function() {
             });
 
           })
-          .withArguments(['my-crud'])
+          .withArguments(['my_crud'])
           .withOptions({ force: true })
           .withGenerators([path.join(__dirname, '../generators/model')])
           .on('end', done);
@@ -154,7 +154,7 @@ describe('mario:crud', function() {
       });
 
       it('registers router', function() {
-        assert.fileContent('app/scripts/app.js', /'apps\/my-crud\/my-crud-router'/);
+        assert.fileContent('app/scripts/app.js', /'apps\/my_crud\/my_crud_router'/);
         assert.fileContent('app/scripts/app.js', /, MyCrudRouter/);
         assert.fileContent('app/scripts/app.js', /new MyCrudRouter\(\{/);
       });

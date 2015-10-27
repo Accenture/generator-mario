@@ -3,7 +3,7 @@
 define([
   'backbone',
   'marionette',
-  'helpers/handlebars-helpers',
+  'helpers/handlebars<%= delimiter %>helpers',
   '<%= controllerPath %>',
 ], function (Backbone, Marionette, helpers, <%= controllerName %>) {
   var dummyData = [{

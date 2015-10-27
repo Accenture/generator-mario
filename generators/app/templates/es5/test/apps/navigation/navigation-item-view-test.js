@@ -4,8 +4,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'helpers/handlebars-helpers',
-  'apps/navigation/navigation-item-view'
+  'helpers/handlebars<%= delimiter %>helpers',
+  'apps/navigation/navigation<%= delimiter %>item<%= delimiter %>view'
 ], function ($, _, Backbone, helpers, NavigationItemView) {
   helpers.initialize();
 

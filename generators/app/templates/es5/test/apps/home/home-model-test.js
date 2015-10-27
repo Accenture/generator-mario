@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  'apps/home/home-model'
+  'apps/home/home<%= delimiter %>model'
 ], function (HomeModel) {
   describe('HomeModel', function () {
     it('has default values', function () {

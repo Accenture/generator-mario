@@ -1,6 +1,6 @@
 import Backbone from 'backbone';
 import Marionette from 'marionette';
-import SidebarController from 'apps/sidebar/sidebar-controller';
+import SidebarController from 'apps/sidebar/sidebar<%= delimiter %>controller';
 
 const data = {
   name: 'test-feature',

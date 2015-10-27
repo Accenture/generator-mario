@@ -1,6 +1,6 @@
 import {Object as Obj} from 'marionette';
-import NavigationItemView from './navigation-composite-view';
-import NavigationCollection from './navigation-collection';
+import NavigationItemView from './navigation<%= delimiter %>composite<%= delimiter %>view';
+import NavigationCollection from './navigation<%= delimiter %>collection';
 import i18n from 'i18n';
 
 export default Obj.extend({

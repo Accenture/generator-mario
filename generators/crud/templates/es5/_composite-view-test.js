@@ -2,7 +2,7 @@
 
 define([
   'backbone',
-  'helpers/handlebars-helpers',
+  'helpers/handlebars<%= delimiter %>helpers',
   '<%= compositeViewPath %>'
 ], function (Backbone, helpers, <%= compositeViewName %>) {
   helpers.initialize();

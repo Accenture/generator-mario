@@ -182,14 +182,14 @@ describe('mario:app', function() {
         '.jshintrc',
         'test/apps',
         'karma.conf.js',
-        'test/karma-test-main.js'
+        'test/karma_test_main.js'
       ]);
     });
     it('karma.conf.js with configuration for separate dirs', function() {
       assert.fileContent('karma.conf.js', /pattern: 'test\/apps/);
     });
-    it('karma-test-main.js for source in separate directory', function() {
-      assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/\(test\\\/\)apps\\\/\.\+\\\.js/);
+    it('karma_test_main.js for source in separate directory', function() {
+      assert.fileContent('test/karma_test_main.js', /var SRC_REGEXP = \/\(test\\\/\)apps\\\/\.\+\\\.js/);
     });
   });
 
@@ -213,14 +213,14 @@ describe('mario:app', function() {
         '.jshintrc',
         'karma.conf.js',
         'cool/spec/apps',
-        'test/karma-test-main.js'
+        'test/karma_test_main.js'
       ]);
     });
     it('karma.conf.js with configuration for separate dirs', function() {
       assert.fileContent('karma.conf.js', /pattern: 'cool\/spec\/apps/);
     });
-    it('karma-test-main.js for source in separate directory', function() {
-      assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/\(cool\\\/spec\\\/\)apps\\\/\.\+\\\.js/);
+    it('karma_test_main.js for source in separate directory', function() {
+      assert.fileContent('test/karma_test_main.js', /var SRC_REGEXP = \/\(cool\\\/spec\\\/\)apps\\\/\.\+\\\.js/);
     });
   });
 
@@ -242,11 +242,11 @@ describe('mario:app', function() {
         '.editorconfig',
         '.jshintrc',
         'karma.conf.js',
-        'test/karma-test-main.js'
+        'test/karma_test_main.js'
       ]);
     });
-    it('karma-test-main.js for source in appcode directory', function() {
-      assert.fileContent('test/karma-test-main.js', /var SRC_REGEXP = \/app/);
+    it('karma_test_main.js for source in appcode directory', function() {
+      assert.fileContent('test/karma_test_main.js', /var SRC_REGEXP = \/app/);
     });
   });
 

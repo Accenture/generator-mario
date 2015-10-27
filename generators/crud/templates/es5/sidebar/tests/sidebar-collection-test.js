@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  'apps/sidebar/sidebar-collection'
+  'apps/sidebar/sidebar<%= delimiter %>collection'
 ], function (SidebarCollection) {
   describe('SidebarCollection', function () {
     it('has default values', function () {

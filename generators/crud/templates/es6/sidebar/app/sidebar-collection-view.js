@@ -1,5 +1,5 @@
 import Marionette from 'marionette';
-import SidebarItemView from './sidebar-item-view';
+import SidebarItemView from './sidebar<%= delimiter %>item<%= delimiter %>view';
 
 export default Marionette.CollectionView.extend({
   childView: SidebarItemView,

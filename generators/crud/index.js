@@ -106,7 +106,7 @@ function findInitializeUiIndex(result) {
 
 function registerAMD(generator, tree, component) {
 	//registering router path in AMD
-	var componentNameWithPath = 'apps/' + component.dir + '/' + component.name + '-' + component.type;
+	var componentNameWithPath = 'apps/' + component.dir + '/' + component.name + utils.delimiter + component.type;
   var contentIndex = findMainContentIndex(tree);
 	var result = tree.body[contentIndex].expression;
 	var existingImports = result.arguments[0].elements;
@@ -143,7 +143,7 @@ function registerAMD(generator, tree, component) {
 
 function registerImport(generator, component, tree) {
   var className = utils.className(component.name, component.type);
-	var componentNameWithPath = 'apps/' + component.dir + '/' + component.name + '-' + component.type;
+	var componentNameWithPath = 'apps/' + component.dir + '/' + component.name + utils.delimiter + component.type;
 
 	//list of imports
 	var filteredImports = tree.body.filter(function(value) {
@@ -236,15 +236,15 @@ module.exports = DirBase.extend({
           modelPath: utils.amd(this.name, utils.type.model),
           collectionPath: utils.amd(this.name, utils.type.collection),
           collectionViewPath: utils.amd(this.name, utils.type.collectionview),
-          detailViewPath: utils.amd(this.name + '-detail', utils.type.itemview),
-          createViewPath: utils.amd(this.name + '-create', utils.type.itemview),
+          detailViewPath: utils.amd(this.name + utils.delimiter + 'detail', utils.type.itemview),
+          createViewPath: utils.amd(this.name + utils.delimiter + 'create', utils.type.itemview),
           compositeViewPath: utils.amd(this.name, utils.type.compositeview),
 
           modelName: utils.className(this.name, utils.type.model),
           collectionName: utils.className(this.name, utils.type.collection),
           collectionViewName: utils.className(this.name, utils.type.collectionview),
-          detailViewName: utils.className(this.name + '-detail', utils.type.itemview),
-          createViewName: utils.className(this.name + '-create', utils.type.itemview),
+          detailViewName: utils.className(this.name + utils.delimiter + 'detail', utils.type.itemview),
+          createViewName: utils.className(this.name + utils.delimiter + 'create', utils.type.itemview),
           compositeViewName: utils.className(this.name, utils.type.compositeview)
         }
       );
@@ -254,7 +254,8 @@ module.exports = DirBase.extend({
         this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller, this.testBaseDir)),
         {
           controllerPath: utils.amd(this.name, utils.type.controller, this.options.directory),
-          controllerName: utils.className(this.name, utils.type.controller)
+          controllerName: utils.className(this.name, utils.type.controller),
+          delimiter: utils.delimiter
         }
       );
     },
@@ -293,7 +294,8 @@ module.exports = DirBase.extend({
         {
           itemViewPath: utils.amd(this.name, utils.type.itemview, this.options.directory),
           itemViewName: utils.className(this.name, utils.type.itemview),
-          featureName: this.name
+          featureName: this.name,
+          delimiter: utils.delimiter
         }
       );
     },
@@ -301,25 +303,26 @@ module.exports = DirBase.extend({
     detail: function() {
       this.fs.copy(
         this.templatePath('common/detail-template.hbs'),
-        this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview))
+        this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name + utils.delimiter + 'detail', utils.type.itemview))
       );
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_detail-view.js'),
-        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + utils.delimiter + 'detail', utils.type.itemview)),
         {
           featureName: this.name,
-          templatePath: utils.templateNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview)
+          templatePath: utils.templateNameWithPath(this.options.directory, this.name + utils.delimiter + 'detail', utils.type.itemview)
         }
       );
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_detail-view-test.js'),
-        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + '-detail', utils.type.itemview, this.testBaseDir)),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + utils.delimiter + 'detail', utils.type.itemview, this.testBaseDir)),
         {
-          detailItemViewPath: utils.amd(this.name + '-detail', utils.type.itemview, this.options.directory),
-          detailItemViewName: utils.className(this.name + '-detail', utils.type.itemview),
-          featureName: this.name
+          detailItemViewPath: utils.amd(this.name + utils.delimiter + 'detail', utils.type.itemview, this.options.directory),
+          detailItemViewName: utils.className(this.name + utils.delimiter + 'detail', utils.type.itemview),
+          featureName: this.name,
+          delimiter: utils.delimiter
         }
       );
     },
@@ -328,26 +331,27 @@ module.exports = DirBase.extend({
       this.fs.copy(
         this.templatePath('common/create-template.hbs'),
         this.destinationPath(
-          utils.templateNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)
+          utils.templateNameWithPath(this.options.directory, this.name + utils.delimiter + 'create', utils.type.itemview)
         )
       );
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_create-view.js'),
-        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)),
+        this.destinationPath(utils.fileNameWithPath(this.options.directory, this.name + utils.delimiter + 'create', utils.type.itemview)),
         {
           featureName: this.name,
-          templatePath: utils.templateNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview)
+          templatePath: utils.templateNameWithPath(this.options.directory, this.name + utils.delimiter + 'create', utils.type.itemview)
         }
       );
 
       this.fs.copyTpl(
         this.templatePath(this.sourceDir + '_create-view-test.js'),
-        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + '-create', utils.type.itemview, this.testBaseDir)),
+        this.destinationPath(utils.testNameWithPath(this.options.directory, this.name + utils.delimiter + 'create', utils.type.itemview, this.testBaseDir)),
         {
-          createItemViewPath: utils.amd(this.name + '-create', utils.type.itemview, this.options.directory),
-          createItemViewName: utils.className(this.name + '-create', utils.type.itemview),
-          featureName: this.name
+          createItemViewPath: utils.amd(this.name + utils.delimiter + 'create', utils.type.itemview, this.options.directory),
+          createItemViewName: utils.className(this.name + utils.delimiter + 'create', utils.type.itemview),
+          featureName: this.name,
+          delimiter: utils.delimiter
         }
       );
     },
@@ -376,7 +380,8 @@ module.exports = DirBase.extend({
         {
           compositeViewPath: utils.amd(this.name, utils.type.compositeview, this.options.directory),
           compositeViewName: utils.className(this.name, utils.type.compositeview),
-          featureName: this.name
+          featureName: this.name,
+          delimiter: utils.delimiter
         }
       );
     },
@@ -421,15 +426,31 @@ module.exports = DirBase.extend({
     sidebarFeature: function() {
       if (!fs.existsSync(this.destinationPath('app/scripts/apps/sidebar'))) {
         this.log('Copying sidebar files ...');
-        this.fs.copy(
-          this.templatePath(this.sourceDir + 'sidebar/app'),
-          this.destinationPath('app/scripts/apps/sidebar')
-        );
+        var sourceDir = this.templatePath(this.sourceDir + 'sidebar/app');
+        var testDir = this.templatePath(this.sourceDir + 'sidebar/tests');
 
-        this.fs.copy(
-          this.templatePath(this.sourceDir + 'sidebar/tests'),
-          this.destinationPath(this.testBaseDir + '/sidebar')
-        );
+        var appFiles = fs.readdirSync(sourceDir);
+        var testFiles = fs.readdirSync(testDir);
+
+        appFiles.forEach(function(file) {
+          var underScoredFile = file.replace(/-/g, utils.delimiter);
+
+          this.fs.copyTpl(
+            sourceDir + '/' + file,
+            this.destinationPath('app/scripts/apps/sidebar/' + underScoredFile),
+            { delimiter: utils.delimiter }
+          );
+        }, this);
+
+        testFiles.forEach(function(file) {
+          var underScoredFile = file.replace(/-/g, utils.delimiter);
+
+          this.fs.copyTpl(
+            testDir + '/' + file,
+            this.destinationPath(this.testBaseDir + '/sidebar/' + underScoredFile),
+            { delimiter: utils.delimiter }
+          );
+        }, this);
       } else {
         this.log('Skipping sidebar files ...');
       }

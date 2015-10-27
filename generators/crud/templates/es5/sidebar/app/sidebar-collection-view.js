@@ -2,7 +2,7 @@
 
 define([
   'marionette',
-  './sidebar-item-view'
+  './sidebar<%= delimiter %>item<%= delimiter %>view'
 ], function (Marionette, SidebarItemView) {
   return Marionette.CollectionView.extend({
     childView: SidebarItemView,

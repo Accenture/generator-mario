@@ -1,5 +1,5 @@
 import {AppRouter} from 'marionette';
-import HomeController from './home-controller';
+import HomeController from './home<%= delimiter %>controller';
 
 export default AppRouter.extend({
   initialize(options) {

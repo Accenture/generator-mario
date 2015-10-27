@@ -1,9 +1,9 @@
 import Backbone from 'backbone';
 import Marionette from 'marionette';
 import Radio from 'radio';
-import SidebarCollectionView from './sidebar-collection-view';
-import SidebarCollection from './sidebar-collection';
-import SidebarModel from './sidebar-model';
+import SidebarCollectionView from './sidebar<%= delimiter %>collection<%= delimiter %>view';
+import SidebarCollection from './sidebar<%= delimiter %>collection';
+import SidebarModel from './sidebar<%= delimiter %>model';
 
 export default Marionette.Object.extend({
   initialize(options) {

@@ -64,7 +64,7 @@ function copyBuildSystem(generator) {
 
     generator.fs.copyTpl(
       generator.templatePath('common/test/_karma-test-main.js'),
-      generator.destinationPath('test/karma-test-main.js'),
+      generator.destinationPath('test/karma' + utils.delimiter + 'test' + utils.delimiter + 'main.js'),
       generator.preferences
     );
   } else if (generator.preferences.buildTool === 'gulp') {
@@ -76,7 +76,7 @@ function copyBuildSystem(generator) {
 
     generator.fs.copyTpl(
       generator.templatePath('common/test/_karma-test-main.js'),
-      generator.destinationPath('test/karma-test-main.js'),
+      generator.destinationPath('test/karma' + utils.delimiter + 'test' + utils.delimiter + 'main.js'),
       generator.preferences
     );
   } else if (generator.preferences.buildTool === 'webpack') {
@@ -109,32 +109,33 @@ function copyBuildSystem(generator) {
 function copyTests(generator) {
   var prefix = (generator.preferences.ecma === 6) ? 'es6/' : 'es5/';
   var destPrefix = generator.preferences.testFolder;
-
-  var tests = [
-    'apps/home/home-item-view-test.js',
-    'apps/home/home-model-test.js',
-    'apps/home/home-controller-test.js',
-    'apps/navigation/navigation-item-view-test.js',
-    'apps/navigation/navigation-controller-test.js'
-  ];
+  var tests = utils.searchFilesInDir(generator.templatePath(prefix + 'test/'));
 
   tests.forEach(function(name) {
-    generator.fs.copy(
+    generator.fs.copyTpl(
       generator.templatePath(prefix + 'test/' + name),
-      generator.destinationPath(destPrefix + name)
+      generator.destinationPath(destPrefix + name.replace(/-/g, utils.delimiter)),
+      { delimiter: utils.delimiter }
     );
   });
 }
 
 function copySources(generator) {
   var prefix = (generator.preferences.ecma === 6) ? 'es6/' : 'es5/';
-  var scriptsFolder = 'app/scripts';
+  var scriptsFolder = 'app/scripts/';
+  var scriptsPath = generator.templatePath(prefix + scriptsFolder);
 
-  generator.fs.copyTpl(
-    generator.templatePath(prefix + scriptsFolder),
-    generator.destinationPath(scriptsFolder),
-    generator.preferences
-  );
+  var files = utils.searchFilesInDir(scriptsPath);
+
+  generator.preferences.delimiter = utils.delimiter;
+
+  files.forEach(function(file) {
+    generator.fs.copyTpl(
+      generator.templatePath(prefix + scriptsFolder + file),
+      generator.destinationPath(scriptsFolder + file.replace(/-/g, utils.delimiter)),
+      generator.preferences
+    );
+  });
 }
 
 function copyStyles(generator) {
@@ -177,6 +178,9 @@ function copySkeleton(generator) {
     );
   });
 
+  // FIXME: temporary will be unnecessary once we implement prompt for delimiter
+  generator.preferences.delimiter = utils.delimiter;
+
   templates.forEach(function(name) {
     generator.fs.copyTpl(
       generator.templatePath('common/_' + name),
@@ -195,4 +199,5 @@ module.exports = function(Generator) {
     copyStyles(this);
     copyBuildSystem(this);
   };
+
 };

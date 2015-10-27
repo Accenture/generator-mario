@@ -15,25 +15,25 @@ describe('mario:router', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/router'))
-        .withArguments(['some-feature'])
+        .withArguments(['some_feature'])
         .withGenerators([path.join(__dirname, '../generators/controller')])
-        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
         .on('end', done);
     });
 
     it('create file', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-router.js',
-        'app/scripts/apps/some-feature/some-feature-controller.js'
+        'app/scripts/apps/some_feature/some_feature_router.js',
+        'app/scripts/apps/some_feature/some_feature_controller.js'
       ]);
     });
 
     it('contains AMD dependency', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'.\/some-feature-controller'/);
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /, SomeFeatureController/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /'.\/some_feature_controller'/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /, SomeFeatureController/);
     });
     it('contains controller class', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeFeatureController/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /new SomeFeatureController/);
     });
 
     afterEach(function(done) {
@@ -48,25 +48,25 @@ describe('mario:router', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/router'))
-        .withArguments(['some-feature'])
+        .withArguments(['some_feature'])
         .withGenerators([path.join(__dirname, '../generators/controller')])
-        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
         .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
 
     it('create file', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-router.js',
-        'app/scripts/apps/some-feature/some-feature-controller.js'
+        'app/scripts/apps/some_feature/some_feature_router.js',
+        'app/scripts/apps/some_feature/some_feature_controller.js'
       ]);
     });
 
     it('contains controller module dependency', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /import SomeFeatureController from '.\/some-feature-controller'/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /import SomeFeatureController from '.\/some_feature_controller'/);
     });
     it('contains controller class', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeFeatureController/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /new SomeFeatureController/);
     });
 
     afterEach(function(done) {
@@ -81,25 +81,25 @@ describe('mario:router', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/router'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['some-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
         .withOptions({
-          directory: 'some-feature',
-          controller: 'some-controller'
+          directory: 'some_feature',
+          controller: 'some_controller'
         })
         .on('end', done);
     });
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-router.js'
+        'app/scripts/apps/some_feature/some_feature_router.js'
       ]);
     });
     it('contains AMD dependency', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'.\/some-controller'/);
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /, SomeController/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /'.\/some_controller'/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /, SomeController/);
     });
     it('contains controller class', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeController/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /new SomeController/);
     });
     afterEach(function(done) {
       stub.restore();
@@ -113,25 +113,25 @@ describe('mario:router', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/router'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['some-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
         .withOptions({
-          directory: 'some-feature',
-          controller: 'some-controller'
+          directory: 'some_feature',
+          controller: 'some_controller'
         })
         .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
     });
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-router.js'
+        'app/scripts/apps/some_feature/some_feature_router.js'
       ]);
     });
     it('contains controller module dependency', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /import SomeController from '.\/some-controller'/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /import SomeController from '.\/some_controller'/);
     });
     it('contains controller class', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new SomeController/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /new SomeController/);
     });
     afterEach(function(done) {
       stub.restore();
@@ -145,12 +145,12 @@ describe('mario:router', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/router'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['some-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
         .withGenerators([path.join(__dirname, '../generators/controller')])
         .withOptions({
-          directory: 'app/scripts/apps/some-feature',
-          controller: 'app/scripts/apps/vegetables/broccoli-controller.js'
+          directory: 'app/scripts/apps/some_feature',
+          controller: 'app/scripts/apps/vegetables/broccoli_controller.js'
         })
         .on('end', done);
     });
@@ -160,15 +160,15 @@ describe('mario:router', function() {
     });
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-router.js'
+        'app/scripts/apps/some_feature/some_feature_router.js'
       ]);
     });
     it('contains AMD dependency', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'apps\/vegetables\/broccoli-controller'/);
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /, BroccoliController/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /'apps\/vegetables\/broccoli_controller'/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /, BroccoliController/);
     });
     it('contains controller class', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /new BroccoliController/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /new BroccoliController/);
     });
   });
 
@@ -178,12 +178,12 @@ describe('mario:router', function() {
         return true;
       });
       helpers.run(path.join(__dirname, '../generators/router'))
-        .inDir(path.join(os.tmpdir(), './temp-test'))
-        .withArguments(['some-feature'])
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
         .withGenerators([path.join(__dirname, '../generators/controller')])
         .withOptions({
-          directory: 'app/scripts/apps/some-feature',
-          controller: 'app/scripts/apps/vegetables/broccoli-controller.js'
+          directory: 'app/scripts/apps/some_feature',
+          controller: 'app/scripts/apps/vegetables/broccoli_controller.js'
         })
         .withLocalConfig({preferences: {ecma: 6}})
         .on('end', done);
@@ -194,14 +194,14 @@ describe('mario:router', function() {
     });
     it('creates files', function() {
       assert.file([
-        'app/scripts/apps/some-feature/some-feature-router.js'
+        'app/scripts/apps/some_feature/some_feature_router.js'
       ]);
     });
     it('contains module dependency', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /import BroccoliController from 'apps\/vegetables\/broccoli-controller'/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /import BroccoliController from 'apps\/vegetables\/broccoli_controller'/);
     });
     it('contains route', function() {
-      assert.fileContent('app/scripts/apps/some-feature/some-feature-router.js', /'some-feature': 'default'/);
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_router.js', /'some_feature': 'default'/);
     });
   });
 });

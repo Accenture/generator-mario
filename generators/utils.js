@@ -5,11 +5,12 @@ var url = require('url');
 var baseDir = 'app/scripts/apps/';
 var appsDir = 'apps/';
 var lodash = require('lodash');
+var glob = require('glob');
 var fs = require('fs');
 var hbsExt = '.hbs';
 var testSuffix = 'test',
   templateSufix = 'template',
-  _deliter = '-',
+  _delimiter = '_',
   _jsext = '.js';
 
 /**
@@ -19,17 +20,17 @@ var testSuffix = 'test',
 var _fileNames = {
   model: 'model',
   collection: 'collection',
-  itemview: 'item-view',
-  collectionview: 'collection-view',
-  compositeview: 'composite-view',
-  layoutview: 'layout-view',
+  itemview: 'item' + _delimiter + 'view',
+  collectionview: 'collection' + _delimiter + 'view',
+  compositeview: 'composite'  + _delimiter + 'view',
+  layoutview: 'layout'  + _delimiter +  'view',
   controller: 'controller',
   router: 'router'
 };
 
 /**
  * Creates a file name for source files in a desired format according to specified type.
- * Desired file name format is <name>-<type>.
+ * Desired file name format is <name><delimeter><type>.
  *
  * @param {String} name The name
  * @param {String} type The type saved in this type
@@ -37,45 +38,45 @@ var _fileNames = {
  */
 function fileName(name, type) {
   if (name.lastIndexOf(type) === -1) {
-    return name + _deliter + type;
+    return name + _delimiter + type;
   }
   if (name.length < type.length) {
-    return name + _deliter + type;
+    return name + _delimiter + type;
   }
   if (name.lastIndexOf(type) === (name.length - type.length)) {
     return name;
   }
-  return name + _deliter + type;
+  return name + _delimiter + type;
 }
 
 /**
  * Creates a file name for test in a desired format according to specified type.
- * Desired file name format is <name>-<type>.
+ * Desired file name format is <name><delimeter><type>.
  *
  * @param {String} name The name
  * @param {String} type The type saved in this type
  * @return {String} file name in desired format
  */
 function testName(name, type) {
-  return fileName(name, type) + _deliter + testSuffix;
+  return fileName(name, type) + _delimiter + testSuffix;
 }
 
 /**
  * NOTE: this is a duplicate of testName
  * Creates a file name for test in a desired format according to specified type.
- * Desired file name format is <name>-<type>-test.
+ * Desired file name format is <name><delimeter><type>-test.
  *
  * @param {String} name The name
  * @param {String} type The type saved in this type
  * @return {String} file name in desired format
  */
 function testfileName(name, type) {
-  return fileName(name, type) + _deliter + testSuffix;
+  return fileName(name, type) + _delimiter + testSuffix;
 }
 
 /**
  * Creates a file name for template in a desired format according to specified type.
- * Desired file name format is <name>-<type>-template.
+ * Desired file name format is <name><delimeter><type>-template.
  *
  * @param {String} name The name
  * @param {String} type The type saved in this type
@@ -88,7 +89,7 @@ function templatefileName(name, type) {
   if (name.lastIndexOf(templateSufix) !== -1 && ((name.length - templateSufix.length) > 0) && (name.lastIndexOf(templateSufix) === (name.length - templateSufix.length))) {
     return name + hbsExt;
   }
-  return fileName(name, type) + _deliter + templateSufix + hbsExt;
+  return fileName(name, type) + _delimiter + templateSufix + hbsExt;
 }
 
 /**
@@ -104,7 +105,7 @@ function getCollectionFileName(name) {
 
 /**
  * Creates a path to a file in a desired format according to specified type.
- * Desired path format is '<app-root>/app/scripts/apps/<directory>/<name>-<type>.js'.
+ * Desired path format is '<app-root>/app/scripts/apps/<directory>/<name><delimeter><type>.js'.
  *
  * @param {String} directory The directory of the file relative to 'app/scripts/apps'
  * @param {String} name The name
@@ -122,7 +123,7 @@ function fileNameWithPath(directory, name, type) {
 
 /**
  * Creates a path to a test file in a desired format according to specified type.
- * Desired path format is '<app-root>/app/scripts/apps/<directory>/<name>-<type>-test.js'.
+ * Desired path format is '<app-root>/app/scripts/apps/<directory>/<name><delimeter><type>-test.js'.
  *
  * @param {String} directory The directory of the file relative to 'app/scripts/apps'
  * @param {String} name The name
@@ -143,7 +144,7 @@ function testWithPath(directory, name, type, testDirectory) {
 
 /**
  * Creates a path to a templates file in a desired format according to specified type.
- * Desired path format is '<app-root>/app/scripts/apps/<directory>/<name>-<type>-template.hbs'.
+ * Desired path format is '<app-root>/app/scripts/apps/<directory>/<name><delimeter><type>-template.hbs'.
  *
  * @param {String} directory The directory of the file relative to 'app/scripts/apps'
  * @param {String} name The name
@@ -250,6 +251,17 @@ function escapePathForRegex(path) {
 }
 
 /**
+ * Function that takes a directory path.
+ * Recursively traverses folders from that path and return
+ */
+function searchFilesInDir(dirPath) {
+  var posixPath = dirPath.replace(/\\/g, '/');
+
+  var files = glob.sync(dirPath + '/**/*', { nodir: true });
+  return files.map(function(file) { return file.replace(posixPath, ''); });
+}
+
+/**
  * This module exports several utility functions for manipulating component
  * names, types and paths in order to fill out tempaltes during the copy phase
  * of the generator.
@@ -268,5 +280,7 @@ module.exports = {
   type: _fileNames,
   truncateBasePath: truncateBasePath,
   verifyPath: verifyPath,
-  escapePathForRegex: escapePathForRegex
+  escapePathForRegex: escapePathForRegex,
+  delimiter: _delimiter,
+  searchFilesInDir: searchFilesInDir
 };

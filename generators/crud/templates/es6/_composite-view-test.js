@@ -1,5 +1,5 @@
 import <%= compositeViewName %> from '<%= compositeViewPath %>';
-import helpers from 'helpers/handlebars-helpers';
+import helpers from 'helpers/handlebars<%= delimiter %>helpers';
 
 describe('<%= compositeViewName %>', function() {
   helpers.initialize();

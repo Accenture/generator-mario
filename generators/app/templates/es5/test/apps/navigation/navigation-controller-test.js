@@ -3,7 +3,7 @@
 define([
   'backbone',
   'marionette',
-  'apps/navigation/navigation-controller',
+  'apps/navigation/navigation<%= delimiter %>controller',
 ], function (Backbone, Marionette, NavigationController) {
   describe('NavigationController', function () {
     beforeEach(function () {

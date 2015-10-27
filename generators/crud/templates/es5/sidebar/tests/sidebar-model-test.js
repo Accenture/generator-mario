@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  'apps/sidebar/sidebar-model'
+  'apps/sidebar/sidebar<%= delimiter %>model'
 ], function (SidebarModel) {
   describe('SidebarModel', function () {
     it('has default values', function () {

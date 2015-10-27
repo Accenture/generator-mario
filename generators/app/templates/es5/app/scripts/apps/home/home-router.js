@@ -1,7 +1,7 @@
 'use strict';
 
 define([
-  'backbone', 'marionette', './home-controller'
+  'backbone', 'marionette', './home<%= delimiter %>controller'
 ], function(Backbone, Marionette, HomeController) {
 
   return Marionette.AppRouter.extend({

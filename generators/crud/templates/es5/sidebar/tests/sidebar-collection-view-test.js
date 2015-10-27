@@ -4,7 +4,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'apps/sidebar/sidebar-collection-view'
+  'apps/sidebar/sidebar<%= delimiter %>collection<%= delimiter %>view'
 ], function ($, _, Backbone, SidebarCollectionView) {
 
   describe('SidebarCollectionView view', function () {

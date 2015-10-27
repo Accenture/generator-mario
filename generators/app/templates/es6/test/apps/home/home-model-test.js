@@ -1,4 +1,4 @@
-import HomeModel from 'apps/home/home-model';
+import HomeModel from 'apps/home/home<%= delimiter %>model';
 
 describe('HomeModel', () => {
   it('has default values', () => {
