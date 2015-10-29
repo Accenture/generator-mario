@@ -1,5 +1,6 @@
 import {Collection, history} from 'backbone';
 import {Region} from 'marionette';
+import helpers from 'helpers/handlebars<%= delimiter %>helpers';
 import <%= controllerName %> from '<%= controllerPath %>';
 
 const dummyData = [{
@@ -10,8 +11,10 @@ const dummyData = [{
 }];
 
 describe('<%= controllerName %>', function() {
+  helpers.initialize();
+  
   beforeEach(() => {
-    this.stub = sinon.stub(Backbone.Collection.prototype, 'fetch')
+    this.stub = sinon.stub(Collection.prototype, 'fetch')
       .yieldsTo('success', dummyData);
 
     this.region = new Region({el: 'body'});

@@ -1,5 +1,8 @@
 import {Region} from 'marionette';
 import HomeController from 'apps/home/home<%= delimiter %>controller';
+import helpers from 'helpers/handlebars<%= delimiter %>helpers';
+
+helpers.initialize();
 
 describe('HomeController', function () {
   beforeEach(function () {

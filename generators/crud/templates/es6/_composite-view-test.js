@@ -1,3 +1,4 @@
+import Backbone from 'backbone';
 import <%= compositeViewName %> from '<%= compositeViewPath %>';
 import helpers from 'helpers/handlebars<%= delimiter %>helpers';
 

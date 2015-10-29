@@ -1,5 +1,8 @@
 import HomeItemView from 'apps/home/home<%= delimiter %>item<%= delimiter %>view';
 import {Model} from 'backbone';
+import helpers from 'helpers/handlebars<%= delimiter %>helpers';
+
+helpers.initialize();
 
 describe('HomeItemView', () => {
     let view;

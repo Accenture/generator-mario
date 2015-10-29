@@ -197,7 +197,8 @@ module.exports = function (grunt) {
                     'bower_components/font-awesome/fonts/{,*/}*.*',
                     'bower_components/modernizr/modernizr.js',
                     'bower_components/requirejs/*.js',
-                    'index.html'
+                    'index.html',
+                    'locales/**/*'
                 ]
             },
             {

@@ -205,6 +205,7 @@ gulp.task('copy', ['requirejs', 'imagemin'], function() {
     'app/images/*.*',
     'app/bower_components/font-awesome/fonts/{,*/}*.*',
     'app/bower_components/modernizr/modernizr.js',
+    'app/locales/**/*'
   ], {base: 'app'})
   .pipe(gulp.dest('dist'));
 });

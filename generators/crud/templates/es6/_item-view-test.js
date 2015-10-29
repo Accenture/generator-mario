@@ -1,6 +1,10 @@
+import Backbone from 'backbone';
+import helpers from 'helpers/handlebars<%= delimiter %>helpers';
 import <%= itemViewName %> from '<%= itemViewPath %>';
 
 describe('<%= itemViewName %>', function() {
+  helpers.initialize();
+  
   beforeEach(() => {
     this.model = new Backbone.Model({
       text: 'Sample'

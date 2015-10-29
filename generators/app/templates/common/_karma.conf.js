@@ -79,6 +79,9 @@ module.exports = function (config) {
         autoWatch: true,
 
         <% if(buildTool === 'webpack') { %>
+        captureTimeout: 60000,
+        browserNoActivityTimeout: 60000,
+
         webpack: {
           cache: true,
           watch: true,

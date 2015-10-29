@@ -3,8 +3,11 @@
 define([
   'backbone',
   'marionette',
-  'apps/home/home<%= delimiter %>controller',
-], function (Backbone, Marionette, HomeController) {
+  'helpers/handlebars<%= delimiter %>helpers',
+  'apps/home/home<%= delimiter %>controller'
+], function (Backbone, Marionette, helpers, HomeController) {
+  helpers.initialize();
+
   describe('HomeController', function () {
     beforeEach(function () {
       this.region = new Marionette.Region({el: 'body'});

@@ -1,5 +1,8 @@
 import {Region} from 'marionette';
 import NavigationController from 'apps/navigation/navigation<%= delimiter %>controller';
+import helpers from 'helpers/handlebars<%= delimiter %>helpers';
+
+helpers.initialize();
 
 describe('NavigationController', function () {
   beforeEach(function () {

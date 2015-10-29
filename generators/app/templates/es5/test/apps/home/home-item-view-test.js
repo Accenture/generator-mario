@@ -4,8 +4,10 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'helpers/handlebars<%= delimiter %>helpers',
   'apps/home/home<%= delimiter %>item<%= delimiter %>view'
-], function ($, _, Backbone, HomeItemView) {
+], function ($, _, Backbone, helpers, HomeItemView) {
+  helpers.initialize();
 
   describe('HomeItemView', function () {
     beforeEach(function () {

@@ -15,7 +15,8 @@ module.exports = function(grunt) {
 					'jsondata/*.*',
 					'images/*.*',
 					'bower_components/font-awesome/fonts/{,*/}*.*',
-					'bower_components/modernizr/modernizr.js'
+					'bower_components/modernizr/modernizr.js',
+          'locales/**/*'
 				]
 			},
 			{

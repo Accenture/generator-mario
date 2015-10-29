@@ -1,6 +1,10 @@
+import Backbone from 'backbone';
+import helpers from 'helpers/handlebars<%= delimiter %>helpers';
 import <%= createItemViewName %> from '<%= createItemViewPath %>';
 
 describe('<%= createItemViewName %>', function() {
+  helpers.initialize();
+  
   beforeEach(() => {
     this.date = Date.now();
 

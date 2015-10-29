@@ -1,5 +1,6 @@
 import Marionette from 'marionette';
 import * as JST from 'templates';
+import _ from 'underscore';
 
 export default Marionette.ItemView.extend({
   template: JST['<%= templatePath %>'],
