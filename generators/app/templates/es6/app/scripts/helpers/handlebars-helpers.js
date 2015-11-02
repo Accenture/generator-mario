@@ -1,4 +1,3 @@
-
 import Handlebars from 'handlebars';
 import i18n from 'i18n';
 

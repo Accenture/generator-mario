@@ -1,9 +1,10 @@
 import helpers from 'helpers/handlebars<%= delimiter %>helpers';
+import {Collection} from 'backbone';
 import SidebarCollectionView from 'apps/sidebar/sidebar<%= delimiter %>collection<%= delimiter %>view';
 
 describe('SidebarCollectionView view', function() {
   helpers.initialize();
-  
+
   beforeEach(() => {
     this.collection = new Collection([
       {name: 'Sample', count: 20},

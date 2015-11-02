@@ -25,7 +25,8 @@ module.exports = {
       'handlebars': 'handlebars/handlebars.js',
       'i18n': 'i18next/i18next.amd.js',
       'fastclick': 'fastclick-amd/fastclick.js',
-      'radio': 'backbone.radio/build/backbone.radio.js'
+      'radio': 'backbone.radio/build/backbone.radio.js',
+      'lil-uuid':'lil-uuid/uuid'
     }
   },
   module: {

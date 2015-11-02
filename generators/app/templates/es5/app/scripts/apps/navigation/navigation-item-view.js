@@ -8,4 +8,5 @@ define(['marionette', 'templates'], function (Marionette, JST) {
       'click a': 'language:click'
     }
   });
+
 });

@@ -15,7 +15,8 @@
     "font-awesome": "~4.3.0",
     "backbone.radio": "~1.0.0",
     "i18next": "~1.10.2",
-    "fastclick-amd": "*"
+    "fastclick-amd": "*",
+    "lil-uuid": "~0.1.1"
   },
   "devDependencies": {
     "picturefill": "~2.3.1",
