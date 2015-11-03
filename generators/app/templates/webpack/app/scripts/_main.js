@@ -14,7 +14,9 @@ configureApp(() => {
 require([
   'i18n',
   'helpers/configure',
-  'app',
+  'app',<% if(styles === 'less') { %>
+  '../styles/main.less',<% } else { %>
+  '../styles/main.scss',<% } %>
   'bootstrap'
 ], function(i18n, configureApp, App) {
     configureApp(function() {

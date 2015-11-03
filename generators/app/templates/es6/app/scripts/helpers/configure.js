@@ -30,6 +30,13 @@ export default function configureApp(callback) {
       return origAjax.apply(this, arguments);
     };
 
+    //custom logging (prepared for server side logging)
+    window.onerror = function(msg, file, line, col) {
+      var date = new Date().toISOString();
+      var errorMessage = date + ' - error: ' + msg + ' - file: ' + file + ', line: ' + line + ', col:' + col;
+      console.error(errorMessage);
+    };
+
     callback();
   }).fail(function() {
     callback();
