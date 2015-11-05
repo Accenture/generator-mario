@@ -23,31 +23,29 @@ define([
       this.controller = new SidebarController({region: this.region});
       this.controller.channel.trigger('crud-update', data);
 
-      this.spy = sinon.spy(Backbone.history, 'navigate');
+      this.spy = <%=assert.createrealspy%>(Backbone.history, 'navigate');
     });
-
-    afterEach(function() {
+<% if (testFramework === 'mocha') { %>  afterEach(function() {
       this.spy.restore();
-    });
-
+    });<% } %>
     it('should render view', function () {
-      expect(this.region.$el.find('ul.nav')).to.be.ok;
-      expect(this.region.$el.find('ul.nav').children().length).to.be.equal(1);
+      expect(this.region.$el.find('ul.nav')).<%=assert.tobeok%>;
+      expect(this.region.$el.find('ul.nav').children().length).<%=assert.toequal%>(1);
     });
 
     it('should react to item click', function () {
       this.region.$el.find('li').trigger('click');
-      expect(this.spy.callCount).to.be.equal(1);
+      expect(this.spy.<%=assert.callcount%>).<%=assert.toequal%>(1);
     });
 
     it('should react to crud update', function () {
       this.controller.channel.trigger('crud-update', data2);
-      expect(this.region.$el.find('ul.nav').children().length).to.be.equal(2);
+      expect(this.region.$el.find('ul.nav').children().length).<%=assert.toequal%>(2);
     });
 
     it('should react to crud update (name) duplicate', function () {
       this.controller.channel.trigger('crud-update', data);
-      expect(this.region.$el.find('ul.nav').children().length).to.be.equal(1);
+      expect(this.region.$el.find('ul.nav').children().length).<%=assert.toequal%>(1);
     });
 
   });

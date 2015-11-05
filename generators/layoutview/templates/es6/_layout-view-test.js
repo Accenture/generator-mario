@@ -7,10 +7,10 @@ describe('<%= viewName %> view', () => {
     view.render();
   });
   it('render() should return the view object', () => {
-    expect(view.render()).to.equal(view);
+    expect(view.render()).<%=assert.toequal%>(view);
   });<% if(!templateExists) { %>
 
   it('should contain 2 regions', () => {
-    expect(view.render().$el.find('div').length).to.equal(2);
+    expect(view.render().$el.find('div').length).<%=assert.toequal%>(2);
   });<% } %>
 });

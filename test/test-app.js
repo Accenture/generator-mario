@@ -30,6 +30,68 @@ describe('mario:app', function() {
     });
   });
 
+  describe('with Mocha test framework should', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withPrompt({
+          testFramework: 'mocha',
+          tests: 'appcode'
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'bower.json',
+        'package.json',
+        '.editorconfig',
+        '.jshintrc',
+        'karma.conf.js'
+      ]);
+    });
+    it('have Mocha assertions', function() {
+      assert.fileContent('app/scripts/apps/home/home_model_test.js', /\).to.be.ok/);
+      assert.fileContent('app/scripts/apps/home/home_item_view_test.js', /\).to.equal\('Home'\)/);
+      assert.fileContent('app/scripts/apps/home/home_controller_test.js', /\).to.be.ok/);
+      assert.fileContent('app/scripts/apps/home/home_controller_test.js', /\).to.equal\(/);
+      assert.fileContent('app/scripts/apps/navigation/navigation_item_view_test.js', /\).to.equal\(/);
+      assert.fileContent('app/scripts/apps/navigation/navigation_controller_test.js', /\).to.be.ok/);
+    });
+  });
+
+  describe('with Jasmine test framework should', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(os.tmpdir(), './temp-test'))
+        .withOptions({ 'skip-install': true })
+        .withPrompt({
+          testFramework: 'jasmine',
+          tests: 'appcode'
+        })
+        .on('end', done);
+    });
+
+    it('creates files', function() {
+      assert.file([
+        'bower.json',
+        'package.json',
+        '.editorconfig',
+        '.jshintrc',
+        'karma.conf.js'
+      ]);
+    });
+    it('have Jasmine assertions', function() {
+      assert.fileContent('app/scripts/apps/home/home_model_test.js', /\).toBeTruthy\(\)/);
+      assert.fileContent('app/scripts/apps/home/home_item_view_test.js', /\).toEqual\(/);
+      assert.fileContent('app/scripts/apps/home/home_controller_test.js', /\).toBeTruthy\(\)/);
+      assert.fileContent('app/scripts/apps/home/home_controller_test.js', /\).toEqual\(/);
+      assert.fileContent('app/scripts/apps/navigation/navigation_item_view_test.js', /\).toEqual\(/);
+      assert.fileContent('app/scripts/apps/navigation/navigation_controller_test.js', /\).toBeTruthy\(\)/);
+    });
+  });
+
   describe('using existing \'.yo-rc.json\' config file', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/app'))
@@ -41,7 +103,8 @@ describe('mario:app', function() {
             'ecma': 5,
             'tests': 'appcode',
             'testFolder': 'app/scripts/',
-            'buildTool': 'grunt'
+            'buildTool': 'grunt',
+            'testFramework': 'jasmine'
           }
         })
         .withPrompt({
@@ -81,7 +144,8 @@ describe('mario:app', function() {
             'ecma': 5,
             'tests': 'appcode',
             'testFolder': 'app/scripts/',
-            'buildTool': 'grunt'
+            'buildTool': 'grunt',
+            'testFramework': 'jasmine'
           }
         })
         .withPrompts({

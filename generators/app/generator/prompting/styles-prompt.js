@@ -3,6 +3,10 @@
 module.exports = function(Generator) {
 
   Generator.prototype.stylesPrompt = function() {
+    if (this.useExistingConfig && this.preferences.styles) {
+      return;
+    }
+
     var done = this.async();
     this.prompt({
       type: 'list',

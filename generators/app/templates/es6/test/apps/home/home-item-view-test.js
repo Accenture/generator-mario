@@ -15,9 +15,9 @@ describe('HomeItemView', () => {
     });
 
     it('render() should return the view object', () => {
-        expect(view.render()).to.equal(view);
+        expect(view.render()).<%=assert.toequal%>(view);
     });
     it('id should equal 1', () => {
-        expect(view.render().$('h2').text()).to.equal('Home');
+        expect(view.render().$('h2').text()).<%=assert.toequal%>('Home');
     });
 });

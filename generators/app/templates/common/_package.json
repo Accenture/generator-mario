@@ -3,8 +3,11 @@
     "version": "0.0.1",
     "dependencies": {
     },
-    "devDependencies": {
+    "devDependencies": {<% if (testFramework === 'mocha') { %>
         "chai": "^3.0.0",
+        "mocha": "^2.2.5",
+        "sinon": "^1.15.3",
+        "sinon-chai": "^2.8.0",<% } %>
         "connect-livereload": "^0.5.3",
         "jscs": "^1.13.1",
         "jscs-stylish": "^0.3.1",
@@ -17,14 +20,12 @@
         "karma-chrome-launcher": "^0.1.12",
         "karma-coverage": "^0.4.2",
         "karma-firefox-launcher": "^0.1.6",
-        "karma-ie-launcher": "^0.2.0",
-        "karma-mocha": "^0.1.10",
+        "karma-ie-launcher": "^0.2.0",<% if (testFramework === 'mocha') { %>
+        "karma-mocha": "^0.1.10",<% } else { %>
+        "karma-jasmine": "^0.3.6",<% } %>
         "karma-phantomjs-launcher": "^0.2.0",
-        "mocha": "^2.2.5",
         "mocha-xunit-zh": "0.0.3",
-        "phantomjs": "^1.9.17",
-        "sinon": "^1.15.3",
-        "sinon-chai": "^2.8.0"<% if (buildTool !== 'webpack') { %>,
+        "phantomjs": "^1.9.17"<% if(buildTool !== 'webpack') { %>,
         "karma-requirejs": "^0.2.2",
         "requirejs": "^2.1.18"<% } if (buildTool !== 'gulp') { %>,
         "grunt": "^0.4.5",

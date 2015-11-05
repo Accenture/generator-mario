@@ -13,22 +13,22 @@ describe('<%= compositeViewName %>', function() {
     this.view = new <%= compositeViewName %>({collection: this.collection});
     this.view.render();
 
-    this.eventSpy = sinon.spy();
+    this.eventSpy = <%=assert.createfakespy%>();
     this.view.listenTo(this.view, '<%= featureName %>:navigateNew', this.eventSpy);
   });
 
   it('is ok', () => {
-    expect(this.collection).to.be.ok;
-    expect(this.view).to.be.ok;
+    expect(this.collection).<%=assert.tobeok%>;
+    expect(this.view).<%=assert.tobeok%>;
   });
 
   it('contains 2 values', () => {
-    expect(this.collection).to.have.length(2);
-    expect(this.view.$el.find('.list-group > li')).to.have.length(2);
+    expect(this.collection.length).<%=assert.toequal%>(2);
+    expect(this.view.$el.find('.list-group > li').length).<%=assert.toequal%>(2);
   });
 
   it('click event should trigger spy', () => {
     this.view.$el.find('button.create').trigger('click');
-    expect(this.eventSpy.callCount).to.be.equal(1);
+    expect(this.eventSpy.<%=assert.callcount%>).<%=assert.toequal%>(1);
   });
 });

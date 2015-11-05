@@ -26,7 +26,7 @@ describe('mario:crud', function() {
     'app/scripts/apps/sidebar'
   ];
 
-  describe('ES5 version with should', function() {
+  describe('ES5 version with Mocha test framework should', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/crud'))
         .inTmpDir(function(dir) {
@@ -40,12 +40,19 @@ describe('mario:crud', function() {
         .withOptions({
           force: true
         })
+        .withLocalConfig({ preferences: {testFramework: 'mocha'} })
         .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });
 
     it('create files', function() {
       assert.file(crudFiles);
+    });
+
+    it('have Mocha spies', function() {
+      assert.fileContent('app/scripts/apps/my_crud/my_crud_composite_view_test.js', /sinon.spy\(\)/);
+      assert.fileContent('app/scripts/apps/my_crud/my_crud_composite_view_test.js', /this.eventSpy.callCount/);
+      assert.fileContent('app/scripts/apps/my_crud/my_crud_controller_test.js', /sinon.spy/);
     });
 
     it('registers router', function() {
@@ -95,7 +102,7 @@ describe('mario:crud', function() {
     });
   });
 
-  describe('ES6 version should', function() {
+  describe('ES6 version with Jasmine test framework should', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/crud'))
         .inTmpDir(function(dir) {
@@ -107,13 +114,19 @@ describe('mario:crud', function() {
         })
         .withArguments(['my_crud'])
         .withOptions({ force: true })
-        .withLocalConfig({preferences: {ecma: 6}})
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'jasmine'}})
         .withGenerators([path.join(__dirname, '../generators/model')])
         .on('end', done);
     });
 
     it('create files', function() {
       assert.file(crudFiles);
+    });
+
+    it('have Jasmine spies', function() {
+      assert.fileContent('app/scripts/apps/my_crud/my_crud_composite_view_test.js', /jasmine.createSpy/);
+      assert.fileContent('app/scripts/apps/my_crud/my_crud_composite_view_test.js', /this.eventSpy.calls.count\(\)/);
+      assert.fileContent('app/scripts/apps/my_crud/my_crud_controller_test.js', /spyOn/);
     });
 
     it('registers router', function() {

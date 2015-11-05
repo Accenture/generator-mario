@@ -15,12 +15,12 @@ describe('SidebarItemView', function() {
     });
 
     it('render() should return the view object', () => {
-      expect(this.view.render()).to.equal(this.view);
+      expect(this.view.render()).<%=assert.toequal%>(this.view);
     });
     it('name should equal Sample', () => {
-      expect(this.view.render().$('.text-capitalize').text()).to.equal('Sample');
+      expect(this.view.render().$('.text-capitalize').text()).<%=assert.toequal%>('Sample');
     });
     it('count should equal 20', () => {
-      expect(this.view.render().$('.badge.pull-right').text()).to.equal('20');
+      expect(this.view.render().$('.badge.pull-right').text()).<%=assert.toequal%>('20');
     });
 });

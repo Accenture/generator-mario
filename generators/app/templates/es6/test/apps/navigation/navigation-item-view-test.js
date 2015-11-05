@@ -6,7 +6,7 @@ helpers.initialize();
 
 describe('NavigationItemView', () => {
     let view;
-    before(() => {
+    beforeEach(() => {
         let model = new Model({
             text: 'English'
         });
@@ -14,6 +14,6 @@ describe('NavigationItemView', () => {
         view.render();
     });
     it('id should equal 1', () => {
-        expect(view.$('a').text()).to.equal('English');
+        expect(view.$('a').text()).<%=assert.toequal%>('English');
     });
 });

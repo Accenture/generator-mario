@@ -45,7 +45,8 @@ module.exports = DirBase.extend({
       {
         dest: utils.amd(this.name, utils.type.itemview, this.options.directory),
         view: utils.className(this.name, utils.type.itemview),
-        template: this.template
+        template: this.template,
+        assert: utils.assert[this.testFramework]
       }
     );
 

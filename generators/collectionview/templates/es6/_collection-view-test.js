@@ -12,10 +12,10 @@ describe('<%= viewName %> view', () => {
     view.render();
   });
   it('render() should return the view object', () => {
-    expect(view.render()).to.equal(view);
+    expect(view.render()).<%=assert.toequal%>(view);
   });
 
   it('should contain 2 item views', () => {
-    expect(view.render().$el.find('h2').length).to.equal(2);
+    expect(view.render().$el.find('h2').length).<%=assert.toequal%>(2);
   });
 });

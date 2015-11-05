@@ -11,6 +11,7 @@ var _modules = [
   './generator/prompting/config-prompt',
   './generator/prompting/name-prompt',
 	'./generator/prompting/ecma-prompt',
+  './generator/prompting/test-framework-prompt',
 	'./generator/prompting/test-prompt',
   './generator/prompting/styles-prompt',
   './generator/prompting/build-tool-prompt',

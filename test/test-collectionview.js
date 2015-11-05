@@ -18,15 +18,14 @@ describe('mario:collectionview', function() {
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['some_feature'])
         .withOptions({ directory: 'some_feature', itemview: 'some_item_view' })
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'mocha'}})
         .on('end', done);
     });
-
     it('creates files', function() {
       assert.file([
         'app/scripts/apps/some_feature/some_feature_collection_view.js',
         'app/scripts/apps/some_feature/some_feature_collection_view_test.js'
       ]);
-
     });
     it('contains AMD dependency', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view.js', /some_item_view/);
@@ -39,6 +38,30 @@ describe('mario:collectionview', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /.\/some_feature_collection_view/);
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /SomeFeatureCollectionView/);
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /new SomeFeatureCollectionView/);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /to.equal\(2\)/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
+  describe('with existing itemview + Jasmine', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/collectionview'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
+        .withOptions({ directory: 'some_feature', itemview: 'some_item_view' })
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /toEqual\(2\)/);
     });
     afterEach(function(done) {
       stub.restore();
@@ -55,7 +78,7 @@ describe('mario:collectionview', function() {
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['some_feature'])
         .withOptions({ directory: 'some_feature', itemview: 'some_item_view' })
-        .withLocalConfig({ preferences: {ecma: 6} })
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'mocha'}})
         .on('end', done);
     });
 
@@ -75,6 +98,30 @@ describe('mario:collectionview', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /.\/some_feature_collection_view/);
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /SomeFeatureCollectionView/);
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /new SomeFeatureCollectionView/);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /to.equal\(2\)/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
+  describe('with existing itemview ES6 + Jasmine', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/collectionview'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
+        .withOptions({ directory: 'some_feature', itemview: 'some_item_view' })
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_view_test.js', /toEqual\(2\)/);
     });
     afterEach(function(done) {
       stub.restore();

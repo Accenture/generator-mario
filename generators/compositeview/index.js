@@ -96,7 +96,8 @@ module.exports = DirBase.extend({
       {
         compview: utils.amd(this.name, utils.type.compositeview, this.options.directory),
         viewName: utils.className(this.name, utils.type.compositeview),
-        templateExists: this.templateExists
+        templateExists: this.templateExists,
+        assert: utils.assert[this.testFramework]
       }
     );
   }

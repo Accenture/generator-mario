@@ -19,6 +19,32 @@ describe('mario:controller', function() {
     });
   });
 
+  describe('with Mocha test framework', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/controller'))
+        .withArguments(['my_controller'])
+        .withLocalConfig({preferences: {testFramework: 'mocha'}})
+        .on('end', done);
+    });
+    it('should have Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/my_controller/my_controller_test.js', /to.equal/);
+      assert.fileContent('app/scripts/apps/my_controller/my_controller_test.js', /it.skip/);
+    });
+  });
+
+  describe('with Jasmine test framework', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/controller'))
+        .withArguments(['my_controller'])
+        .withLocalConfig({preferences: {testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('should have Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/my_controller/my_controller_test.js', /toEqual/);
+      assert.fileContent('app/scripts/apps/my_controller/my_controller_test.js', /xit/);
+    });
+  });
+
   describe('without options ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/controller'))

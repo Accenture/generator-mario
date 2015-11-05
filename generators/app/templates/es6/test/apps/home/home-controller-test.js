@@ -12,7 +12,7 @@ describe('HomeController', function () {
 
   it('should render view', function () {
     this.controller.default();
-    expect(this.region.$el.find('h2')).to.be.ok;
-    expect(this.region.$el.find('h2').text()).to.be.equal('Home');
+    expect(this.region.$el.find('h2')).<%=assert.tobeok%>;
+    expect(this.region.$el.find('h2').text()).<%=assert.toequal%>('Home');
   });
 });

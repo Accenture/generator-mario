@@ -57,7 +57,8 @@ module.exports = DirBase.extend({
       {
         viewPath: utils.amd(this.name, utils.type.layoutview, this.options.directory),
         viewName: utils.className(this.name, utils.type.layoutview),
-        templateExists: this.templateExists
+        templateExists: this.templateExists,
+        assert: utils.assert[this.testFramework]
       }
     );
   }

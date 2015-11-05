@@ -12,10 +12,10 @@ define([
     });
 
     it('region should be ok', function() {
-      expect(this.region).to.be.equal(this.controller.region);
+      expect(this.region).<%=assert.toequal%>(this.controller.region);
     });
 
-    it.skip('default method should render view', function() {
+    <%=assert.skipit%>('default method should render view', function() {
       throw new Error('default method not implemented yet');
     });
   });

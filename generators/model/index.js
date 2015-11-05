@@ -18,7 +18,8 @@ module.exports = DirBase.extend({
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.model, this.testBaseDir)),
       {
         modelPath: utils.amd(this.name, utils.type.model, this.options.directory),
-        modelName: utils.className(this.name, utils.type.model)
+        modelName: utils.className(this.name, utils.type.model),
+        assert: utils.assert[this.testFramework]
       }
     );
   }

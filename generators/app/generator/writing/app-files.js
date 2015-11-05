@@ -110,12 +110,17 @@ function copyTests(generator) {
   var prefix = (generator.preferences.ecma === 6) ? 'es6/' : 'es5/';
   var destPrefix = generator.preferences.testFolder;
   var tests = utils.searchFilesInDir(generator.templatePath(prefix + 'test/'));
+  var assert = utils.assert;
+  var testFramework = generator.preferences.testFramework;
 
   tests.forEach(function(name) {
     generator.fs.copyTpl(
       generator.templatePath(prefix + 'test/' + name),
       generator.destinationPath(destPrefix + name.replace(/-/g, utils.delimiter)),
-      { delimiter: utils.delimiter }
+      {
+        delimiter: utils.delimiter,
+        assert: assert[testFramework]
+      }
     );
   });
 }

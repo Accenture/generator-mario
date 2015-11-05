@@ -17,11 +17,11 @@ define([
       this.view.render();
     });
     it('render() should return the view object', function () {
-      expect(this.view.render()).to.equal(this.view);
+      expect(this.view.render()).<%=assert.toequal%>(this.view);
     });
 
     it('should contain 2 item views', function () {
-      expect(this.view.render().$el.find('li').length).to.equal(2);
+      expect(this.view.render().$el.find('li').length).<%=assert.toequal%>(2);
     });
 
   });

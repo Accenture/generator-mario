@@ -50,7 +50,8 @@ module.exports = DirBase.extend({
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collectionview, this.testBaseDir)),
       {
         viewPath: utils.amd(this.name, utils.type.collectionview, this.options.directory),
-        viewName: utils.className(this.name, utils.type.collectionview)
+        viewName: utils.className(this.name, utils.type.collectionview),
+        assert: utils.assert[this.testFramework]
       }
     );
   }

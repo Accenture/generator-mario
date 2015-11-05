@@ -6,12 +6,15 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 
 describe('mario:model', function() {
-  describe('with tests', function() {
+  describe('with tests ES5 Mocha', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/model'))
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['some_feature'])
-        .withOptions({ directory: 'some_feature' })
+        .withOptions({
+          directory: 'some_feature'
+        })
+        .withLocalConfig({'preferences': {'ecma': 5, 'testFramework': 'mocha'}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -27,13 +30,33 @@ describe('mario:model', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_model_test.js', /(SomeFeatureModel)/);
       assert.fileContent('app/scripts/apps/some_feature/some_feature_model_test.js', /new SomeFeatureModel()/);
     });
+
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_model_test.js', /expect\(model\).to.be.ok/);
+    });
+  });
+
+  describe('with tests ES5 - Jasmine', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/model'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
+        .withOptions({
+          directory: 'some_feature'
+        })
+        .withLocalConfig({'preferences': {'ecma': 5, 'testFramework': 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_model_test.js', /toBeTruthy/);
+    });
   });
 
   describe('with tests ES6', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/model'))
         .withArguments(['some_feature'])
-        .withLocalConfig({preferences: {tests: 'appcode', ecma: 6}})
+        .withLocalConfig({preferences: {tests: 'appcode', ecma: 6, testFramework: 'mocha'}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -48,6 +71,21 @@ describe('mario:model', function() {
     it('test contains name & class', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_model_test.js', /describe\('SomeFeatureModel'/);
       assert.fileContent('app/scripts/apps/some_feature/some_feature_model_test.js', /let model = new SomeFeatureModel()/);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_model_test.js', /expect\(model\).to.be.ok/);
+    });
+  });
+
+  describe('with tests ES6', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/model'))
+        .withArguments(['some_feature'])
+        .withLocalConfig({preferences: {tests: 'appcode', ecma: 6, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_model_test.js', /toBeTruthy/);
     });
   });
 

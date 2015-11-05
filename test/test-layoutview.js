@@ -13,12 +13,13 @@ var stub;
 
 describe('mario:layoutview', function() {
 
-  describe('without template option', function() {
+  describe('without template option + Mocha', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/layoutview'))
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['apples'])
         .withOptions({ directory: 'fruit' })
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'mocha'}})
         .on('end', done);
     });
 
@@ -36,6 +37,23 @@ describe('mario:layoutview', function() {
       assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /, ApplesLayoutView/);
       assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /new ApplesLayoutView/);
     });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /to.equal\(2\)/);
+    });
+  });
+
+  describe('without template option + Jasmine', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/layoutview'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['apples'])
+        .withOptions({ directory: 'fruit' })
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /toEqual\(2\)/);
+    });
   });
 
   describe('without template option ES6', function() {
@@ -44,7 +62,7 @@ describe('mario:layoutview', function() {
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['apples'])
         .withOptions({ directory: 'fruit' })
-        .withLocalConfig({preferences: {ecma: 6}})
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'mocha'}})
         .on('end', done);
     });
 
@@ -61,6 +79,23 @@ describe('mario:layoutview', function() {
       assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /import ApplesLayoutView from 'apps\/fruit\/apples_layout_view'/);
       assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /describe\('ApplesLayoutView view/);
       assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /new ApplesLayoutView/);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /to\.equal\(2\)/);
+    });
+  });
+
+  describe('without template option ES6 + Jasmine', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/layoutview'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['apples'])
+        .withOptions({ directory: 'fruit' })
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/fruit/apples_layout_view_test.js', /toEqual\(2\)/);
     });
   });
 

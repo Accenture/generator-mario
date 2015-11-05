@@ -43,12 +43,14 @@ module.exports = DirBase.extend({
         url: this.options.url
       }
     );
+
     this.fs.copyTpl(
       this.templatePath(this.sourceDir + '_collection-test.js'),
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.collection, this.testBaseDir)),
       {
         collectionPath: utils.amd(this.name, utils.type.collection, this.options.directory),
-        collectionNameCamelCase: utils.className(this.name, utils.type.collection)
+        collectionNameCamelCase: utils.className(this.name, utils.type.collection),
+        assert: utils.assert[this.testFramework]
       }
     );
   }

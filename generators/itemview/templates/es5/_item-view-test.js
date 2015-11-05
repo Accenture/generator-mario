@@ -17,10 +17,10 @@ define([
     });
 
     it('render() should return the view object', function () {
-      expect(this.view.render()).to.equal(this.view);
+      expect(this.view.render()).<%=assert.toequal%>(this.view);
     });<% if(!template) { %>
     it('id should equal 1', function () {
-      expect(this.view.render().$('h2').text()).to.equal('1');
+      expect(this.view.render().$('h2').text()).<%=assert.toequal%>('1');
     });<% } %>
   });
 });

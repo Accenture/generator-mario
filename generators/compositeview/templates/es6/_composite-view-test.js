@@ -14,10 +14,10 @@ describe('<%= viewName %>', () => {
   });
 
   it('Render() should return the view object', () => {
-    expect(view.render()).to.equal(view);
+    expect(view.render()).<%=assert.toequal%>(view);
   });<% if(!templateExists) { %>
 
   it('should render 2 items', () => {
-    expect(view.render().$el.find('#itemView').children().length).to.equal(2);
+    expect(view.render().$el.find('#itemView').children().length).<%=assert.toequal%>(2);
   });<% } %>
 });

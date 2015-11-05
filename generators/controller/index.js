@@ -155,7 +155,8 @@ module.exports = DirBase.extend({
       this.destinationPath(utils.testNameWithPath(this.options.directory, this.name, utils.type.controller, this.testBaseDir)),
       {
         controllerPath: utils.amd(this.name, utils.type.controller, this.options.directory),
-        controllerClassName: utils.className(this.name, utils.type.controller)
+        controllerClassName: utils.className(this.name, utils.type.controller),
+        assert: utils.assert[this.testFramework]
       }
     );
 

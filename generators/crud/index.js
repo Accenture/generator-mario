@@ -255,7 +255,9 @@ module.exports = DirBase.extend({
         {
           controllerPath: utils.amd(this.name, utils.type.controller, this.options.directory),
           controllerName: utils.className(this.name, utils.type.controller),
-          delimiter: utils.delimiter
+          delimiter: utils.delimiter,
+          assert: utils.assert[this.testFramework],
+          testFramework: this.testFramework
         }
       );
     },
@@ -295,7 +297,8 @@ module.exports = DirBase.extend({
           itemViewPath: utils.amd(this.name, utils.type.itemview, this.options.directory),
           itemViewName: utils.className(this.name, utils.type.itemview),
           featureName: this.name,
-          delimiter: utils.delimiter
+          delimiter: utils.delimiter,
+          assert: utils.assert[this.testFramework]
         }
       );
     },
@@ -322,7 +325,8 @@ module.exports = DirBase.extend({
           detailItemViewPath: utils.amd(this.name + utils.delimiter + 'detail', utils.type.itemview, this.options.directory),
           detailItemViewName: utils.className(this.name + utils.delimiter + 'detail', utils.type.itemview),
           featureName: this.name,
-          delimiter: utils.delimiter
+          delimiter: utils.delimiter,
+          assert: utils.assert[this.testFramework]
         }
       );
     },
@@ -351,7 +355,8 @@ module.exports = DirBase.extend({
           createItemViewPath: utils.amd(this.name + utils.delimiter + 'create', utils.type.itemview, this.options.directory),
           createItemViewName: utils.className(this.name + utils.delimiter + 'create', utils.type.itemview),
           featureName: this.name,
-          delimiter: utils.delimiter
+          delimiter: utils.delimiter,
+          assert: utils.assert[this.testFramework]
         }
       );
     },
@@ -381,7 +386,8 @@ module.exports = DirBase.extend({
           compositeViewPath: utils.amd(this.name, utils.type.compositeview, this.options.directory),
           compositeViewName: utils.className(this.name, utils.type.compositeview),
           featureName: this.name,
-          delimiter: utils.delimiter
+          delimiter: utils.delimiter,
+          assert: utils.assert[this.testFramework]
         }
       );
     },
@@ -432,6 +438,10 @@ module.exports = DirBase.extend({
         var appFiles = fs.readdirSync(sourceDir);
         var testFiles = fs.readdirSync(testDir);
 
+        var templates = testFiles
+          .filter(function(file) { return file.indexOf('_') === 0; })
+          .map(function(file) { return file.slice(1); });
+
         appFiles.forEach(function(file) {
           var underScoredFile = file.replace(/-/g, utils.delimiter);
 
@@ -442,13 +452,17 @@ module.exports = DirBase.extend({
           );
         }, this);
 
-        testFiles.forEach(function(file) {
+        templates.forEach(function(file) {
           var underScoredFile = file.replace(/-/g, utils.delimiter);
 
           this.fs.copyTpl(
-            testDir + '/' + file,
+            testDir + '/_' + file,
             this.destinationPath(this.testBaseDir + '/sidebar/' + underScoredFile),
-            { delimiter: utils.delimiter }
+            {
+              delimiter: utils.delimiter,
+              assert: utils.assert[this.testFramework],
+              testFramework: this.testFramework
+            }
           );
         }, this);
       } else {

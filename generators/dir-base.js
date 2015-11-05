@@ -28,6 +28,7 @@ var DirectoryBase = generators.NamedBase.extend({
 
     this.testBaseDir = (this.options.tests === 'custom') ? config.testFolder + 'apps' : 'app/scripts/apps';
     this.sourceDir = (this.options.ecma === 6) ? 'es6/' : 'es5/';
+    this.testFramework = config.testFramework || 'mocha';
   }
 });
 

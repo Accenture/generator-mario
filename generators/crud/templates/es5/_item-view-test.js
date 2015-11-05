@@ -17,21 +17,21 @@ define([
       this.view = new <%= itemViewName %>({model: this.model});
       this.view.render();
 
-      this.eventSpy = sinon.spy();
+      this.eventSpy = <%=assert.createfakespy%>();
       this.view.listenTo(this.view, '<%= featureName %>:showDetail', this.eventSpy);
     });
 
     it('render() should return the view object', function () {
-      expect(this.view.render()).to.equal(this.view);
+      expect(this.view.render()).<%=assert.toequal%>(this.view);
     });
 
     it('name should equal Sample', function () {
-      expect(this.view.render().$('.text').text()).to.equal('Sample');
+      expect(this.view.render().$('.text').text()).<%=assert.toequal%>('Sample');
     });
 
     it('click event should trigger spy', function() {
       this.view.$el.find('button.edit').trigger('click');
-      expect(this.eventSpy.callCount).to.be.equal(1);
+      expect(this.eventSpy.<%=assert.callcount%>).<%=assert.toequal%>(1);
     });
   });
 });

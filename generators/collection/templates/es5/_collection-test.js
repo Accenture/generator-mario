@@ -6,7 +6,7 @@ define([
   describe('<%= collectionNameCamelCase %>', function () {
     it('has default values', function () {
       var collection = new <%= collectionNameCamelCase %>();
-      expect(collection).to.be.ok;
+      expect(collection).<%=assert.tobeok%>;
     });
   });
 });

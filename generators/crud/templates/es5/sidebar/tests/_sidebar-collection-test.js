@@ -6,7 +6,7 @@ define([
   describe('SidebarCollection', function () {
     it('has default values', function () {
       var collection = new SidebarCollection();
-      expect(collection).to.be.ok;
+      expect(collection).<%=assert.tobeok%>;
     });
   });
 });

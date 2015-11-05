@@ -33,7 +33,9 @@
         "should": true,
         "require": false,
         "define": false,
-        "Handlebars": true,
-        "sinon": false
+        "Handlebars": true,<% if (testFramework === 'mocha') { %>
+        "sinon": false<% } else { %>
+        "jasmine": false,
+        "spyOn": false<% } %>
     }
 }

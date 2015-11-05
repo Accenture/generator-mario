@@ -10,7 +10,7 @@ define([
   helpers.initialize();
 
   describe('NavigationItemView', function () {
-    before(function () {
+    beforeEach(function () {
       this.model = new Backbone.Model({
         text: 'English'
       });
@@ -18,7 +18,7 @@ define([
       this.view.render();
     });
     it('id should equal 1', function () {
-      expect(this.view.$('a').text()).to.equal('English');
+      expect(this.view.$('a').text()).<%=assert.toequal%>('English');
     });
   });
 });

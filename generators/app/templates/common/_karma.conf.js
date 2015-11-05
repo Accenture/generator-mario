@@ -2,6 +2,13 @@
 'use strict';
 <% if(buildTool === 'webpack') { %>
 var webpackConfig = require('./webpack.config.js');<% } %>
+var fs = require('fs');
+var jsonFiles = fs.readdirSync('app/jsondata');
+var jsonProxies = {};
+
+jsonFiles.forEach(function (file) {
+    jsonProxies['/jsondata/' + file] = '/base/app/jsondata/' + file;
+});
 
 module.exports = function (config) {
     config.set({
@@ -12,7 +19,7 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: [<% if(buildTool !== 'webpack') { %>'requirejs',<% } %>'mocha', 'chai', 'chai-sinon'],
+        frameworks: [<% if(buildTool !== 'webpack') { %>'requirejs',<% } %><% if (testFramework === 'mocha') { %>'mocha', 'chai', 'chai-sinon'<% } else { %>'jasmine'<% } %>],
 
 
         // list of files / patterns to load in the browser
@@ -29,8 +36,9 @@ module.exports = function (config) {
             {pattern: '.tmp/scripts/templates.js', included: false},
             {pattern: 'app/scripts/**/*.js', included: false}, <% if (tests === 'custom') { %>
             {pattern: '<%= testFolder %>apps/**/*.js', included: false}, <% } %>
-            'test/karma<%= delimiter %>test<%= delimiter %>main.js'<% } else { %>
-            '<%= testFolder %>**/*test.js'<% } %>
+            'test/karma<%= delimiter %>test<%= delimiter %>main.js',<% } else { %>
+            '<%= testFolder %>**/*test.js',<% } %>
+            {pattern: 'app/jsondata/*.json', included: false}
         ],
 
 
@@ -46,7 +54,8 @@ module.exports = function (config) {
             '<%= testFolder %>**/*test.js': [<% if (ecma === 6) { %>'babel', <% } %>'webpack', 'coverage'] <% } %>
         },
 
-        <% if (ecma === 6 && buildTool !== 'webpack') { %>
+
+        proxies: jsonProxies,<% if (ecma === 6 && buildTool !== 'webpack') { %>
         babelPreprocessor: {
            options: {
              sourceMap: 'inline',
@@ -102,13 +111,13 @@ module.exports = function (config) {
         browsers: ['PhantomJS',  'Chrome' , 'Firefox'],
 
 
-        plugins: [
-            //'karma-jasmine',<% if(buildTool !== 'webpack') { %>
+        plugins: [<% if(buildTool !== 'webpack') { %>
             'karma-requirejs',<% } else { %>
-            'karma-webpack', <% } %>
+            'karma-webpack', <% } if (testFramework === 'mocha') { %>
             'karma-mocha',
             'karma-chai',
-            'karma-chai-sinon',
+            'karma-chai-sinon',<% } else { %>
+            'karma-jasmine',<% } %>
             'karma-coverage',
             'karma-chrome-launcher',
             'karma-firefox-launcher',<% if (ecma === 6) { %>

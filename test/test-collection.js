@@ -18,6 +18,7 @@ describe('mario:collection', function() {
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['some_feature'])
         .withOptions({ directory: 'some_feature', model: 'some_model' })
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'mocha'}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -35,10 +36,33 @@ describe('mario:collection', function() {
     });
     it('test contains AMD path', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_test.js', /some_feature_collection/);
-
     });
     it('test contains class', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_test.js', /new SomeFeatureCollection()/);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_test.js', /expect\(collection\).to.be.ok/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
+  describe('with existing model', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/collection'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
+        .withOptions({ directory: 'some_feature', model: 'some_model' })
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_collection_test.js', /toBeTruthy/);
     });
     afterEach(function(done) {
       stub.restore();
@@ -55,7 +79,7 @@ describe('mario:collection', function() {
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['batman_and_robin'])
         .withOptions({ model: 'harlequin_model' })
-        .withLocalConfig({preferences: {ecma: 6}})
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'mocha'}})
         .on('end', done);
     });
     it('creates files', function() {
@@ -76,6 +100,30 @@ describe('mario:collection', function() {
     });
     it('test contains collection class', function() {
       assert.fileContent('app/scripts/apps/batman_and_robin/batman_and_robin_collection_test.js', /new BatmanAndRobin()/);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/batman_and_robin/batman_and_robin_collection_test.js', /expect\(collection\).to.be.ok/);
+    });
+    afterEach(function(done) {
+      stub.restore();
+      done();
+    });
+  });
+
+  describe('with existing model ES6', function() {
+    before(function(done) {
+      stub = sinon.stub(existTest, 'verifyPath', function() {
+        return true;
+      });
+      helpers.run(path.join(__dirname, '../generators/collection'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['batman_and_robin'])
+        .withOptions({ model: 'harlequin_model' })
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/batman_and_robin/batman_and_robin_collection_test.js', /toBeTruthy/);
     });
     afterEach(function(done) {
       stub.restore();

@@ -7,7 +7,7 @@ define([
     it('has default values', function () {
       // Create empty note model.
       var model = new <%= modelName %>();
-      expect(model).to.be.ok;
+      expect(model).<%=assert.tobeok%>;
     });
   });
 });

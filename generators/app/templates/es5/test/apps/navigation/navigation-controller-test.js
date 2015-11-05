@@ -15,7 +15,7 @@ define([
     });
 
     it('should render view', function () {
-      expect(this.region.$el.find('div.navbar')).to.be.ok;
+      expect(this.region.$el.find('div.navbar')).<%=assert.tobeok%>;
     });
 
   });

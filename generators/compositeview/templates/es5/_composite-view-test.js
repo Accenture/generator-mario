@@ -17,11 +17,11 @@ define([
     });
 
     it('Render() should return the view object', function () {
-      expect(this.view.render()).to.equal(this.view);
+      expect(this.view.render()).<%=assert.toequal%>(this.view);
     });<% if(!templateExists) { %>
 
     it('should render 2 items', function () {
-      expect(this.view.render().$el.find('#itemView').children().length).to.equal(2);
+      expect(this.view.render().$el.find('#itemView').children().length).<%=assert.toequal%>(2);
     });<% } %>
   });
 });

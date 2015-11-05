@@ -6,7 +6,6 @@ var DirBase = require('../dir-base');
 module.exports = DirBase.extend({
   writing:  {
     template: function() {
-      this.log(utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview));
       this.fs.copyTpl(
         this.templatePath('_template.hbs'),
         this.destinationPath(utils.templateNameWithPath(this.options.directory, this.name, utils.type.itemview))

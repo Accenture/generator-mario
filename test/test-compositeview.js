@@ -18,6 +18,7 @@ describe('mario:compositeview', function() {
       helpers.run(path.join(__dirname, '../generators/compositeview'))
         .withGenerators([path.join(__dirname, '../generators/itemview')])
         .withArguments(['apples'])
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'mocha'}})
         .on('end', done);
     });
 
@@ -42,6 +43,23 @@ describe('mario:compositeview', function() {
       assert.fileContent('app/scripts/apps/apples/apples_composite_view_test.js', /.\/apples_composite_view/);
       assert.fileContent('app/scripts/apps/apples/apples_composite_view_test.js', /, ApplesCompositeView/);
       assert.fileContent('app/scripts/apps/apples/apples_composite_view_test.js', /new ApplesCompositeView/);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/apples/apples_composite_view_test.js', /to.equal\(2\)/);
+    });
+  });
+
+  describe('without options + Jasmine', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/compositeview'))
+        .withGenerators([path.join(__dirname, '../generators/itemview')])
+        .withArguments(['apples'])
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/apples/apples_composite_view_test.js', /toEqual\(2\)/);
     });
   });
 
@@ -89,7 +107,7 @@ describe('mario:compositeview', function() {
           .inDir(path.join(os.tmpdir(), './temp_test'))
           .withArguments(['apples'])
           .withOptions({ directory: 'fruit' })
-          .withLocalConfig({ preferences: {ecma: 6 }})
+          .withLocalConfig({preferences: {ecma: 6, testFramework: 'mocha'}})
           .withGenerators([path.join(__dirname, '../generators/itemview')])
           .on('end', done);
       });
@@ -112,6 +130,24 @@ describe('mario:compositeview', function() {
         assert.fileContent('app/scripts/apps/fruit/apples_composite_view_test.js', /import ApplesCompositeView from 'apps\/fruit\/apples_composite_view/);
         assert.fileContent('app/scripts/apps/fruit/apples_composite_view_test.js', /describe\('ApplesCompositeView/);
         assert.fileContent('app/scripts/apps/fruit/apples_composite_view_test.js', /new ApplesCompositeView/);
+      });
+      it('test contains Mocha syntax', function() {
+        assert.fileContent('app/scripts/apps/fruit/apples_composite_view_test.js', /to.equal\(2\)/);
+      });
+  });
+
+  describe('without options ES6', function() {
+      before(function(done) {
+        helpers.run(path.join(__dirname, '../generators/compositeview'))
+          .inDir(path.join(os.tmpdir(), './temp_test'))
+          .withArguments(['apples'])
+          .withOptions({ directory: 'fruit' })
+          .withLocalConfig({preferences: {ecma: 6, testFramework: 'jasmine'}})
+          .withGenerators([path.join(__dirname, '../generators/itemview')])
+          .on('end', done);
+      });
+      it('test contains Jasmine syntax', function() {
+        assert.fileContent('app/scripts/apps/fruit/apples_composite_view_test.js', /toEqual\(2\)/);
       });
   });
 

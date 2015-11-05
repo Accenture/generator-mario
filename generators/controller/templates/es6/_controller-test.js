@@ -8,10 +8,10 @@ describe('<%= controllerClassName %>', function() {
   });
 
   it('region should be ok', () => {
-    expect(this.region).to.be.equal(this.controller.region);
+    expect(this.region).<%=assert.toequal%>(this.controller.region);
   });
 
-  it.skip('default method should render view', () => {
+  <%=assert.skipit%>('default method should render view', () => {
     throw new Error('default method not implemented yet');
   });
 });

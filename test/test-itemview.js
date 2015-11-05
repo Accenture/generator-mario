@@ -12,6 +12,7 @@ describe('mario:itemview ', function() {
       helpers.run(path.join(__dirname, '../generators/itemview'))
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['some_feature'])
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'mocha'}})
         .on('end', done);
     });
 
@@ -30,6 +31,22 @@ describe('mario:itemview ', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_item_view_test.js', /, SomeFeatureItemView/);
       assert.fileContent('app/scripts/apps/some_feature/some_feature_item_view_test.js', /new SomeFeatureItemView/);
     });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_item_view_test.js', /text\(\)\).to\.equal\('1'\)/);
+    });
+  });
+
+  describe('without options', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/itemview'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
+        .withLocalConfig({preferences: {ecma: 5, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Jasmine syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_item_view_test.js', /text\(\)\).toEqual\('1'\)/);
+    });
   });
 
   describe('without options ES6', function() {
@@ -37,7 +54,7 @@ describe('mario:itemview ', function() {
       helpers.run(path.join(__dirname, '../generators/itemview'))
         .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['some_feature'])
-        .withLocalConfig({preferences: {ecma: 6}})
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'mocha'}})
         .on('end', done);
     });
 
@@ -54,6 +71,22 @@ describe('mario:itemview ', function() {
     it('test with content', function() {
       assert.fileContent('app/scripts/apps/some_feature/some_feature_item_view_test.js', /import  SomeFeatureItemView from 'apps\/some_feature\/some_feature_item_view'/);
       assert.fileContent('app/scripts/apps/some_feature/some_feature_item_view_test.js', /new SomeFeatureItemView/);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_item_view_test.js', /text\(\)\).to\.equal\('Home'\)/);
+    });
+  });
+
+  describe('without options ES6 + Jasmine', function() {
+    before(function(done) {
+      helpers.run(path.join(__dirname, '../generators/itemview'))
+        .inDir(path.join(os.tmpdir(), './temp_test'))
+        .withArguments(['some_feature'])
+        .withLocalConfig({preferences: {ecma: 6, testFramework: 'jasmine'}})
+        .on('end', done);
+    });
+    it('test contains Mocha syntax', function() {
+      assert.fileContent('app/scripts/apps/some_feature/some_feature_item_view_test.js', /text\(\)\).toEqual\('Home'\)/);
     });
   });
 
