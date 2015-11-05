@@ -1,9 +1,0 @@
-{
-     "linters" : {
-         "jshint" : {
-             "type" : "jshint",
-             "include" : "(\\.js$)",
-             "exclude" : "(templates\/*)"
-         }
-    }
-}

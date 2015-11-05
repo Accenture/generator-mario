@@ -1,6 +1,7 @@
 {
   "name": "generator-mario",
-  "version": "0.0.6",
+<<<<<<< HEAD
+  "version": "1.0.0",
   "description": "Yeoman generator",
   "license": "",
   "main": "generators/app/index.js",
@@ -43,4 +44,27 @@
     "mocha": "*",
     "sinon": "^1.15.4"
   }
+=======
+  "version": "0.1.0",
+  "description": "Yeoman marionette generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Accenture/generator-mario.git"
+  },
+  "keywords": [
+    "yeoman",
+    "generator",
+    "marionette"
+  ],
+  "author": "Slavomir Kubacka <slavomir.kubacka@accenture.com> (http://accenture.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Accenture/generator-mario/issues"
+  },
+  "homepage": "https://github.com/Accenture/generator-mario#readme"
+>>>>>>> 534b506801dd223698da04bfe1fb1836378d15b5
 }

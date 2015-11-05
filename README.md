@@ -1,4 +1,5 @@
 # generator-mario
+<<<<<<< HEAD
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -616,3 +617,6 @@ You can edit the code further to add more functionality like forms, event handli
 ## License
 
 MIT
+=======
+Comming soon. Stay tuned.
+>>>>>>> 534b506801dd223698da04bfe1fb1836378d15b5
