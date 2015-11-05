@@ -24,14 +24,15 @@
   "bugs": {
     "url": "https://github.com/Accenture/generator-mario/issues"
   },
-  "homepage": "https://github.com/Accenture/generator-mario#readme"
+  "homepage": "https://github.com/Accenture/generator-mario#readme",
   "files": [
     "generators"
   ],
   "keywords": [
     "yeoman",
     "generator",
-    "marionette"
+    "marionette",
+    "yeoman-generator"
   ],
   "dependencies": {
     "ast-query": "^1.0.1",
