@@ -1,5 +1,4 @@
 # generator-mario
-<<<<<<< HEAD
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -59,7 +58,7 @@ $ npm install -g grunt-cli
 To install generator-mario via npm, run:
 
 ```bash
-$ npm install -g git+ssh://git@innersource.accenture.com:aowp/generator-mario.git
+$ npm install -g generator-mario
 ```
 
 For more information on how to use these tools check out [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started) on Yeoman website.

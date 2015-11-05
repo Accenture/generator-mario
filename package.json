@@ -1,15 +1,17 @@
 {
   "name": "generator-mario",
-<<<<<<< HEAD
   "version": "1.0.0",
-  "description": "Yeoman generator",
+  "description": "Yeoman marionette generator",
   "license": "",
   "main": "generators/app/index.js",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Accenture/generator-mario.git"
+  },
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Matthew D. Lancaster",
+    "email": "matthew.d.lancaster@accenture.com",
+    "url": "https://www.accenture.com/us-en"
   },
   "engines": {
     "node": ">=0.12.0"
@@ -18,11 +20,18 @@
     "pretest": "jshint generators test && jscs generators test",
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha"
   },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Accenture/generator-mario/issues"
+  },
+  "homepage": "https://github.com/Accenture/generator-mario#readme"
   "files": [
     "generators"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman",
+    "generator",
+    "marionette"
   ],
   "dependencies": {
     "ast-query": "^1.0.1",
@@ -44,27 +53,4 @@
     "mocha": "*",
     "sinon": "^1.15.4"
   }
-=======
-  "version": "0.1.0",
-  "description": "Yeoman marionette generator",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Accenture/generator-mario.git"
-  },
-  "keywords": [
-    "yeoman",
-    "generator",
-    "marionette"
-  ],
-  "author": "Slavomir Kubacka <slavomir.kubacka@accenture.com> (http://accenture.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Accenture/generator-mario/issues"
-  },
-  "homepage": "https://github.com/Accenture/generator-mario#readme"
->>>>>>> 534b506801dd223698da04bfe1fb1836378d15b5
 }
