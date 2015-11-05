@@ -1,6 +1,6 @@
 # generator-mario
 
-> [Yeoman](http://yeoman.io) generator
+Mario is a Marionette [Yeoman](http://yeoman.io) generator.
 
 ## Table of Contents
 
