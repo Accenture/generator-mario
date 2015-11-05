@@ -1,5 +1,7 @@
 'use strict';
 
+var lodash = require('lodash');
+
 module.exports = function(Generator) {
 
   Generator.prototype.buildToolPrompt = function() {
@@ -19,7 +21,7 @@ module.exports = function(Generator) {
       ],
       default: 'grunt'
     }, function(answer) {
-      this._.merge(this.preferences, answer);
+      lodash.merge(this.preferences, answer);
 
       done();
     }.bind(this));

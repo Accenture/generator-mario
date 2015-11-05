@@ -1,5 +1,7 @@
 'use strict';
 
+var lodash = require('lodash');
+
 module.exports = function(Generator) {
 
   Generator.prototype.testFrameworkPrompt = function() {
@@ -18,7 +20,7 @@ module.exports = function(Generator) {
       ],
       default: 'mocha'
     }, function(answer) {
-      this._.merge(this.preferences, answer);
+      lodash.merge(this.preferences, answer);
 
       done();
     }.bind(this));

@@ -1,5 +1,7 @@
 'use strict';
 
+var lodash = require('lodash');
+
 module.exports = function(Generator) {
 
   function filterUrl(url) {
@@ -14,7 +16,7 @@ module.exports = function(Generator) {
       default: 'http://127.0.0.1',
       filter: filterUrl
     }, function(answer) {
-      generator._.merge(generator.preferences, answer);
+      lodash.merge(generator.preferences, answer);
 
       done();
     });
@@ -34,7 +36,7 @@ module.exports = function(Generator) {
       default: false
     }, function(answer) {
       if (answer.phabricatorDeps) {
-        this._.merge(this.preferences, answer);
+        lodash.merge(this.preferences, answer);
 
         promptAddress(this, done);
       } else {

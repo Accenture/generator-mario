@@ -1,5 +1,6 @@
 'use strict';
 
+var lodash = require('lodash');
 var chalk = require('chalk');
 var yosay = require('yosay');
 
@@ -22,7 +23,7 @@ module.exports = function(Generator) {
       message: 'How would you like to name your application?',
       default: 'mario-app'
     }, function(answer) {
-      this._.merge(this.preferences, answer);
+      lodash.merge(this.preferences, answer);
 
       done();
     }.bind(this));

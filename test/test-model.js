@@ -9,11 +9,8 @@ describe('mario:model', function() {
   describe('with tests ES5 Mocha', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/model'))
-        .inDir(path.join(os.tmpdir(), './temp_test'))
         .withArguments(['some_feature'])
-        .withOptions({
-          directory: 'some_feature'
-        })
+        .withOptions({ directory: 'some_feature' })
         .withLocalConfig({'preferences': {'ecma': 5, 'testFramework': 'mocha'}})
         .on('end', done);
     });
@@ -53,6 +50,7 @@ describe('mario:model', function() {
   });
 
   describe('with tests ES6', function() {
+
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/model'))
         .withArguments(['some_feature'])
@@ -97,6 +95,7 @@ describe('mario:model', function() {
         .on('end', done);
     });
     it('creates files', function() {
+
       assert.file([
         'app/scripts/apps/some_feature/some_feature_model.js',
         'test/apps/some_feature/some_feature_model_test.js'

@@ -1,5 +1,7 @@
 'use strict';
 
+var lodash = require('lodash');
+
 module.exports = function(Generator) {
 
   Generator.prototype.stylesPrompt = function() {
@@ -15,9 +17,10 @@ module.exports = function(Generator) {
       choices: [
         { name: 'Less', value: 'less' },
         { name: 'Sass', value: 'sass' }
-      ]
+      ],
+      default: 'less'
     }, function(answer) {
-      this._.merge(this.preferences, answer);
+      lodash.merge(this.preferences, answer);
 
       done();
     }.bind(this));

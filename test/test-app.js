@@ -11,7 +11,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           projectName: 'demo-application'
         })
         .on('end', done);
@@ -35,7 +35,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           testFramework: 'mocha',
           tests: 'appcode'
         })
@@ -66,7 +66,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           testFramework: 'jasmine',
           tests: 'appcode'
         })
@@ -107,7 +107,7 @@ describe('mario:app', function() {
             'testFramework': 'jasmine'
           }
         })
-        .withPrompt({
+        .withPrompts({
           useExistingConfig: true,
           projectName: 'demo-app',
           ecma: 5,
@@ -178,7 +178,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           phabricatorDeps: true
         })
         .on('end', done);
@@ -204,7 +204,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           phabricatorDeps: true,
           phabricatorIP: 'http://phabricator.mydomain.com'
         })
@@ -231,7 +231,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           tests: 'custom',
           testFolder: 'test/'
         })
@@ -262,7 +262,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           tests: 'custom',
           testFolder: 'cool/spec/'
         })
@@ -293,7 +293,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           tests: 'appcode'
         })
         .on('end', done);
@@ -319,7 +319,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           buildTool: 'grunt',
           ecma: 6
         })
@@ -357,7 +357,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           buildTool: 'gulp',
           ecma: 5
         })
@@ -398,7 +398,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           buildTool: 'gulp',
           ecma: 6
         })
@@ -439,7 +439,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           buildTool: 'webpack',
           ecma: 5
         })
@@ -472,7 +472,7 @@ describe('mario:app', function() {
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(os.tmpdir(), './temp-test'))
         .withOptions({ 'skip-install': true })
-        .withPrompt({
+        .withPrompts({
           buildTool: 'webpack',
           styles: 'less',
           ecma: 6

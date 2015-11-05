@@ -1,5 +1,7 @@
 'use strict';
 
+var lodash = require('lodash');
+
 module.exports = function(Generator) {
 
   function appendSlash(testFolderPath) {
@@ -18,7 +20,7 @@ module.exports = function(Generator) {
       default: 'test',
       filter: appendSlash
     }, function(answer) {
-      generator._.merge(generator.preferences, answer);
+      lodash.merge(generator.preferences, answer);
       done();
     });
   }
@@ -33,22 +35,19 @@ module.exports = function(Generator) {
       type: 'list',
       name: 'tests',
       message: 'Where would you like to store your test files?',
-      choices: ['Test folder', 'With my app code'],
-      filter: function(val) {
-        var filterMap = {
-          'With my app code': 'appcode',
-          'Test folder': 'custom'
-        };
-        return filterMap[val];
-      }
+      choices: [
+        { name: 'Test folder', value: 'custom'},
+        { name: 'With my app code', value: 'appcode'}
+      ],
+      default: 'custom'
     }, function(answer) {
-      this._.merge(this.preferences, answer);
+      lodash.merge(this.preferences, answer);
 
       // testFolder setup
       if (this.preferences.tests === 'custom') {
         customFolderPrompt(this, done);
       } else {
-        this._.merge(this.preferences, { testFolder: 'app/scripts/' });
+        lodash.merge(this.preferences, { testFolder: 'app/scripts/' });
         done();
       }
 

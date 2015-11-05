@@ -11,7 +11,7 @@ describe('mario:styles', function() {
     describe('grunt', function() {
       before(function(done) {
         helpers.run(path.join(__dirname, '../generators/app'))
-          .withPrompt({ buildTool: 'grunt', styles: 'less' })
+          .withPrompts({ buildTool: 'grunt', styles: 'less' })
           .on('end', done);
       });
 
@@ -42,7 +42,7 @@ describe('mario:styles', function() {
     describe('gulp', function() {
       before(function(done) {
         helpers.run(path.join(__dirname, '../generators/app'))
-          .withPrompt({ buildTool: 'gulp', styles: 'less' })
+          .withPrompts({ buildTool: 'gulp', styles: 'less' })
           .on('end', done);
       });
 
@@ -67,7 +67,7 @@ describe('mario:styles', function() {
     describe('webpack', function() {
       before(function(done) {
         helpers.run(path.join(__dirname, '../generators/app'))
-          .withPrompt({ buildTool: 'webpack', styles: 'less' })
+          .withPrompts({ buildTool: 'webpack', styles: 'less' })
           .on('end', done);
       });
 
@@ -96,7 +96,7 @@ describe('mario:styles', function() {
     describe('grunt', function() {
       before(function(done) {
         helpers.run(path.join(__dirname, '../generators/app'))
-          .withPrompt({ buildTool: 'grunt', styles: 'sass' })
+          .withPrompts({ buildTool: 'grunt', styles: 'sass' })
           .on('end', done);
       });
 
@@ -127,7 +127,7 @@ describe('mario:styles', function() {
     describe('gulp', function() {
       before(function(done) {
         helpers.run(path.join(__dirname, '../generators/app'))
-          .withPrompt({ buildTool: 'gulp', styles: 'sass' })
+          .withPrompts({ buildTool: 'gulp', styles: 'sass' })
           .on('end', done);
       });
 
@@ -152,7 +152,7 @@ describe('mario:styles', function() {
     describe('webpack', function() {
       before(function(done) {
         helpers.run(path.join(__dirname, '../generators/app'))
-          .withPrompt({ buildTool: 'webpack', styles: 'sass' })
+          .withPrompts({ buildTool: 'webpack', styles: 'sass' })
           .on('end', done);
       });
 

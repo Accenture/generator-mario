@@ -251,7 +251,7 @@ gulp.task('bower', function() {
 gulp.task('templates', function() {
   return gulp.src('app/scripts/**/*.hbs')
     .pipe(plugins.handlebars())
-    .pipe(plugins.wrap('Handlebars.template(\<\%\= contents \%\>)'))
+    .pipe(plugins.wrap('Handlebars.template(<%%= contents %>)'))
     .pipe(plugins.declare({
       namespace: 'JST',
       noRedeclare: true, // Avoid duplicate declarations
@@ -267,7 +267,7 @@ gulp.task('templates', function() {
     //make handlebars file names compliant with grunt version
     .pipe(plugins.replace(/_hbs/g, '.hbs'))
       //make templates amd compatible
-    .pipe(plugins.wrap('define([\'handlebars\'], function(Handlebars) { \<\%\= contents \%\> return this["JST"]; });'))
+    .pipe(plugins.wrap('define([\'handlebars\'], function(Handlebars) { <%%= contents %> return this["JST"]; });'))
 
     .pipe(gulp.dest('.tmp/scripts/'))
     .pipe(plugins.connect.reload());
