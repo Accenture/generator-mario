@@ -1,4 +1,5 @@
-# generator-mario
+# Marionette Generator [![Build Status](https://travis-ci.org/Accenture/generator-mario.svg?branch=master)](https://travis-ci.org/Accenture/generator-mario)
+
 
 Mario is a Marionette [Yeoman](http://yeoman.io) generator.
 
@@ -424,7 +425,7 @@ Generate widget feature with:
 `yo mario:widget <widget-name> [--directory <folder-name>]`
 
 Widget is mix of several backbone and marionette building blocks.
- 
+
  This sub-generator will generate:
 - model (to hold single item)
 - collection (to hold multiple items)
@@ -434,7 +435,7 @@ Widget is mix of several backbone and marionette building blocks.
 - item view template
 - controller (to wire up all the previous components)
 - router (to define route to access widget)
-  
+
 In additional to that it links those blocks together but it doesn't register router in app.js (as crud subgenerator) so you have to do it manually together with model and collection fetching.
 
 
