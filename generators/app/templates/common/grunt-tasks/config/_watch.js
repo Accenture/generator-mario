@@ -8,9 +8,6 @@ module.exports = function(grunt) {
             livereload: true
         },
         <%= styles %>: {
-            options: {
-                livereload: false
-            },
             files: ['<%%= yeoman.app %>/styles/*.<% if(styles === 'less') { %>less<% } else { %>scss<% } %>'],
             task: ['styles']
         },
