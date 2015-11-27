@@ -20,7 +20,7 @@
     "pretest": "jshint generators test && jscs generators test",
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Accenture/generator-mario/issues"
   },
