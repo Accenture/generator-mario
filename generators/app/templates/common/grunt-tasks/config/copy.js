@@ -24,6 +24,9 @@ module.exports = function(grunt) {
 				dest: 'dist/'
 			}],
 			options: {
+				noProcess: [
+            '**/*.{png,gif,jpg,ico,psd,ttf,otf,woff,svg}'
+        ],
 				process: function(content, srcPath) {
 					if(srcPath !== 'environment.json') {
 						return content;
