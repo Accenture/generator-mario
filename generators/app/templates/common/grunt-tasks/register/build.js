@@ -12,6 +12,7 @@ module.exports = function(grunt) {
         'imagemin',
         'cssmin',
         'copy:dist',
+        'copy:env-prod',
         'usemin'
     ]);
 
